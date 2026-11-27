@@ -43,7 +43,6 @@
     </script>
 
     <style>
-        /* CSS Variables & Cosmic Theming */
         :root {
             --bg-color: #0b0f19;
             --second-bg-color: #121a2d;
@@ -71,7 +70,6 @@
             --color-success: #10b981;
         }
 
-        /* Alternate Dark Themes (matches portfolio theme switch) */
         :root[data-theme="forest"] {
             --bg-color: #08140e;
             --second-bg-color: #0f241a;
@@ -250,7 +248,6 @@
             border-color: rgba(0, 0, 0, 0.08);
         }
 
-        /* Base & Reset */
         *, *::before, *::after {
             margin: 0;
             padding: 0;
@@ -279,7 +276,6 @@
             transition: background-color 0.4s ease, color 0.4s ease;
         }
 
-        /* Custom Scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -294,7 +290,6 @@
             background: var(--main-color);
         }
 
-        /* Cosmic Starfield Canvas */
         #starfield-canvas {
             position: fixed;
             inset: 0;
@@ -304,7 +299,6 @@
             z-index: 0;
         }
 
-        /* Ambient Cosmic Neon Blobs */
         .bg-glow {
             position: fixed;
             border-radius: 50%;
@@ -512,7 +506,6 @@
             }
         }
 
-        /* Glowing accent line at top edge of card */
         .error-card::before {
             content: '';
             position: absolute;
@@ -526,7 +519,6 @@
             box-shadow: 0 0 15px rgba(var(--accent-rgb), 0.6);
         }
 
-        /* Status Badge */
         .status-badge {
             display: inline-flex;
             align-items: center;
@@ -559,7 +551,6 @@
             100% { transform: scale(0.95); opacity: 1; box-shadow: 0 0 0 0 rgba(var(--accent-rgb), 0); }
         }
 
-        /* Cosmic Illustration Container */
         .cosmic-visual {
             width: 220px;
             height: 180px;
@@ -777,7 +768,6 @@
             transform: scale(1.15);
         }
 
-        /* Quick Navigation Sector Pills */
         .quick-sectors {
             padding-top: 2.4rem;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
@@ -899,7 +889,6 @@
             transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
         }
 
-        /* Dynamic Interactive Hover */
         *:hover > .orbital-d .orbital-d-ring,
         .orbital-d:hover .orbital-d-ring,
         .btn:hover .orbital-d .orbital-d-ring,
@@ -1071,7 +1060,6 @@
             }
         }
 
-        /* Accessibility: Respect Reduced Motion Preference */
         @media (prefers-reduced-motion: reduce) {
             *, *::before, *::after {
                 animation-duration: 0.01ms !important;

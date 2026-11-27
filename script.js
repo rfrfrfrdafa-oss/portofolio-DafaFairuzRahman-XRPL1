@@ -1,4 +1,4 @@
-/* Mobile Navigation */
+
 let menuIcon = document.querySelector('#menu-icon');
 let navbar = document.querySelector('.navbar');
 
@@ -18,7 +18,7 @@ if (menuIcon) {
     menuIcon.onclick = () => setMobileMenuOpen(!navbar.classList.contains('active'));
 }
 
-// Close mobile menu if background customize menu opens
+
 const bgMenu = document.getElementById('background-menu');
 if (bgMenu) {
     bgMenu.addEventListener('toggle', () => {
@@ -28,21 +28,21 @@ if (bgMenu) {
     });
 }
 
-// Close mobile menu when clicking outside header/navbar
+
 document.addEventListener('click', (e) => {
     if (navbar && navbar.classList.contains('active') && !navbar.contains(e.target) && !menuIcon.contains(e.target)) {
         setMobileMenuOpen(false);
     }
 });
 
-// Reset mobile menu if resizing back to desktop (> 991px)
+
 window.addEventListener('resize', () => {
     if (window.innerWidth > 991 && navbar && navbar.classList.contains('active')) {
         setMobileMenuOpen(false);
     }
 }, { passive: true });
 
-/* Smooth Scroll for Nav Links */
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         const href = this.getAttribute('href');
@@ -66,7 +66,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-/* Parallax Effect on Hero Image */
+
 const homeImg = document.querySelector('.home-img img');
 if (homeImg) {
     window.addEventListener('mousemove', (e) => {
@@ -78,7 +78,7 @@ if (homeImg) {
     });
 }
 
-/* Color Theme Picker */
+
 const themeSelect = document.getElementById('theme-select');
 const availableThemes = new Set(Array.from(themeSelect.options, option => option.value));
 const themeStorageKey = 'portfolio-theme';
@@ -105,7 +105,7 @@ if (themeSelect) {
     });
 }
 
-/* Theme & Background Controls */
+
 const schemeToggle = document.getElementById('scheme-toggle');
 const schemeStorageKey = 'portfolio-scheme';
 const nightModeRecommendation = document.getElementById('night-mode-recommendation');
@@ -191,7 +191,7 @@ const applyScheme = (scheme, persist = false, resetCustomBackground = false) => 
         schemeIcon.classList.toggle('bx-moon', !isLight);
     }
 
-    // Automatically stop video and disable meteor trails on white/light background
+
     if (isLight) {
         stopBackgroundEffect(persist);
         if (meteorShower) {
@@ -242,7 +242,7 @@ if (useDarkModeButton) {
     });
 }
 
-/* Performance Mode (Eco / High) */
+
 const perfToggle = document.getElementById('perf-toggle');
 const perfStorageKey = 'portfolio-perf-mode';
 
@@ -312,7 +312,7 @@ const showEcoMeteorNotice = () => {
 };
 window.showEcoMeteorNotice = showEcoMeteorNotice;
 
-// Dynamic portfolio image manager based on efficiency/eco mode
+
 const updatePortfolioCardsImageSource = (isEco) => {
     const cards = document.querySelectorAll('.portfolio-card');
     cards.forEach(card => {
@@ -347,7 +347,7 @@ const applyPerfMode = (mode, persist = false) => {
         }
     }
 
-    // Update Meteor Shower toggle button state and title in background menu
+
     if (meteorShowerToggle) {
         if (isEco) {
             meteorShowerToggle.setAttribute('aria-disabled', 'true');
@@ -360,7 +360,7 @@ const applyPerfMode = (mode, persist = false) => {
         }
     }
 
-    // Update Hero Wish button accessibility and title
+
     const heroMeteorBadge = document.getElementById('hero-meteor-btn');
     if (heroMeteorBadge) {
         if (isEco) {
@@ -374,7 +374,7 @@ const applyPerfMode = (mode, persist = false) => {
         }
     }
 
-    // Update portfolio card thumbnails for Eco vs. High mode
+
     updatePortfolioCardsImageSource(isEco);
 
     if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.refreshMedia === 'function') {
@@ -452,7 +452,7 @@ if (perfToggle) {
     perfToggle.addEventListener('click', () => {
         const currentMode = document.documentElement.dataset.perfMode || 'high';
         const nextMode = currentMode === 'eco' ? 'high' : 'eco';
-        isEcoAutoDetected = false; // User explicitly selected their preference
+        isEcoAutoDetected = false;
         if (typeof window !== 'undefined') window.__isEcoAutoDetected = false;
         applyPerfMode(nextMode, true);
     });
@@ -489,7 +489,7 @@ const applyBackground = (color, persist = false, adjustScheme = true) => {
 
     const isLight = backgroundLuminance(color) > .42;
 
-    // Automatically stop video and disable meteor trails on white/light background
+
     if (isLight) {
         stopBackgroundEffect(persist);
         if (meteorShower) {
@@ -637,7 +637,7 @@ if (videoBackgroundButton) {
     }
 }
 
-/* Meteor Shower Canvas */
+
 class MeteorShower {
     constructor(canvas) {
         if (!canvas) return;
@@ -735,7 +735,7 @@ class MeteorShower {
             }
         });
 
-        // Rare initial delay for cosmic meteor events (2.5 - 4.5 minutes)
+
         if (this.active) {
             this.scheduleNextCosmicEvent(150000 + Math.random() * 120000);
         }
@@ -1055,7 +1055,7 @@ class MeteorShower {
         }
     }
 
-    /* Random Cosmic Events */
+
     scheduleNextCosmicEvent(customDelay = null) {
         if (this.cosmicEventTimeout) {
             clearTimeout(this.cosmicEventTimeout);
@@ -1193,7 +1193,7 @@ class MeteorShower {
                 }
             }
 
-            // Real-time Collision Detection with UI text / cards / buttons / boxes
+
             m.colTimer = (m.colTimer || 0) + dt;
             const colInterval = this.isMobile ? 0.08 : 0.035;
             const canCheckCollision = m.canCollide && m.colTimer >= colInterval && (!this.isMobile || i < 2);
@@ -1450,7 +1450,7 @@ if (meteorShowerToggle && meteorShower) {
 
 if (heroMeteorBtn && meteorShower) {
     let wishClickCount = 0;
-    let requiredWishClicks = Math.floor(Math.random() * 4) + 4; // 4 to 7 clicks required randomly
+    let requiredWishClicks = Math.floor(Math.random() * 4) + 4;
     let lastWishClickTime = 0;
     let wishResetTimer = 0;
 
@@ -1460,7 +1460,7 @@ if (heroMeteorBtn && meteorShower) {
             meteorShower.setActive(true, true);
         }
         const now = Date.now();
-        if (now - lastWishClickTime < 280) return; // Prevent spam-clicking within 280ms
+        if (now - lastWishClickTime < 280) return;
         lastWishClickTime = now;
 
         clearTimeout(wishResetTimer);
@@ -1484,14 +1484,14 @@ if (heroMeteorBtn && meteorShower) {
 
         wishClickCount++;
 
-        // Random chance once the minimum required clicks are satisfied
+
         const hasReachedClicks = wishClickCount >= requiredWishClicks;
         const cosmicLuck = Math.random() < 0.55;
 
         if (hasReachedClicks && (cosmicLuck || wishClickCount >= requiredWishClicks + 3)) {
             meteorShower.triggerRandomCosmicEvent();
             wishClickCount = 0;
-            requiredWishClicks = Math.floor(Math.random() * 5) + 5; // next time 5 to 9 clicks
+            requiredWishClicks = Math.floor(Math.random() * 5) + 5;
             clearTimeout(wishResetTimer);
         }
     };
@@ -1515,7 +1515,7 @@ if (toastCloseBtn && meteorShower) {
     });
 }
 
-/* Services Rainbow Icon Toggle */
+
 const servicesRainbowToggle = document.getElementById('services-rainbow');
 const servicesRainbowStorageKey = 'services-rainbow-icons';
 
@@ -1543,7 +1543,7 @@ if (servicesRainbowToggle) {
     });
 }
 
-/* Active Nav Link on Scroll */
+
 let sections = document.querySelectorAll('section');
 let navLinks = document.querySelectorAll('header nav a');
 
@@ -1563,14 +1563,14 @@ window.onscroll = () => {
         };
     });
 
-    /* Sticky Navbar */
+
     let header = document.querySelector('header');
     if (header) header.classList.toggle('sticky', window.scrollY > 100);
 
     if (navbar && navbar.classList.contains('active')) setMobileMenuOpen(false);
 };
 
-/* Scroll Reveal */
+
 
 try { if (typeof ScrollReveal !== 'undefined') ScrollReveal({
     distance: '60px',
@@ -1584,7 +1584,7 @@ ScrollReveal().reveal('.home-img-wrapper, .hero-stats, .skills-container, .servi
 ScrollReveal().reveal('.about-img-wrapper', { origin: 'left' });
 ScrollReveal().reveal('.about-content', { origin: 'right' }); } } catch (e) {}
 
-/* Typed JS */
+
 try { if (typeof Typed !== 'undefined' && document.querySelector('.multiple-text')) { window.typedInstance = new Typed('.multiple-text', {
     strings: ['Backend Developer', 'Web Developer', 'Robotics & IoT Enthusiast', 'AI Explorer'],
     typeSpeed: 65,
@@ -1594,7 +1594,7 @@ try { if (typeof Typed !== 'undefined' && document.querySelector('.multiple-text
     contentType: 'null'
 }); } else { window.typedInstance = null; } } catch (e) { window.typedInstance = null; }
 
-/* Read More / Read Less (About Me) */
+
 const readMoreBtn = document.getElementById('read-more-btn');
 const moreText = document.querySelector('.more-text');
 
@@ -1613,7 +1613,7 @@ if (readMoreBtn && moreText) {
     });
 }
 
-/* Contact Form Validation & Modal */
+
 const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
@@ -1809,7 +1809,7 @@ if (contactForm) {
     });
 }
 
-/* Contact Email Copy Action */
+
 const copyEmailBtn = document.getElementById('copy-email-btn');
 
 if (copyEmailBtn) {
@@ -1867,7 +1867,7 @@ if (copyEmailBtn) {
     });
 }
 
-/* Light Mode Constellation Canvas */
+
 class ConstellationStarChart {
     constructor(canvas) {
         if (!canvas) return;
@@ -2183,7 +2183,7 @@ if (constellationChart && document.documentElement.dataset.scheme === 'light' &&
     constellationChart.start();
 }
 
-/* PCB Trace Animation */
+
 const pcbTrace = document.querySelector('.pcb-trace');
 
 if (pcbTrace) {
@@ -2204,7 +2204,7 @@ if (pcbTrace) {
     }
 }
 
-/* Portfolio & Certificate Lightbox */
+
 let isPortfolioLightboxInitialized = false;
 function initPortfolioLightbox() {
     if (isPortfolioLightboxInitialized) return;
@@ -2255,7 +2255,7 @@ function initPortfolioLightbox() {
     let currentIndex = 0;
     let lastActiveElement = null;
 
-    // Zoom & Pan Engine state
+
     let zoomScale = 1.0;
     let panX = 0;
     let panY = 0;
@@ -2741,7 +2741,7 @@ function initPortfolioLightbox() {
         renderProject(prevIdx, activeGallery);
     };
 
-    // Keyboard activation for portfolio and certificate cards
+
     cards.forEach((card, idx) => {
         card.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
@@ -2779,7 +2779,7 @@ function initPortfolioLightbox() {
         }
     };
 
-    // Double-click on image to toggle zoom
+
     if (imgEl) {
         imgEl.addEventListener('dblclick', (e) => {
             e.preventDefault();
@@ -2798,7 +2798,7 @@ function initPortfolioLightbox() {
         });
     }
 
-    // Mouse wheel zoom inside stage
+
     if (lightboxStage) {
         lightboxStage.addEventListener('wheel', (e) => {
             e.preventDefault();
@@ -2814,7 +2814,7 @@ function initPortfolioLightbox() {
         }, { passive: false });
     }
 
-    // Drag-to-pan Pointer events (mouse & touch) when zoomed
+
     if (mediaWrap) {
         mediaWrap.addEventListener('pointerdown', (e) => {
             if (zoomScale <= 1.0) return;
@@ -2986,7 +2986,7 @@ function initPortfolioLightbox() {
             const diffX = e.changedTouches[0].clientX - touchStartX;
             const diffY = e.changedTouches[0].clientY - touchStartY;
 
-            // Horizontal swipe with minimum distance & lower vertical variance
+
             if (Math.abs(diffX) > 50 && Math.abs(diffY) < 70) {
                 if (diffX < 0) {
                     nextProject();

@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
 
-/* Theme Variables */
+
 :root {
     --bg-color: #0b0f19;
     --second-bg-color: #121a2d;
@@ -90,7 +90,7 @@
     --glass-nav: rgba(255, 255, 255, 0.96);
 }
 
-/* Light Mode Overrides */
+
 :root[data-scheme="light"] body {
     background-color: var(--bg-color) !important;
 }
@@ -115,7 +115,7 @@
     opacity: 0 !important;
 }
 
-/* Light Mode Constellation Canvas */
+
 #constellation-canvas {
     position: fixed;
     inset: 0;
@@ -142,7 +142,7 @@
     --card-border: color-mix(in srgb, var(--text-color) 13%, transparent);
 }
 
-/* Background Effect Surface */
+
 :root[data-background-effect] {
     --bg-color: #050816;
     --second-bg-color: rgba(10, 16, 36, 0.82);
@@ -276,7 +276,7 @@
     forced-color-adjust: none;
 }
 
-/* Base & Reset */
+
 * {
     margin: 0;
     padding: 0;
@@ -329,7 +329,7 @@ body {
     color: #ffffff;
 }
 
-/* Custom Scrollbar */
+
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -344,7 +344,7 @@ body {
     background: var(--main-color);
 }
 
-/* Ambient Background Blobs */
+
 .bg-glow {
     position: fixed;
     border-radius: 50%;
@@ -385,7 +385,7 @@ section {
     z-index: 1;
 }
 
-/* Typography & Section Headings */
+
 .section-tag {
     display: inline-block;
     font-size: 1.3rem;
@@ -422,7 +422,7 @@ section {
     background-clip: text;
 }
 
-/* Buttons */
+
 .btn {
     display: inline-flex;
     align-items: center;
@@ -466,7 +466,7 @@ section {
     box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.2);
 }
 
-/* Header & Navigation */
+
 .header {
     position: fixed;
     top: 0;
@@ -596,7 +596,7 @@ section {
     font-style: normal;
 }
 
-/* Logo Orbital Ring */
+
 .orbital-d {
     position: relative;
     display: inline-block;
@@ -1097,7 +1097,7 @@ section {
     outline-offset: .3rem;
 }
 
-/* Hero Section */
+
 .home {
     display: flex;
     justify-content: space-between;
@@ -1329,7 +1329,7 @@ section {
     font-weight: 500;
 }
 
-/* Hero Image Wrapper with Floating Badges */
+
 .home-img-wrapper {
     flex: 0 0 42rem;
     position: relative;
@@ -1426,7 +1426,7 @@ section {
     100% { transform: translateY(-1rem); }
 }
 
-/* About Section */
+
 .about {
     background: var(--second-bg-color);
     display: flex;
@@ -1573,7 +1573,7 @@ section {
     color: var(--text-muted);
 }
 
-/* Skills Section */
+
 .skills {
     background: var(--bg-color);
 }
@@ -1667,7 +1667,7 @@ section {
     transform: translateY(-2px);
 }
 
-/* PCB trace animation on Robotics card */
+
 .skill-category.has-pcb {
     padding-bottom: 5.4rem;
 }
@@ -1784,7 +1784,7 @@ section {
     }
 }
 
-/* Services Section */
+
 .services {
     background: var(--second-bg-color);
 }
@@ -1943,7 +1943,7 @@ section {
     to { transform: rotate(360deg); }
 }
 
-/* Portfolio Section */
+
 .portfolio {
     background: var(--bg-color);
 }
@@ -2054,7 +2054,7 @@ section {
     flex: 1;
 }
 
-/* Portfolio Card Zoom Indicator Overlay */
+
 .portfolio-zoom-hint {
     position: absolute;
     inset: 0;
@@ -2170,7 +2170,7 @@ section {
     outline-offset: 2px;
 }
 
-/* Project Lightbox Modal */
+
 body.lightbox-open {
     overflow: hidden !important;
     touch-action: none;
@@ -2228,7 +2228,7 @@ body.lightbox-open {
     opacity: 1 !important;
 }
 
-/* Header */
+
 .lightbox-header {
     display: flex;
     align-items: center;
@@ -2293,7 +2293,7 @@ body.lightbox-open {
     transform: rotate(90deg);
 }
 
-/* Stage & Image */
+
 .lightbox-stage {
     position: relative;
     display: flex;
@@ -2313,7 +2313,7 @@ body.lightbox-open {
     max-height: 74vh;
 }
 
-/* Lightbox Toolbar */
+
 .lightbox-zoom-toolbar {
     position: absolute;
     top: 1.4rem;
@@ -2403,7 +2403,7 @@ body.lightbox-open {
     flex-shrink: 0;
 }
 
-/* Format Switcher */
+
 .toolbar-mode-switch {
     display: inline-flex;
     align-items: center;
@@ -2575,7 +2575,7 @@ body.lightbox-open {
     box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.5);
 }
 
-/* Info Panel */
+
 .lightbox-info {
     padding: 2.2rem 2.8rem 2.4rem;
     overflow-y: auto;
@@ -2741,7 +2741,7 @@ body.lightbox-open {
     display: none !important;
 }
 
-/* Light scheme styling */
+
 :root[data-scheme="light"] .lightbox-backdrop {
     background: rgba(240, 244, 248, 0.85);
 }
@@ -2811,9 +2811,7 @@ body.lightbox-open {
     color: #ffffff !important;
 }
 
-/* Pause background animations while lightbox is open */
-   Pauses all outside background web animations and GPU/CPU operations when preview is active
-   to eliminate any lag. */
+
 body.lightbox-open {
     overflow: hidden !important;
 }
@@ -2841,7 +2839,7 @@ body.lightbox-open .orbital-d-ring {
     will-change: auto !important;
 }
 
-/* Responsive */
+
 @media (max-width: 768px) {
     .portfolio-lightbox {
         padding: 1rem;
@@ -2945,7 +2943,7 @@ body.lightbox-open .orbital-d-ring {
     }
 }
 
-/* Certificates Section */
+
 .certificates {
     background: var(--second-bg-color);
 }
@@ -3285,7 +3283,7 @@ body.lightbox-open .orbital-d-ring {
     transform: translateY(-1px);
 }
 
-/* Contact Section */
+
 .contact {
     background: var(--bg-color);
 }
@@ -3599,7 +3597,7 @@ body.lightbox-open .orbital-d-ring {
     padding: 1.4rem;
 }
 
-/* Feedback Modal */
+
 .feedback-modal-backdrop {
     position: fixed;
     inset: 0;
@@ -3723,7 +3721,7 @@ body.lightbox-open .orbital-d-ring {
     to { opacity: 0; transform: translate3d(var(--confetti-x), var(--confetti-y), 0) rotate(var(--confetti-rotation)) scale(0.65); }
 }
 
-/* Footer */
+
 .footer {
     background: var(--second-bg-color);
     padding: 4rem 9% 3rem;
@@ -3790,7 +3788,7 @@ body.lightbox-open .orbital-d-ring {
     margin-top: 0.4rem;
 }
 
-/* Footer Actions */
+
 .footer-actions {
     display: inline-flex;
     align-items: center;
@@ -3869,7 +3867,7 @@ body.lightbox-open .orbital-d-ring {
     transform: rotate(10deg);
 }
 
-/* Hover & Active States */
+
 .footer-swarm-btn:hover {
     transform: translateY(-4px);
     border-color: rgba(var(--accent-rgb), 0.85);
@@ -3896,7 +3894,7 @@ body.lightbox-open .orbital-d-ring {
     transform: translateY(-1px) scale(0.96);
 }
 
-/* Active / Running State */
+
 .footer-swarm-btn.is-active {
     border-color: #f59e0b;
     background: rgba(30, 20, 10, 0.9);
@@ -3918,7 +3916,7 @@ body.lightbox-open .orbital-d-ring {
     text-shadow: 0 0 10px #fbbf24;
 }
 
-/* Light Mode Overrides */
+
 :root[data-scheme="light"] .footer-swarm-btn {
     background: rgba(255, 255, 255, 0.9);
     border-color: rgba(var(--accent-rgb), 0.45);
@@ -3930,7 +3928,7 @@ body.lightbox-open .orbital-d-ring {
     box-shadow: 0 8px 25px rgba(var(--accent-rgb), 0.28);
 }
 
-/* Swarm Animations */
+
 @keyframes swarmGlowBreathe {
     0%, 100% {
         opacity: 0.45;
@@ -3942,7 +3940,7 @@ body.lightbox-open .orbital-d-ring {
     }
 }
 
-/* Reduced Motion & Eco Mode */
+
 @media (prefers-reduced-motion: reduce) {
     .swarm-btn-glow {
         animation: none !important;
@@ -3978,8 +3976,8 @@ body.lightbox-open .orbital-d-ring {
     color: #ffffff;
 }
 
-/* Responsive Breakpoints */
-/* Header compact mode for 1201px–1280px viewports (and snapped/split-screen windows) */
+
+
 @media (max-width: 1280px) {
     .header-actions {
         gap: 0.9rem;
@@ -4331,7 +4329,7 @@ body.lightbox-open .orbital-d-ring {
     }
 }
 
-/* Meteor Collision & Toast HUD */
+
 @keyframes meteorImpactShake {
     0% {
         transform: scale(1);
@@ -4358,7 +4356,7 @@ body.lightbox-open .orbital-d-ring {
     position: relative;
 }
 
-/* Fire shimmer effect on impact */
+
 @keyframes fireHeatShimmer {
     0% {
         filter: brightness(1.2) drop-shadow(0 0 14px rgba(255, 95, 0, 0.6));
@@ -4388,7 +4386,7 @@ body.lightbox-open .orbital-d-ring {
         0 0 28px rgba(255, 190, 0, 0.4) !important;
 }
 
-/* Light mode meteor impact & toast */
+
 :root[data-scheme="light"] .meteor-impacted {
     animation: meteorImpactShakeLight 0.48s cubic-bezier(0.2, 0.9, 0.3, 1) !important;
 }
@@ -4467,7 +4465,7 @@ body.lightbox-open .orbital-d-ring {
     background: rgba(0, 0, 0, 0.05);
 }
 
-/* Cosmic Event HUD Toast */
+
 .meteor-event-toast {
     position: fixed;
     bottom: 2.8rem;
@@ -4618,7 +4616,7 @@ body.lightbox-open .orbital-d-ring {
     }
 }
 
-/* Mobile canvas & video adjustments */
+
 @media (max-width: 768px) {
     #background-video {
         filter: none !important;
@@ -4670,7 +4668,7 @@ body.lightbox-open .orbital-d-ring {
     }
 }
 
-/* Eco Mode & Rendering Optimizations */
+
 .portfolio-card,
 .certificate-card,
 .services-box,
@@ -4752,7 +4750,7 @@ body.lightbox-open .orbital-d-ring {
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.35) !important;
 }
 
-/* Eco Mode: Block Meteor Trails Toggle in Background Menu */
+
 :root[data-perf-mode="eco"] #meteor-shower-toggle {
     opacity: 0.55 !important;
     cursor: not-allowed !important;
@@ -4791,7 +4789,7 @@ body.lightbox-open .orbital-d-ring {
     line-height: 1.2;
 }
 
-/* Tactile shake animation for blocked action */
+
 @keyframes shakeBlocked {
     0%, 100% { transform: translateX(0); }
     20%, 60% { transform: translateX(-4px); }
@@ -4813,7 +4811,7 @@ body.lightbox-open .orbital-d-ring {
     50% { opacity: 0.65; }
 }
 
-/* Performance Mode Toggle Button */
+
 .perf-toggle {
     display: inline-flex;
     align-items: center;
@@ -4856,7 +4854,7 @@ body.lightbox-open .orbital-d-ring {
     transform: scale(1.1);
 }
 
-/* Reduced motion preference */
+
 @media (prefers-reduced-motion: reduce) {
     *,
     .bg-glow-1,

@@ -1,4 +1,4 @@
-/* Interactive Canvas Page Reconstruction Effect */
+
 (() => {
   "use strict";
 
@@ -8,7 +8,7 @@
     return;
   }
 
-  // ---------------------------------------------------------------- constants
+
 
   const NAMES = [
     "Ada", "Linus", "Grace", "Alan", "Margaret", "Ken", "Barbara", "Dennis",
@@ -65,7 +65,7 @@
 
   const ltrb = (r) => ({ l: r.left, t: r.top, r: r.right, b: r.bottom });
 
-  // ----------------------------------------------------------- cursor shapes
+
 
   const ARROW_D =
     "M4.6 3.9 C4.2 3.1 4.9 2.4 5.7 2.8 L20.6 9.4 C21.5 9.8 21.4 11.1 20.4 11.3 L13.9 12.9 C13.4 13 13 13.4 12.9 13.9 L11.3 20.4 C11.1 21.4 9.8 21.5 9.4 20.6 Z";
@@ -134,7 +134,7 @@
   const IMG_ICON =
     '<svg class="ph" viewBox="0 0 24 24" fill="none" stroke="#8A8A8A" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M4 18 L10 13 L14 16 L17 13.5 L21 17"/></svg>';
 
-  // ------------------------------------------------------------------ capture
+
 
   const SKIP = new Set([
     "script", "style", "noscript", "template", "head", "meta", "link", "title",
@@ -226,8 +226,8 @@
     return [...el.childNodes];
   }
 
-  // Copy one element's computed style onto its clone, fix up media sources.
-  // ::before / ::after become real spans so icons, chevrons and separators survive.
+
+
   function pseudoClone(src, which) {
     const ps = getComputedStyle(src, which);
     const c = ps.content;
@@ -308,8 +308,8 @@
       dst.setAttribute("decoding", "async");
     }
     if (tag === "svg") fixSvgRefs(src, dst);
-    // Clones live in the page's document: custom elements would be upgraded by the
-    // site's own JS (and often wipe their content), media would play. Swap in inert stand-ins.
+
+
     if (tag === "audio") {
       dst.remove();
       return null;
@@ -340,8 +340,8 @@
     return dst;
   }
 
-  // Clones are made in a document without a custom-element registry so the
-  // site's component code never runs on them.
+
+
   let inertDoc = null;
   const inert = () => inertDoc || (inertDoc = document.implementation.createHTMLDocument(""));
 
@@ -371,8 +371,8 @@
     return s;
   }
 
-  // Shadow trees can't see document-level <symbol>/<linearGradient> ids, so
-  // inline anything the clone references.
+
+
   function fixSvgRefs(src, dst) {
     const queue = [];
     const seen = new Set();
@@ -382,7 +382,7 @@
       queue.push(id);
     };
 
-    // Scan for <use> elements
+
     for (const u of dst.querySelectorAll("use")) {
       const href =
         u.getAttribute("href") ||
@@ -402,7 +402,7 @@
       }
     }
 
-    // Scan for url(#id) in outerHTML
+
     const urlRe = /url\(\s*["']?#([^"')\s]+)["']?\s*\)/g;
     let match;
     const html = dst.outerHTML;
@@ -441,8 +441,8 @@
     }
   }
 
-  // Pixels for things the DOM can't give back (WebGL canvases, playing video,
-  // cross-origin iframes) come from a screenshot taken when the user clicked.
+
+
   function cropShot(shot, r) {
     if (!shot || !shot.valid) return null;
     if (r.height > innerHeight * 3 || r.width > innerWidth * 2) return null;
@@ -463,8 +463,8 @@
     }
   }
 
-  // A URL another <video> can play: the chosen source, a <source>, or a lazy-load data-src.
-  // (blob:/MediaSource streams are tied to the original element and can't be reused.)
+
+
   function videoUrl(el) {
     const cands = [el.currentSrc, el.getAttribute("src"), el.getAttribute("data-src")];
     for (const s of el.querySelectorAll("source")) cands.push(s.getAttribute("src"), s.getAttribute("data-src"));
@@ -524,11 +524,11 @@
     return { color: dark ? "rgb(18, 18, 18)" : "rgb(255, 255, 255)", image: "none", from: null };
   }
 
-  /**
-   * Walk the live DOM and produce a blueprint the swarm can rebuild.
-   * Items live in "world" coords (scroller content space) or, for fixed UI,
-   * in screen coords on an "over"/"under" layer.
-   */
+
+
+
+
+
   function captureModel(env, shot) {
     const { ox, oy, sx, sy, vw, vh } = env.geom();
     const docW = Math.max(env.scrollWidth(), vw);
@@ -637,7 +637,7 @@
           "row-gap", "column-gap",
         ]);
       } else if (d === "list-item" || d === "-webkit-box") {
-        // keep
+
       } else d = "block";
       s += `display:${d};padding:${pad("top")}px ${pad("right")}px ${pad("bottom")}px ${pad("left")}px;`;
       if (cs.overflowX !== "visible" || cs.overflowY !== "visible" || cs.textOverflow === "ellipsis" || (cs.webkitLineClamp && cs.webkitLineClamp !== "none")) {
@@ -673,9 +673,9 @@
       const rg = document.createRange();
       rg.selectNodeContents(el);
       const tr = rg.getBoundingClientRect();
-      // table cells center their content vertically; reproduce the offset
+
       if (cs.display === "table-cell" && tr.height) root.style.paddingTop = Math.max(0, tr.top - r.top) + "px";
-      // floats outside the leaf (figures, infoboxes) shape its line boxes: add invisible shims
+
       if (/^(block|list-item)$/.test(root.style.display)) {
         const n = (p) => parseFloat(cs.getPropertyValue(p)) || 0;
         const cl = r.left + n("border-left-width") + n("padding-left");
@@ -772,7 +772,7 @@
                        (cs.webkitBackdropFilter && cs.webkitBackdropFilter !== "none");
       const hasBg = alphaOf(bgc) > 0.01;
       const isDifferentColor = hasBg && !sameColor(bgc, pageBg.color);
-      // Box is visible if background is different from page, or if has image, or if it's a styled card/box (radius, shadow, backdrop)
+
       const bgVisible = isDifferentColor || bgi !== "none" || (hasBg && (hasRadius || shadow || backdrop));
       if (el === body && pageBg.from === body) return null;
       const sides = ["top", "right", "bottom", "left"].map((s) => {
@@ -827,8 +827,8 @@
       });
     }
 
-    // Decorative ::before/::after on containers (overlays, glows, standalone icons).
-    // Their boxes aren't exposed, so derive them from the host box and the pseudo's insets.
+
+
     const PSEUDO_EL = { localName: "pseudo" };
     function emitPseudoBox(el, cs, r, ctx, which, empty) {
       const ps = getComputedStyle(el, which);
@@ -876,7 +876,7 @@
       let L;
       let T;
       if (ps.position === "absolute") {
-        if (cs.position === "static") return; // containing block is some other ancestor
+        if (cs.position === "static") return;
         const bw = w + n(ps.paddingLeft) + n(ps.paddingRight) + n(ps.borderLeftWidth) + n(ps.borderRightWidth);
         const bh = h + n(ps.paddingTop) + n(ps.paddingBottom) + n(ps.borderTopWidth) + n(ps.borderBottomWidth);
         L = ps.left !== "auto" ? pad.l + n(ps.left) : ps.right !== "auto" ? pad.r - n(ps.right) - bw : pad.l;
@@ -899,11 +899,11 @@
         const align = (ps.alignSelf !== "auto" ? ps.alignSelf : cs.alignItems) || "";
         const vAlign = () => (/center/.test(align) ? ct + (ch - h) / 2 : /end/.test(align) ? ct + ch - h : ct);
         if (empty) {
-          // the only content of an icon-ish element: centre it in the content box
+
           L = cl + Math.max(0, (cw - w) / 2);
           T = ct + Math.max(0, (ch - h) / 2);
         } else if (/flex/.test(cs.display) && /^row/.test(cs.flexDirection)) {
-          // icon before the first / after the last item of a flex row (chevrons, arrows)
+
           const kidsR = [...el.children]
             .filter((k) => css(k).display !== "none" && css(k).position !== "absolute" && css(k).position !== "fixed")
             .map((k) => k.getBoundingClientRect())
@@ -946,7 +946,7 @@
         m.style.overflow = "visible";
         m.style.margin = "0";
         m.style.position = "static";
-        // the box we draw is the transformed bounding box; keep only a pure rotation/flip
+
         const mt = cs.transform.match(/^matrix\(([^)]+)\)$/);
         const k = mt ? mt[1].split(",").map(Number) : null;
         m.style.transform = k && Math.abs(Math.hypot(k[0], k[1]) - 1) < 0.02 && Math.abs(Math.hypot(k[2], k[3]) - 1) < 0.02 ? `matrix(${k[0]},${k[1]},${k[2]},${k[3]},0,0)` : "none";
@@ -966,8 +966,8 @@
         if (crop) return imgOf(crop);
       }
       if (tag === "video") {
-        // Cross-origin video can't be read back as pixels once it's off-screen, so
-        // rebuild it as a real (muted) video in the state the original was in.
+
+
         const crop = cropShot(shot, r);
         const url = videoUrl(el);
         if (url) {
@@ -1020,7 +1020,7 @@
         if (src) return imgOf(src);
         return null;
       }
-      // iframe / embed / object
+
       const d = document.createElement("div");
       let host = "";
       try {
@@ -1126,7 +1126,7 @@
       if (items.length >= MAX_ITEMS) return;
       const tag = el.localName;
       if (SKIP.has(tag) || el === env.host) return;
-      // Ambient atmospheric backgrounds are handled directly by View in layer 'under'
+
       if (el.id === "background-video" || (el.classList && el.classList.contains("background-scrim")) ||
           el.id === "constellation-canvas" || el.id === "meteor-canvas" || (el.classList && el.classList.contains("bg-glow"))) {
         return;
@@ -1135,7 +1135,7 @@
       const disp = cs.display;
       if (disp === "none") return;
       if (disp === "contents") {
-        // transparent wrapper (incl. <slot>): its loose text still renders, styled by it
+
         let run = [];
         const flushRun = () => {
           if (ctx.key && run.some((n) => /\S/.test(n.data))) emitRun(el, cs, run, ctx);
@@ -1154,8 +1154,8 @@
       const op = ctx.op * parseFloat(cs.opacity);
       if (!(op > 0.03)) return;
       const r = el.getBoundingClientRect();
-      // "visually hidden" accessibility text: 1px boxes, clip:rect(0 0 0 0), clip-path:inset(50%)
-      // (html/body overflow belongs to the viewport, so a 0px-tall body clips nothing)
+
+
       const clipsSelf = el !== html && el !== body && el !== env.scroller && cs.overflowX !== "visible" && cs.overflowY !== "visible";
       if (clipsSelf && (r.width <= 2 || r.height <= 2)) return;
       if (cs.position === "absolute" && /rect\(0px,? 0px,? 0px,? 0px\)/.test(cs.clip)) return;
@@ -1180,14 +1180,14 @@
           clip = viewClip;
         }
       } else if (pos === "sticky" && layer === "world") {
-        // stuck (or sitting exactly where it would stick) at the top of its scroller
+
         const top = parseFloat(cs.top);
         if (!isNaN(top) && Math.abs(r.top - oy - top) < 2 && r.height < vh * 0.4) {
           layer = "over";
           clip = viewClip;
         }
       }
-      // z-index counts for positioned boxes and for flex/grid items (even when static)
+
       const pe = el.parentElement;
       const flexItem = pos === "static" && pe && /flex|grid/.test(css(pe).display);
       if (pos !== "static" || flexItem) {
@@ -1246,9 +1246,9 @@
       const blend = cs.mixBlendMode !== "normal" ? cs.mixBlendMode : ctx.blend;
       const kctx = { op, layer: kidLayer, clip: kidClip, zTop, posd, boxItem, key: keyFn, blend };
 
-      // Decide: one text leaf, or a mix of text runs and nested blocks.
-      // Closed <details> and content-visibility:hidden still report real boxes for
-      // content that isn't painted, so only the summary (or nothing) gets built.
+
+
+
       if (cs.contentVisibility === "hidden") {
         node.end = items.length;
         return;
@@ -1318,7 +1318,7 @@
         node.end = items.length;
         return;
       }
-      // (text leaves carry their pseudos inside the clone instead)
+
       if (emit && visible) emitPseudoBox(el, cs, r, pctx, "::before", emptyEl);
       const afterPseudo = () => {
         if (emit && visible) emitPseudoBox(el, cs, r, pctx, "::after", emptyEl);
@@ -1351,7 +1351,7 @@
     const rootClip = env.isRoot ? fullClip : viewClip;
     walk(html, { op: 1, layer: rootLayer, clip: rootClip, zTop: null, posd: false, boxItem: null }, null);
 
-    // --------------------------------------------- repeated components (dup)
+
     const groups = [];
     const kindsSig = (n) => {
       let s = "";
@@ -1366,7 +1366,7 @@
       for (const k of node.kids) {
         const n = k.end - k.start;
         if (n < 1 || n > 48) continue;
-        // long single paragraphs read better typed than duplicated
+
         if (n === 1 && items[k.start].kind === "text" && items[k.start].text.length > 40) continue;
         const sig = `${k.tag}|${k.cls}|${k.layer}|${kindsSig(k)}`;
         if (!buckets.has(sig)) buckets.set(sig, []);
@@ -1407,7 +1407,7 @@
       else twinKey.set(k, it);
     }
 
-    // ------------------------------------------------------------- tasks
+
     const tasks = [];
     const mk = (y, spec, deps, layer) => {
       const t = { id: tasks.length, y, spec, deps, state: "wait", doneAt: 0, layer };
@@ -1426,7 +1426,7 @@
       it.task = mk(y, { type: KIND_TASK[it.kind], it }, deps, it.layer);
       it.final = [it.task];
     }
-    // inner groups first so outer copies can wait for them
+
     for (let gi = groups.length - 1; gi >= 0; gi--) {
       const g = groups[gi];
       const mItems = items.slice(g.master.start, g.master.end);
@@ -1456,7 +1456,7 @@
       });
     }
 
-    // -------------------------------------------------- guides & snapping
+
     const guides = [];
     const texts = items.filter((it) => it.kind === "text" && it.task && it.layer === "world" && it.fs >= 13 && it.tb.w > 30);
     const BAND = 900;
@@ -1510,12 +1510,12 @@
       }
     }
     for (const it of items) if (it.kind === "text" && it.task && it.fs >= 28 && it.tb.h < 400) it.task.spec.grow = true;
-    // deps always have lower ids, so one reverse pass propagates the earliest need
+
     for (const t of tasks) t.gate = t.y;
     for (let i = tasks.length - 1; i >= 0; i--) for (const d of tasks[i].deps) if (tasks[i].gate < d.gate) d.gate = tasks[i].gate;
 
-    // A sticky header that is transparent at the top of the page still needs
-    // something behind it once content scrolls underneath (sites add it on scroll).
+
+
     const backdrops = [];
     if (pageBg.image === "none")
       for (const b of bars) {
@@ -1529,7 +1529,7 @@
     return { items, tasks, groups, guides, docW, docH, backdrops, portKey };
   }
 
-  // -------------------------------------------------------------- text reveal
+
 
   function wsOf(n, root) {
     for (let e = n; e && e !== root.parentNode; e = e.parentNode) {
@@ -1557,7 +1557,7 @@
           units.push({ t: c, s, len: s.length, box });
           seq += s;
         } else if (c.nodeType === 1) {
-          // media, and empty styled boxes (mask icons, dots, swatches) appear in one keystroke
+
           if (ATOMIC.has(c.localName) || c instanceof SVGElement || (!/\S/.test(c.textContent) && c.style && boxyStyle(c.style))) {
             units.push({ e: c, len: 1, box, on: true });
             seq += "□";
@@ -1617,7 +1617,7 @@
     return last;
   }
 
-  // ------------------------------------------------------------------ styles
+
 
   const STYLE = `
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
@@ -1693,7 +1693,7 @@
 @keyframes hudpulse{50%{box-shadow:0 0 0 4px rgba(13,153,255,.28)}}
 `;
 
-  // -------------------------------------------------------------------- env
+
 
   function detectEnv() {
     const se = document.scrollingElement || document.documentElement;
@@ -1762,7 +1762,7 @@
     return env;
   }
 
-  // ------------------------------------------------------------------- view
+
 
   class View {
     constructor(env) {
@@ -1792,7 +1792,7 @@
       const customProps = new Map();
       customProps.set("--ph", phColor);
 
-      // Collect CSS custom properties from stylesheets
+
       try {
         for (const sheet of document.styleSheets) {
           try {
@@ -1813,7 +1813,7 @@
         }
       } catch (_) {}
 
-      // Collect CSS custom properties from getComputedStyle
+
       for (let i = 0; i < rootCs.length; i++) {
         const prop = rootCs[i];
         if (prop && prop.startsWith("--")) {
@@ -1822,7 +1822,7 @@
         }
       }
 
-      // Explicit portfolio properties
+
       const knownVars = [
         "--bg-color", "--second-bg-color", "--card-bg", "--card-border",
         "--glass-nav", "--text-color", "--text-muted", "--main-color",
@@ -1838,7 +1838,7 @@
       const inlineUserBg = rootEl.style.getPropertyValue("--user-bg-color").trim();
       if (inlineUserBg) customProps.set("--user-bg-color", inlineUserBg);
 
-      // Bridge data-* attributes onto host element for scoped CSS theme rules
+
       const bridgeAttrs = [
         "data-scheme",
         "data-theme",
@@ -1890,7 +1890,7 @@
   <button data-a="close" class="x" title="Exit (Esc)">✕</button>
 </div>`;
 
-      // Bridge global SVG defs into the shadow root
+
       const globalSvg = document.createElementNS(SVGNS, "svg");
       globalSvg.setAttribute("style", "position:absolute;width:0;height:0;overflow:hidden;pointer-events:none;");
       globalSvg.setAttribute("aria-hidden", "true");
@@ -1904,7 +1904,7 @@
       this.under = $(".under");
       this.over = $(".over");
 
-      // Mount active atmospheric backgrounds directly into this.under (behind .world)
+
       const bgEffect = rootEl.getAttribute("data-background-effect");
       const liveVid = document.getElementById("background-video");
       const liveScrim = document.querySelector(".background-scrim");
@@ -2056,8 +2056,8 @@
       const by = { world: [], under: [], over: [] };
       for (const it of model.items) by[it.layer].push(it);
       if (model.portKey != null) {
-        // inner scroller: its scrolling content sits at the scroller's own place in
-        // the stacking order (above its dialog/panel background, below later UI)
+
+
         const screen = [...by.under, ...by.over].sort((a, b) => a.key - b.key);
         const frag = document.createDocumentFragment();
         let placed = false;
@@ -2424,7 +2424,7 @@
     }
   }
 
-  // ----------------------------------------------------------------- engine
+
 
   class Engine {
     constructor(view) {
@@ -2505,7 +2505,7 @@
       return t.layer === "world" ? t.y : this.viewTop + t.y;
     }
 
-    // screen position of a cursor / an item (for panning and loudness)
+
     scr(c) {
       const vp = this.vp;
       return c.sticky ? { x: c.x, y: c.y } : { x: c.x - vp.sx + vp.ox, y: c.y - vp.sy + vp.oy };
@@ -2619,7 +2619,7 @@
       return best;
     }
 
-    // work that's unlocked but unfinished (things past the frontier need scrolling, not waiting)
+
     backlog() {
       let n = 0;
       for (const t of this.tasks) if (t.state !== "done" && (t.layer !== "world" || t.gate <= this.frontier)) n++;
@@ -2776,7 +2776,7 @@
       this.follow(dt, this.cursors);
     }
 
-    // Boids-ish orbit around a target, ported from the original.
+
     follow(dt, list, target, scale = 1) {
       const m = this.mouse ? this.fromViewport(this.mouse.x, this.mouse.y) : null;
       const o = target || this.flockTarget();
@@ -2874,7 +2874,7 @@
       return touched;
     }
 
-    // ------------------------------------------------------- primitives
+
 
     *wait(t) {
       let n = 0;
@@ -2994,7 +2994,7 @@
       return this.wait(0.1);
     }
 
-    // Where a drag should end so a huge box doesn't drag the cursor off-screen.
+
     dragEnd(c, it) {
       const vp = this.vp;
       const screen = c.sticky;
@@ -3140,7 +3140,7 @@
         yield* this.wait(0.15);
       }
       if (guide) {
-        // give the guide a moment to land; never block a cursor on it
+
         let waited = 0;
         while (guide.task.state !== "done" && waited < 1.6) waited += (yield) * this.tempo;
         if (guide.task.state !== "done") guide = null;
@@ -3383,14 +3383,14 @@
     }
   }
 
-  // ------------------------------------------------------------------ sound
 
-  // A glass piano in E. Every finished piece of the page plays one note of the
-  // E major pentatonic, quantized to a soft 16th-note grid, so a busy swarm comes
-  // out as a generative melody: big sections low, small things high, pitch rising
-  // left to right, panned to where the cursor is. Typing and clicks are quiet
-  // paper ticks underneath. All synthesized; no audio files.
-  const PENTA = [0, 2, 4, 7, 9]; // E F# G# B C#
+
+
+
+
+
+
+  const PENTA = [0, 2, 4, 7, 9];
   const E2 = 40;
   const mtof = (m) => 440 * Math.pow(2, (m - 69) / 12);
   let soundPref = true;
@@ -3405,8 +3405,8 @@
       this.lastKey = new Map();
       this.keyTimes = [];
       this.pressTimes = [];
-      this.ends = []; // when each sounding piano voice dies out
-      this.fakeNow = null; // offline renders drive the clock explicitly
+      this.ends = [];
+      this.fakeNow = null;
     }
 
     init(offline) {
@@ -3449,7 +3449,7 @@
       return this.fakeNow != null ? this.fakeNow : this.ctx.currentTime;
     }
 
-    // Generated room: decaying stereo noise, darkened as it rings out.
+
     impulse(secs, decay) {
       const sr = this.ctx.sampleRate;
       const n = Math.floor(sr * secs);
@@ -3459,7 +3459,7 @@
         let lp = 0;
         for (let i = 0; i < n; i++) {
           const k = i / n;
-          const a = 0.55 - 0.4 * k; // lowpass closes over time: warm tail
+          const a = 0.55 - 0.4 * k;
           lp += a * (Math.random() * 2 - 1 - lp);
           d[i] = lp * Math.pow(1 - k, decay) * (i < sr * 0.012 ? i / (sr * 0.012) : 1);
         }
@@ -3500,7 +3500,7 @@
       return this.ctx && this.on && (this.fakeNow != null || this.ctx.state === "running");
     }
 
-    // next 16th-note on the grid (or 8th for slow, low events)
+
     grid(div = 4) {
       const step = 60 / this.bpm / div;
       const now = this.now() + 0.015;
@@ -3527,8 +3527,8 @@
       return g;
     }
 
-    // Glass piano: a few sine partials (one inharmonic, for the glass) with a
-    // soft felt-hammer tick, long exponential ring.
+
+
     piano(midi, when, vel, pan, ring = 2.4) {
       const now = this.now();
       this.ends = this.ends.filter((e) => e > now);
@@ -3586,7 +3586,7 @@
       src.stop(when + 0.05);
     }
 
-    // short filtered-noise ticks: typing and clicks
+
     tick(when, pan, freq, q, vel, len) {
       const ctx = this.ctx;
       const src = ctx.createBufferSource();
@@ -3606,9 +3606,9 @@
       src.onended = () => g.disconnect();
     }
 
-    // ---- events (screen coords in; all plain numbers so a log can be replayed)
 
-    // one mechanical key: a sharp click on top of a short "thock" (deeper for space)
+
+
     clack(when, pan, space, vel = 1) {
       this.tick(when, pan, rand(3600, 5600), 2.2, rand(0.2, 0.3) * vel, rand(0.006, 0.011));
       this.tick(when + rand(0.001, 0.005), pan, space ? rand(380, 560) : rand(850, 1500), 1.6, (space ? 0.26 : rand(0.13, 0.2)) * vel, space ? 0.065 : rand(0.025, 0.042));
@@ -3623,7 +3623,7 @@
       if (this.keyTimes.length > 80) return;
       this.lastKey.set(id, t);
       const pan = this.pan(x, vw);
-      // a burst of characters in one frame becomes a quick roll of keys
+
       let at = t + 0.004;
       for (let k = 0; k < Math.min(n, 3) && this.keyTimes.length <= 80; k++) {
         this.keyTimes.push(t);
@@ -3632,7 +3632,7 @@
       }
     }
 
-    // a mouse button: press click, then a lighter release
+
     press(x, vw) {
       this.log("press", [x, vw]);
       if (!this.ready()) return;
@@ -3646,11 +3646,11 @@
       this.tick(t + rand(0.055, 0.075), pan, rand(2900, 3400), 4, 0.15, 0.008);
     }
 
-    // a finished element: rect, image, text, line, dup, guide, edit, restyle
+
     place(kind, x, y, w, h, vw, vh, fs) {
       this.log("place", [kind, x, y, w, h, vw, vh, fs]);
       if (!this.ready()) return;
-      // only boxes, media, duplicates and guides sing; text and lines stay percussive
+
       if (kind === "text" || kind === "edit" || kind === "line") return;
       const area = (w * h) / Math.max(1, vw * vh);
       let oct;
@@ -3674,7 +3674,7 @@
       if (kind === "dup") this.piano(E2 + 12 + (deg % 2 ? 7 : 0), when, 0.15 * off, pan * 0.5, 2.8);
     }
 
-    // headings stepping up in size: a little rising run
+
     grow(step, x, vw) {
       this.log("grow", [step, x, vw]);
       if (!this.ready()) return;
@@ -3691,7 +3691,7 @@
       this.tick(t + 0.002, pan, 1200, 2, 0.2, 0.03);
     }
 
-    // the page dissolving: an airy swell over a low open fifth
+
     intro() {
       this.log("intro", []);
       if (!this.ready()) return;
@@ -3735,7 +3735,7 @@
       }
     }
 
-    // the swarm fans out: E G# B E arpeggio on the grid
+
     start() {
       this.log("start", []);
       if (!this.ready()) return;
@@ -3744,7 +3744,7 @@
       [E2 + 24, E2 + 28, E2 + 31, E2 + 36, E2 + 40].forEach((m, i) => this.piano(m, when + i * step, 0.2, -0.5 + i * 0.25, 2));
     }
 
-    // the last chord rings: E major add9, strummed
+
     finale() {
       this.log("finale", []);
       if (!this.ready()) return;
@@ -3754,7 +3754,7 @@
       this.pad(E2 + 12, when, 0.05, 5);
     }
 
-    // back to the real page: a falling sweep
+
     release() {
       this.log("release", []);
       if (!this.ready()) return;
@@ -3789,7 +3789,7 @@
     }
   }
 
-  // -------------------------------------------------------------------- app
+
 
   class App {
     constructor() {
@@ -3808,7 +3808,7 @@
       let src = window.__swarmShot;
       window.__swarmShot = null;
       if (src) lastShot = { src, at: this.env.geom() };
-      else if (lastShot) src = lastShot.src; // Replay reuses the click-time screenshot
+      else if (lastShot) src = lastShot.src;
       if (!src) return null;
       const img = new Image();
       img.src = src;
@@ -3874,7 +3874,7 @@
         const queryMatches = document.querySelectorAll('[data-sr-id], [style*="visibility"], [style*="opacity"]');
         for (const el of queryMatches) {
           if (this.view && (el === this.view.host || this.view.host.contains(el))) continue;
-          // Protect mode-specific atmospheric backgrounds from accidental unhiding
+
           if (isCurrentLight && (el.id === "background-video" || (el.classList && el.classList.contains("background-scrim")) || el.id === "meteor-canvas" || (el.classList && el.classList.contains("bg-glow")))) continue;
           if (currentBgEffect !== "video" && (el.id === "background-video" || (el.classList && el.classList.contains("background-scrim")))) continue;
           if (!isCurrentLight && el.id === "constellation-canvas") continue;
@@ -3983,7 +3983,7 @@
         }
         this.unlockSound();
       }, true);
-      // browsers only let audio start after a click/keypress on the page
+
       on(window, "pointerdown", () => this.unlockSound(), true);
       if (!this.env.isRoot) {
         on(this.view.host, "wheel", (e) => {
@@ -4157,8 +4157,8 @@
     }
   }
 
-  // background.js may have hidden everything but media for its screenshot;
-  // put the page back once our canvas covers it (or if we bail out early).
+
+
   async function unhidePage() {
     if (!window.__swarmHidden) return;
     window.__swarmHidden = false;
@@ -4218,7 +4218,7 @@
     };
 
     if (!isAtTop) {
-      // Smoothly glide to the top (#home), exactly like the back-to-top button
+
       window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
 
       let launched = false;
@@ -4233,7 +4233,7 @@
 
       window.addEventListener("scroll", onScrollCheck, { passive: true });
 
-      // Fallback timeout in case smooth scroll reaches top or browser finishes quickly
+
       setTimeout(() => {
         if (!launched) {
           launched = true;
@@ -4286,7 +4286,7 @@
     debug: { captureModel, detectEnv, Sound },
   };
 
-  // Keyboard shortcut listener: Alt + Shift + S or Alt + S
+
   window.addEventListener("keydown", (e) => {
     if (e.altKey && (e.key === "s" || e.key === "S")) {
       e.preventDefault();
@@ -4294,7 +4294,7 @@
     }
   });
 
-  // Attach click listener directly to footer button
+
   function attachButtonListener() {
     const btn = document.getElementById("footer-swarm-btn");
     if (btn) {
@@ -4311,5 +4311,5 @@
     attachButtonListener();
   }
 
-  // Activated via footer button or Alt+S keyboard shortcut.
+
 })();
