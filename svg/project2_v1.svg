@@ -1,0 +1,188 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="p2Bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#080e1a"/>
+      <stop offset="50%" stop-color="#0e172a"/>
+      <stop offset="100%" stop-color="#050811"/>
+    </linearGradient>
+    <linearGradient id="cyanBtn" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#00e5ff"/>
+      <stop offset="50%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#8b5cf6"/>
+    </linearGradient>
+    <filter id="p2Glow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#p2Bg)"/>
+
+  <!-- Top Title HUD Bar -->
+  <rect x="48" y="44" width="1824" height="64" rx="12" fill="#0f172a" fill-opacity="0.85" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="80" cy="76" r="8" fill="#00e5ff" filter="url(#p2Glow)"/>
+  <text x="105" y="82" fill="#f8fafc" font-family="'Segoe UI', Roboto, sans-serif" font-size="20" font-weight="700" letter-spacing="1.5">TEACHABLE MACHINE • REAL-TIME COMPUTER VISION AI</text>
+  <text x="690" y="82" fill="#38bdf8" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="600">PROJECT 02: GESTURE DETECTION &amp; INTERACTIVE GAME ENGINE</text>
+  <rect x="1560" y="56" width="140" height="40" rx="8" fill="#00e5ff" fill-opacity="0.12" stroke="#00e5ff" stroke-width="1"/>
+  <text x="1630" y="81" fill="#00e5ff" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="700" text-anchor="middle">ULTRA HD 1080P</text>
+  <rect x="1715" y="56" width="135" height="40" rx="8" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1"/>
+  <text x="1782" y="81" fill="#34d399" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="700" text-anchor="middle">MODEL: 96.4% ACC</text>
+
+  <!-- Left: Webcam Viewfinder with Skeletal Tracking Overlay -->
+  <g transform="translate(68, 140)">
+    <rect x="0" y="0" width="880" height="760" rx="20" fill="#030712" stroke="#1e293b" stroke-width="2"/>
+    <!-- Viewfinder Inner Border with HUD Crosshairs -->
+    <rect x="25" y="25" width="830" height="710" rx="14" fill="#090d16" stroke="#00e5ff" stroke-width="1.5" stroke-opacity="0.5"/>
+    
+    <!-- Camera Feed Header -->
+    <rect x="45" y="45" width="140" height="32" rx="6" fill="#dc2626" fill-opacity="0.25" stroke="#ef4444" stroke-width="1"/>
+    <circle cx="65" cy="61" r="5" fill="#ef4444" filter="url(#p2Glow)"/>
+    <text x="80" y="66" fill="#fca5a5" font-family="monospace" font-size="12" font-weight="800">LIVE WEBCAM</text>
+    
+    <text x="830" y="66" fill="#64748b" font-family="monospace" font-size="14" text-anchor="end">1920x1080 • 60 FPS</text>
+
+    <!-- Hand Skeletal Landmark Nodes & Tracking Lines (Scissors Gesture) -->
+    <g transform="translate(440, 420)">
+      <!-- Palm Base Node -->
+      <circle cx="0" cy="180" r="10" fill="#00e5ff" filter="url(#p2Glow)"/>
+      <circle cx="-50" cy="140" r="8" fill="#00e5ff"/>
+      <circle cx="0" cy="100" r="8" fill="#00e5ff"/>
+      <circle cx="50" cy="140" r="8" fill="#00e5ff"/>
+      <!-- Skeleton Lines -->
+      <path d="M 0 180 L -50 140 L -80 70 L -90 0 M 0 180 L 0 100 M 0 180 L 50 140" stroke="#00e5ff" stroke-width="3" fill="none" stroke-opacity="0.8"/>
+      
+      <!-- Index Finger (Extended Upwards) -->
+      <path d="M -30 90 L -60 -20 L -80 -120 L -95 -220" stroke="#38bdf8" stroke-width="4" fill="none" filter="url(#p2Glow)"/>
+      <circle cx="-30" cy="90" r="7" fill="#ffffff"/>
+      <circle cx="-60" cy="-20" r="7" fill="#ffffff"/>
+      <circle cx="-80" cy="-120" r="8" fill="#ffffff"/>
+      <circle cx="-95" cy="-220" r="11" fill="#00e5ff" stroke="#ffffff" stroke-width="3" filter="url(#p2Glow)"/>
+      <text x="-95" y="-240" fill="#38bdf8" font-family="monospace" font-size="12" font-weight="700" text-anchor="middle">TIP_INDEX</text>
+
+      <!-- Middle Finger (Extended Upwards) -->
+      <path d="M 20 85 L 30 -30 L 40 -140 L 45 -235" stroke="#38bdf8" stroke-width="4" fill="none" filter="url(#p2Glow)"/>
+      <circle cx="20" cy="85" r="7" fill="#ffffff"/>
+      <circle cx="30" cy="-30" r="7" fill="#ffffff"/>
+      <circle cx="40" cy="-140" r="8" fill="#ffffff"/>
+      <circle cx="45" cy="-235" r="11" fill="#00e5ff" stroke="#ffffff" stroke-width="3" filter="url(#p2Glow)"/>
+      <text x="45" y="-255" fill="#38bdf8" font-family="monospace" font-size="12" font-weight="700" text-anchor="middle">TIP_MIDDLE</text>
+
+      <!-- Ring & Pinky & Thumb (Curled In) -->
+      <path d="M 60 110 L 80 80 L 70 50 M 90 140 L 105 110 L 95 90 M -60 130 L -90 110 L -70 80" stroke="#64748b" stroke-width="3" fill="none"/>
+      
+      <!-- Detection Bounding Box around Hand -->
+      <rect x="-180" y="-280" width="340" height="500" rx="14" fill="#00e5ff" fill-opacity="0.04" stroke="#00e5ff" stroke-width="2" stroke-dasharray="10 6"/>
+      <!-- Bounding Box Corner Reticles -->
+      <path d="M -180 -250 V -280 H -150 M 130 -280 H 160 V -250 M -180 190 V 220 H -150 M 130 220 H 160 V 190" stroke="#00e5ff" stroke-width="4" fill="none"/>
+      
+      <!-- Prediction Floating Label -->
+      <rect x="-170" y="-325" width="230" height="38" rx="8" fill="#00e5ff" stroke="#ffffff" stroke-width="1.5" filter="url(#p2Glow)"/>
+      <text x="-55" y="-300" fill="#090d16" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="900" text-anchor="middle">✂️ GUNTING: 96.4%</text>
+    </g>
+
+    <!-- Live Controls Bar at Bottom of Camera -->
+    <rect x="45" y="665" width="180" height="48" rx="24" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
+    <circle cx="75" cy="689" r="8" fill="#ef4444"/>
+    <text x="95" y="694" fill="#cbd5e1" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="700">Matikan Kamera</text>
+    
+    <rect x="675" y="665" width="180" height="48" rx="24" fill="#00e5ff" fill-opacity="0.15" stroke="#00e5ff" stroke-width="1.5"/>
+    <text x="765" y="695" fill="#00e5ff" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="800" text-anchor="middle">AI Model Active</text>
+  </g>
+
+  <!-- Right: Match Battle Arena, Model Probability Meters & Netlify Status -->
+  <g transform="translate(980, 140)">
+    <!-- Arena Container -->
+    <rect x="0" y="0" width="872" height="760" rx="20" fill="#0b1120" stroke="#1e293b" stroke-width="2"/>
+    
+    <!-- Top Player vs AI Match Cards -->
+    <g transform="translate(40, 40)">
+      <!-- Player Card -->
+      <rect x="0" y="0" width="360" height="250" rx="16" fill="#131e36" stroke="#00e5ff" stroke-width="2" filter="url(#p2Glow)"/>
+      <text x="180" y="38" fill="#94a3b8" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="800" text-anchor="middle" letter-spacing="2">KAMU (PEMAIN)</text>
+      <text x="180" y="145" font-size="75" text-anchor="middle">✌️</text>
+      <text x="180" y="210" fill="#f8fafc" font-family="'Segoe UI', sans-serif" font-size="24" font-weight="900" text-anchor="middle">GUNTING</text>
+      <rect x="110" y="222" width="140" height="18" rx="6" fill="#00e5ff" fill-opacity="0.2"/>
+      <text x="180" y="235" fill="#00e5ff" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">TERDETEKSI VIA CAM</text>
+
+      <!-- VS Badge -->
+      <circle cx="396" cy="125" r="32" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+      <text x="396" y="132" fill="#f8fafc" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="900" text-anchor="middle">VS</text>
+
+      <!-- AI Card -->
+      <rect x="432" y="0" width="360" height="250" rx="16" fill="#131e36" stroke="#8b5cf6" stroke-width="2"/>
+      <text x="612" y="38" fill="#94a3b8" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="800" text-anchor="middle" letter-spacing="2">ROBOT (AI BOT)</text>
+      <text x="612" y="145" font-size="75" text-anchor="middle">✋</text>
+      <text x="612" y="210" fill="#f8fafc" font-family="'Segoe UI', sans-serif" font-size="24" font-weight="900" text-anchor="middle">KERTAS</text>
+      <rect x="542" y="222" width="140" height="18" rx="6" fill="#8b5cf6" fill-opacity="0.2"/>
+      <text x="612" y="235" fill="#c4b5fd" font-family="monospace" font-size="11" font-weight="700" text-anchor="middle">RANDOMIZED MOVE</text>
+    </g>
+
+    <!-- Victory Banner Box -->
+    <rect x="40" y="325" width="792" height="100" rx="16" fill="#064e3b" fill-opacity="0.4" stroke="#10b981" stroke-width="2"/>
+    <text x="436" y="368" fill="#34d399" font-family="'Segoe UI', sans-serif" font-size="32" font-weight="900" text-anchor="middle" letter-spacing="1">🏆 KAMU MENANG!</text>
+    <text x="436" y="402" fill="#a7f3d0" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="600" text-anchor="middle">Gunting mengalahkan Kertas secara real-time computer vision recognition.</text>
+
+    <!-- AI Model Confidence Bars -->
+    <g transform="translate(40, 455)">
+      <text x="0" y="24" fill="#94a3b8" font-family="'Segoe UI', sans-serif" font-size="15" font-weight="700" letter-spacing="1">TEACHABLE MACHINE CONFIDENCE PROBABILITIES</text>
+      
+      <!-- Gunting (Scissors) - 96.4% -->
+      <g transform="translate(0, 45)">
+        <text x="0" y="16" fill="#f8fafc" font-family="monospace" font-size="15" font-weight="700">✌️ GUNTING</text>
+        <rect x="140" y="2" width="530" height="20" rx="6" fill="#1e293b"/>
+        <rect x="140" y="2" width="511" height="20" rx="6" fill="#00e5ff" filter="url(#p2Glow)"/>
+        <text x="730" y="18" fill="#00e5ff" font-family="monospace" font-size="16" font-weight="800">96.4%</text>
+      </g>
+
+      <!-- Batu (Rock) - 2.1% -->
+      <g transform="translate(0, 85)">
+        <text x="0" y="16" fill="#94a3b8" font-family="monospace" font-size="15" font-weight="700">✊ BATU</text>
+        <rect x="140" y="2" width="530" height="20" rx="6" fill="#1e293b"/>
+        <rect x="140" y="2" width="11" height="20" rx="6" fill="#64748b"/>
+        <text x="730" y="18" fill="#94a3b8" font-family="monospace" font-size="16" font-weight="700">2.1%</text>
+      </g>
+
+      <!-- Kertas (Paper) - 1.5% -->
+      <g transform="translate(0, 125)">
+        <text x="0" y="16" fill="#94a3b8" font-family="monospace" font-size="15" font-weight="700">✋ KERTAS</text>
+        <rect x="140" y="2" width="530" height="20" rx="6" fill="#1e293b"/>
+        <rect x="140" y="2" width="8" height="20" rx="6" fill="#64748b"/>
+        <text x="730" y="18" fill="#94a3b8" font-family="monospace" font-size="16" font-weight="700">1.5%</text>
+      </g>
+    </g>
+
+    <!-- Main Call to Action: Main Sekarang & Powered by Netlify -->
+    <g transform="translate(40, 665)">
+      <rect x="0" y="0" width="792" height="60" rx="30" fill="url(#cyanBtn)" stroke="#ffffff" stroke-width="1.5" filter="url(#p2Glow)"/>
+      <text x="350" y="38" fill="#ffffff" font-family="'Segoe UI', sans-serif" font-size="20" font-weight="900" text-anchor="middle" letter-spacing="1.5">MAIN SEKARANG (NEXT ROUND)</text>
+      <rect x="580" y="12" width="190" height="36" rx="18" fill="#0f172a" fill-opacity="0.8"/>
+      <circle cx="605" cy="30" r="7" fill="#00e5ff"/>
+      <text x="685" y="35" fill="#f8fafc" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="700" text-anchor="middle">Powered by Netlify</text>
+    </g>
+  </g>
+
+  <!-- Bottom Telemetry HUD Bar -->
+  <g transform="translate(48, 925)">
+    <rect x="0" y="0" width="1824" height="105" rx="14" fill="#0a0f1d" stroke="#1e293b" stroke-width="1.5"/>
+    <g transform="translate(30, 25)">
+      <text x="0" y="20" fill="#94a3b8" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="600">NEURAL ARCHITECTURE</text>
+      <text x="0" y="52" fill="#f8fafc" font-family="monospace" font-size="22" font-weight="800">MobileNet V2 + KNN Transfer</text>
+    </g>
+    <g transform="translate(490, 25)">
+      <text x="0" y="20" fill="#94a3b8" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="600">INFERENCE LATENCY</text>
+      <text x="0" y="52" fill="#00e5ff" font-family="monospace" font-size="22" font-weight="800">12.4 ms (WebGL Hardware Accel)</text>
+    </g>
+    <g transform="translate(980, 25)">
+      <text x="0" y="20" fill="#94a3b8" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="600">FRONTEND INTEGRATION</text>
+      <text x="0" y="52" fill="#a78bfa" font-family="monospace" font-size="22" font-weight="800">HTML5 Canvas + TensorFlow.js</text>
+    </g>
+    <g transform="translate(1450, 25)">
+      <text x="0" y="20" fill="#94a3b8" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="600">LIVE CLOUD DEPLOYMENT</text>
+      <text x="0" y="52" fill="#34d399" font-family="monospace" font-size="22" font-weight="800">Global CDN • 100% Uptime</text>
+    </g>
+  </g>
+</svg>

@@ -1,0 +1,482 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1920" width="100%" height="100%">
+  <defs>
+    <!-- Dark Wokwi Gradients -->
+    <linearGradient id="wokwiHeaderGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#181818"/>
+      <stop offset="100%" stop-color="#121212"/>
+    </linearGradient>
+    <linearGradient id="arduinoPcbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00979d"/>
+      <stop offset="100%" stop-color="#00696e"/>
+    </linearGradient>
+    <linearGradient id="usbSilver" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#e2e8f0"/>
+      <stop offset="50%" stop-color="#94a3b8"/>
+      <stop offset="100%" stop-color="#64748b"/>
+    </linearGradient>
+    <linearGradient id="icPlastic" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#2d3748"/>
+      <stop offset="100%" stop-color="#1a202c"/>
+    </linearGradient>
+    <linearGradient id="blueModule" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1e3a8a"/>
+      <stop offset="100%" stop-color="#172554"/>
+    </linearGradient>
+    <linearGradient id="resistorBody" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#fed7aa"/>
+      <stop offset="50%" stop-color="#fdba74"/>
+      <stop offset="100%" stop-color="#f97316"/>
+    </linearGradient>
+    <!-- LED Glow Filters -->
+    <filter id="ledGlowRed" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="ledGlowGreen" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="5" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="dropShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="6" flood-color="#000000" flood-opacity="0.6"/>
+    </filter>
+  </defs>
+
+  <style>
+    /* Interactivity and Dynamic Live Simulation Animations */
+    .wire { stroke: #22c55e; stroke-width: 3.5; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-dark { stroke: #15803d; stroke-width: 3; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+    .wire-gnd { stroke: #1e293b; stroke-width: 3; fill: none; stroke-linecap: round; }
+    .wire-vcc { stroke: #dc2626; stroke-width: 3; fill: none; stroke-linecap: round; }
+    
+    /* Sequential Running Chaser LED Ring Animation */
+    @keyframes ledRingPulse {
+      0%, 100% { fill: #7f1d1d; filter: none; opacity: 0.65; }
+      15%, 35% { fill: #ff2222; filter: url(#ledGlowRed); opacity: 1; }
+    }
+    .chaser-led { animation: ledRingPulse 2.2s infinite ease-in-out; }
+    .l-01 { animation-delay: 0.00s; }
+    .l-02 { animation-delay: 0.10s; }
+    .l-03 { animation-delay: 0.20s; }
+    .l-04 { animation-delay: 0.30s; }
+    .l-05 { animation-delay: 0.40s; }
+    .l-06 { animation-delay: 0.50s; }
+    .l-07 { animation-delay: 0.60s; }
+    .l-08 { animation-delay: 0.70s; }
+    .l-09 { animation-delay: 0.80s; }
+    .l-10 { animation-delay: 0.90s; }
+    .l-11 { animation-delay: 1.00s; }
+    .l-12 { animation-delay: 1.10s; }
+    .l-13 { animation-delay: 1.20s; }
+    .l-14 { animation-delay: 1.30s; }
+    .l-15 { animation-delay: 1.40s; }
+    .l-16 { animation-delay: 1.50s; }
+    .l-17 { animation-delay: 1.60s; }
+    .l-18 { animation-delay: 1.70s; }
+    .l-19 { animation-delay: 1.80s; }
+    .l-20 { animation-delay: 1.90s; }
+    .l-21 { animation-delay: 2.00s; }
+    .l-22 { animation-delay: 2.10s; }
+
+    /* Arduino & Board Blinking Status LEDs */
+    @keyframes blinkLed {
+      0%, 48% { fill: #22c55e; filter: url(#ledGlowGreen); opacity: 1; }
+      50%, 98% { fill: #14532d; filter: none; opacity: 0.4; }
+    }
+    @keyframes blinkFast {
+      0%, 30% { fill: #facc15; filter: drop-shadow(0 0 4px #facc15); opacity: 1; }
+      35%, 100% { fill: #713f12; filter: none; opacity: 0.3; }
+    }
+    .pwr-led { fill: #22c55e; filter: url(#ledGlowGreen); }
+    .blink-tx { animation: blinkFast 0.35s infinite ease-in-out; }
+    .blink-rx { animation: blinkFast 0.55s infinite ease-in-out 0.1s; }
+    .blink-l { animation: blinkLed 1.2s infinite ease-in-out; }
+
+    /* Play button pulse */
+    @keyframes playPulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    .play-btn-circle { transform-origin: 75px 125px; animation: playPulse 2s infinite ease-in-out; }
+  </style>
+
+  <!-- Workspace Canvas Background (Authentic Wokwi Charcoal) -->
+  <rect width="1080" height="1920" fill="#242424"/>
+
+  <!-- Top Wokwi Main Header Bar -->
+  <rect width="1080" height="88" fill="url(#wokwiHeaderGrad)"/>
+  <line x1="0" y1="88" x2="1080" y2="88" stroke="#333333" stroke-width="2"/>
+  
+  <!-- Wokwi Brand Script Logo -->
+  <g transform="translate(36, 22)">
+    <text x="0" y="38" font-family="'Comic Sans MS', 'Fredoka', cursive, sans-serif" font-weight="900" font-size="42" fill="#ffffff" letter-spacing="1">Wokwi</text>
+  </g>
+
+  <!-- Save Button Group -->
+  <g transform="translate(285, 0)">
+    <rect x="0" y="0" width="140" height="88" fill="#0284c7"/>
+    <!-- Floppy Disk Icon -->
+    <path d="M 42 28 L 88 28 L 98 38 L 98 62 L 42 62 Z" fill="#ffffff"/>
+    <rect x="52" y="30" width="30" height="16" fill="#0284c7"/>
+    <rect x="50" y="48" width="40" height="12" fill="#e0f2fe"/>
+    <!-- Dropdown Arrow -->
+    <polygon points="170,40 182,54 158,54" transform="rotate(180 170 47)" fill="#ffffff"/>
+    <rect x="140" y="0" width="60" height="88" fill="#0284c7"/>
+  </g>
+
+  <!-- Dark Theme Moon & User Avatar -->
+  <g transform="translate(860, 24)">
+    <circle cx="20" cy="20" r="16" fill="#f8fafc"/>
+    <circle cx="27" cy="15" r="14" fill="#121212"/>
+    <!-- Avatar circle with 'd' -->
+    <circle cx="150" cy="20" r="28" fill="#475569"/>
+    <text x="150" y="28" font-family="'Inter', sans-serif" font-weight="700" font-size="28" fill="#ffffff" text-anchor="middle">d</text>
+  </g>
+
+  <!-- Sub-Header Tabs: Simulation / Code -->
+  <g transform="translate(0, 88)">
+    <rect width="1080" height="96" fill="#1e1e1e"/>
+    <!-- Active 'Simulation' tab with Purple underline -->
+    <rect x="0" y="0" width="540" height="96" fill="#9333ea"/>
+    <text x="270" y="60" font-family="'Inter', sans-serif" font-weight="700" font-size="34" fill="#ffffff" text-anchor="middle">Simulation</text>
+    
+    <!-- Inactive 'Code' tab -->
+    <text x="810" y="60" font-family="'Inter', sans-serif" font-weight="600" font-size="34" fill="#94a3b8" text-anchor="middle">Code</text>
+    <line x1="0" y1="96" x2="1080" y2="96" stroke="#2a2a2a" stroke-width="2"/>
+  </g>
+
+  <!-- Left Floating Simulation Action Controls -->
+  <g transform="translate(20, 204)">
+    <!-- Play/Run Button -->
+    <g class="play-btn-circle" style="cursor: pointer;">
+      <circle cx="55" cy="55" r="55" fill="#22c55e" filter="url(#dropShadow)"/>
+      <polygon points="44,32 78,55 44,78" fill="#ffffff"/>
+    </g>
+    <!-- Add Component '+' Button -->
+    <g transform="translate(132, 0)">
+      <circle cx="55" cy="55" r="55" fill="#0284c7" filter="url(#dropShadow)"/>
+      <line x1="32" y1="55" x2="78" y2="55" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+      <line x1="55" y1="32" x2="55" y2="78" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+    </g>
+    <!-- More '...' Menu Button -->
+    <g transform="translate(264, 0)">
+      <circle cx="55" cy="55" r="55" fill="#52525b" filter="url(#dropShadow)"/>
+      <circle cx="55" cy="38" r="7" fill="#ffffff"/>
+      <circle cx="55" cy="55" r="7" fill="#ffffff"/>
+      <circle cx="55" cy="72" r="7" fill="#ffffff"/>
+    </g>
+  </g>
+
+  <!-- ==================== CIRCUIT WIRING NETWORK ==================== -->
+  <g id="circuitWires">
+    <!-- Top bus line connecting left/right banks to center LEDs -->
+    <path d="M 220 580 L 220 490 L 880 490 L 880 1140 L 750 1140" class="wire"/>
+    <path d="M 200 600 L 200 500 L 870 500 L 870 1130 L 750 1130" class="wire"/>
+    <path d="M 180 620 L 180 510 L 860 510 L 860 1120 L 750 1120" class="wire"/>
+    <path d="M 160 640 L 160 520 L 850 520 L 850 1110 L 750 1110" class="wire"/>
+    <path d="M 140 660 L 140 530 L 840 530 L 840 1100 L 750 1100" class="wire"/>
+    <path d="M 120 680 L 120 540 L 830 540 L 830 1090 L 750 1090" class="wire"/>
+    <path d="M 100 700 L 100 550 L 820 550 L 820 1080 L 750 1080" class="wire"/>
+    <path d="M 80 720 L 80 560 L 810 560 L 810 1070 L 750 1070" class="wire"/>
+
+    <!-- Connections between Resistor Packs and Oval LED Ring -->
+    <!-- Left Pack to Left Half of Ring -->
+    <path d="M 250 600 L 370 600" class="wire"/>
+    <path d="M 250 620 L 350 620" class="wire"/>
+    <path d="M 250 640 L 330 640" class="wire"/>
+    <path d="M 250 660 L 320 660" class="wire"/>
+    <path d="M 250 680 L 320 680" class="wire"/>
+    <path d="M 250 700 L 330 700" class="wire"/>
+    <path d="M 250 720 L 340 720" class="wire"/>
+    <path d="M 250 740 L 360 740" class="wire"/>
+
+    <!-- Right Pack to Right Half of Ring -->
+    <path d="M 650 600 L 530 600" class="wire"/>
+    <path d="M 650 620 L 550 620" class="wire"/>
+    <path d="M 650 640 L 570 640" class="wire"/>
+    <path d="M 650 660 L 580 660" class="wire"/>
+    <path d="M 650 680 L 580 680" class="wire"/>
+    <path d="M 650 700 L 570 700" class="wire"/>
+    <path d="M 650 720 L 560 720" class="wire"/>
+    <path d="M 650 740 L 540 740" class="wire"/>
+
+    <!-- Central Common Cathode Black Wires forming inner rib cage -->
+    <line x1="410" y1="520" x2="410" y2="800" class="wire-gnd" stroke-width="4"/>
+    <line x1="490" y1="520" x2="490" y2="800" class="wire-gnd" stroke-width="4"/>
+    <path d="M 450 800 L 450 820 L 400 820 L 400 870" class="wire-gnd" stroke-width="4"/>
+    <line x1="390" y1="535" x2="410" y2="535" class="wire-gnd"/>
+    <line x1="375" y1="565" x2="410" y2="565" class="wire-gnd"/>
+    <line x1="360" y1="595" x2="410" y2="595" class="wire-gnd"/>
+    <line x1="350" y1="625" x2="410" y2="625" class="wire-gnd"/>
+    <line x1="340" y1="655" x2="410" y2="655" class="wire-gnd"/>
+    <line x1="340" y1="685" x2="410" y2="685" class="wire-gnd"/>
+    <line x1="350" y1="715" x2="410" y2="715" class="wire-gnd"/>
+    <line x1="360" y1="745" x2="410" y2="745" class="wire-gnd"/>
+    <line x1="375" y1="775" x2="410" y2="775" class="wire-gnd"/>
+    
+    <line x1="510" y1="535" x2="490" y2="535" class="wire-gnd"/>
+    <line x1="525" y1="565" x2="490" y2="565" class="wire-gnd"/>
+    <line x1="540" y1="595" x2="490" y2="595" class="wire-gnd"/>
+    <line x1="550" y1="625" x2="490" y2="625" class="wire-gnd"/>
+    <line x1="560" y1="655" x2="490" y2="655" class="wire-gnd"/>
+    <line x1="560" y1="685" x2="490" y2="685" class="wire-gnd"/>
+    <line x1="550" y1="715" x2="490" y2="715" class="wire-gnd"/>
+    <line x1="540" y1="745" x2="490" y2="745" class="wire-gnd"/>
+    <line x1="525" y1="775" x2="490" y2="775" class="wire-gnd"/>
+  </g>
+
+  <!-- ==================== LEFT RESISTOR ARRAY PACK ==================== -->
+  <g transform="translate(160, 580)" filter="url(#dropShadow)">
+    <rect x="0" y="0" width="75" height="180" rx="4" fill="url(#resistorBody)"/>
+    <!-- Resistor Color Code Bands -->
+    <g transform="translate(0, 10)">
+      <rect x="0" y="0" width="75" height="6" fill="#dc2626"/>
+      <rect x="0" y="10" width="75" height="6" fill="#fbbf24"/>
+      <rect x="0" y="20" width="75" height="6" fill="#1e1e1e"/>
+      <rect x="0" y="30" width="75" height="6" fill="#d97706"/>
+    </g>
+    <!-- DIP Lead Pins on Left and Right -->
+    <path d="M -20 15 L 0 15 M -20 35 L 0 35 M -20 55 L 0 55 M -20 75 L 0 75 M -20 95 L 0 95 M -20 115 L 0 115 M -20 135 L 0 135 M -20 155 L 0 155" stroke="#cbd5e1" stroke-width="4"/>
+    <path d="M 75 15 L 95 15 M 75 35 L 95 35 M 75 55 L 95 55 M 75 75 L 95 75 M 75 95 L 95 95 M 75 115 L 95 115 M 75 135 L 95 135 M 75 155 L 95 155" stroke="#cbd5e1" stroke-width="4"/>
+  </g>
+
+  <!-- ==================== RIGHT RESISTOR ARRAY PACK ==================== -->
+  <g transform="translate(670, 580)" filter="url(#dropShadow)">
+    <rect x="0" y="0" width="75" height="180" rx="4" fill="url(#resistorBody)"/>
+    <g transform="translate(0, 10)">
+      <rect x="0" y="0" width="75" height="6" fill="#dc2626"/>
+      <rect x="0" y="10" width="75" height="6" fill="#fbbf24"/>
+      <rect x="0" y="20" width="75" height="6" fill="#1e1e1e"/>
+      <rect x="0" y="30" width="75" height="6" fill="#d97706"/>
+    </g>
+    <path d="M -20 15 L 0 15 M -20 35 L 0 35 M -20 55 L 0 55 M -20 75 L 0 75 M -20 95 L 0 95 M -20 115 L 0 115 M -20 135 L 0 135 M -20 155 L 0 155" stroke="#cbd5e1" stroke-width="4"/>
+    <path d="M 75 15 L 95 15 M 75 35 L 95 35 M 75 55 L 95 55 M 75 75 L 95 75 M 75 95 L 95 95 M 75 115 L 95 115 M 75 135 L 95 135 M 75 155 L 95 155" stroke="#cbd5e1" stroke-width="4"/>
+  </g>
+
+  <!-- ==================== 22 RED LED OVAL HALO RING ==================== -->
+  <g id="ledOvalRing" filter="url(#dropShadow)">
+    <!-- Top & Bottom Arc LEDs -->
+    <!-- LED 01 (Top Left) -->
+    <g class="chaser-led l-01" transform="translate(400, 520)"><ellipse cx="0" cy="0" rx="22" ry="12"/><rect x="-18" y="2" width="36" height="4" fill="#ef4444"/></g>
+    <!-- LED 02 (Top Right) -->
+    <g class="chaser-led l-02" transform="translate(500, 520)"><ellipse cx="0" cy="0" rx="22" ry="12"/><rect x="-18" y="2" width="36" height="4" fill="#ef4444"/></g>
+
+    <!-- Right Side Arc going Downwards (LED 03 - 11) -->
+    <g class="chaser-led l-03" transform="translate(518, 548)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+    <g class="chaser-led l-04" transform="translate(534, 578)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+    <g class="chaser-led l-05" transform="translate(546, 608)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+    <g class="chaser-led l-06" transform="translate(554, 638)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+    <g class="chaser-led l-07" transform="translate(556, 668)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+    <g class="chaser-led l-08" transform="translate(554, 698)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+    <g class="chaser-led l-09" transform="translate(546, 728)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+    <g class="chaser-led l-10" transform="translate(534, 758)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+    <g class="chaser-led l-11" transform="translate(518, 788)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+
+    <!-- Bottom Center LEDs -->
+    <g class="chaser-led l-12" transform="translate(500, 814)"><ellipse cx="0" cy="0" rx="22" ry="12"/></g>
+    <g class="chaser-led l-13" transform="translate(400, 814)"><ellipse cx="0" cy="0" rx="22" ry="12"/></g>
+
+    <!-- Left Side Arc going Upwards (LED 14 - 22) -->
+    <g class="chaser-led l-14" transform="translate(382, 788)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+    <g class="chaser-led l-15" transform="translate(366, 758)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+    <g class="chaser-led l-16" transform="translate(354, 728)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+    <g class="chaser-led l-17" transform="translate(346, 698)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+    <g class="chaser-led l-18" transform="translate(344, 668)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+    <g class="chaser-led l-19" transform="translate(346, 638)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+    <g class="chaser-led l-20" transform="translate(354, 608)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+    <g class="chaser-led l-21" transform="translate(366, 578)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+    <g class="chaser-led l-22" transform="translate(382, 548)"><ellipse cx="0" cy="0" rx="20" ry="11"/></g>
+  </g>
+
+  <!-- ==================== ARDUINO UNO R3 MICROCONTROLLER ==================== -->
+  <g transform="translate(440, 840)" filter="url(#dropShadow)">
+    <!-- Arduino PCB Board Outline with standard notches -->
+    <path d="M 40 0 
+             L 420 0 
+             L 420 180 
+             L 440 200 
+             L 440 320 
+             L 420 340 
+             L 420 360 
+             L 0 360 
+             L 0 100 
+             L 40 100 Z" fill="url(#arduinoPcbGrad)"/>
+
+    <!-- Mounting Holes -->
+    <circle cx="28" cy="120" r="14" fill="#242424" stroke="#e2e8f0" stroke-width="4"/>
+    <circle cx="395" cy="30" r="14" fill="#242424" stroke="#e2e8f0" stroke-width="4"/>
+    <circle cx="395" cy="330" r="14" fill="#242424" stroke="#e2e8f0" stroke-width="4"/>
+
+    <!-- Silver USB Type-B Jack (Left protruding) -->
+    <g transform="translate(-25, 60)">
+      <rect x="0" y="0" width="90" height="75" rx="3" fill="url(#usbSilver)" stroke="#475569" stroke-width="2"/>
+      <rect x="15" y="15" width="45" height="45" fill="#1e293b"/>
+    </g>
+
+    <!-- Black DC Power Barrel Jack (Bottom left protruding) -->
+    <g transform="translate(-15, 260)">
+      <rect x="0" y="0" width="85" height="65" rx="4" fill="#0f172a" stroke="#334155" stroke-width="2"/>
+      <rect x="55" y="18" width="20" height="30" fill="#334155"/>
+    </g>
+
+    <!-- Red Reset Tactile Pushbutton -->
+    <g transform="translate(55, 15)">
+      <rect x="0" y="0" width="30" height="30" fill="#94a3b8"/>
+      <circle cx="15" cy="15" r="9" fill="#ef4444"/>
+    </g>
+
+    <!-- Crystal Oscillator -->
+    <rect x="100" y="150" width="34" height="18" rx="7" fill="url(#usbSilver)" stroke="#334155" stroke-width="1.5"/>
+
+    <!-- ATmega328P DIP-28 Microcontroller IC with Socket -->
+    <g transform="translate(160, 230)">
+      <!-- Black Socket -->
+      <rect x="-8" y="-6" width="236" height="52" rx="4" fill="#0f172a"/>
+      <!-- Chip Body -->
+      <rect x="0" y="0" width="220" height="40" rx="3" fill="url(#icPlastic)" stroke="#475569" stroke-width="1"/>
+      <!-- Orientation Notch -->
+      <path d="M 0 15 A 5 5 0 0 1 0 25 Z" fill="#0f172a"/>
+      <text x="110" y="25" font-family="'Courier New', monospace" font-weight="700" font-size="13" fill="#cbd5e1" text-anchor="middle" letter-spacing="1">ATMEGA328P-PU</text>
+      <!-- Silver Pins along both sides -->
+      <path d="M 10 -6 L 10 0 M 25 -6 L 25 0 M 40 -6 L 40 0 M 55 -6 L 55 0 M 70 -6 L 70 0 M 85 -6 L 85 0 M 100 -6 L 100 0 M 115 -6 L 115 0 M 130 -6 L 130 0 M 145 -6 L 145 0 M 160 -6 L 160 0 M 175 -6 L 175 0 M 190 -6 L 190 0 M 205 -6 L 205 0" stroke="#cbd5e1" stroke-width="3"/>
+      <path d="M 10 40 L 10 46 M 25 40 L 25 46 M 40 40 L 40 46 M 55 40 L 55 46 M 70 40 L 70 46 M 85 40 L 85 46 M 100 40 L 100 46 M 115 40 L 115 46 M 130 40 L 130 46 M 145 40 L 145 46 M 160 40 L 160 46 M 175 40 L 175 46 M 190 40 L 190 46 M 205 40 L 205 46" stroke="#cbd5e1" stroke-width="3"/>
+    </g>
+
+    <!-- Top Female Header Socket Strip: DIGITAL (PWM~) -->
+    <g transform="translate(130, 8)">
+      <rect x="0" y="0" width="280" height="24" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <!-- Header Pin Sockets -->
+      <g fill="#1e293b" stroke="#475569" stroke-width="1">
+        <rect x="8" y="5" width="10" height="14"/><rect x="24" y="5" width="10" height="14"/><rect x="40" y="5" width="10" height="14"/><rect x="56" y="5" width="10" height="14"/><rect x="72" y="5" width="10" height="14"/><rect x="88" y="5" width="10" height="14"/><rect x="104" y="5" width="10" height="14"/><rect x="120" y="5" width="10" height="14"/><rect x="136" y="5" width="10" height="14"/><rect x="152" y="5" width="10" height="14"/><rect x="168" y="5" width="10" height="14"/><rect x="184" y="5" width="10" height="14"/><rect x="200" y="5" width="10" height="14"/><rect x="216" y="5" width="10" height="14"/><rect x="232" y="5" width="10" height="14"/><rect x="248" y="5" width="10" height="14"/><rect x="264" y="5" width="10" height="14"/>
+      </g>
+      <!-- Silk Screen Text Labels -->
+      <text x="140" y="44" font-family="'Inter', sans-serif" font-weight="700" font-size="11" fill="#ffffff" text-anchor="middle">DIGITAL (PWM ~)</text>
+      <text x="268" y="44" font-family="'Courier New', monospace" font-size="9" fill="#ffffff">0</text>
+      <text x="252" y="44" font-family="'Courier New', monospace" font-size="9" fill="#ffffff">1</text>
+      <text x="204" y="44" font-family="'Courier New', monospace" font-size="9" fill="#ffffff">~3</text>
+      <text x="172" y="44" font-family="'Courier New', monospace" font-size="9" fill="#ffffff">~5</text>
+      <text x="124" y="44" font-family="'Courier New', monospace" font-size="9" fill="#ffffff">8</text>
+      <text x="44" y="44" font-family="'Courier New', monospace" font-size="9" fill="#ffffff">13</text>
+    </g>
+
+    <!-- Bottom Female Header Socket Strip: POWER & ANALOG IN -->
+    <g transform="translate(150, 328)">
+      <rect x="0" y="0" width="250" height="24" fill="#0f172a" stroke="#334155" stroke-width="1"/>
+      <g fill="#1e293b" stroke="#475569" stroke-width="1">
+        <rect x="8" y="5" width="10" height="14"/><rect x="24" y="5" width="10" height="14"/><rect x="40" y="5" width="10" height="14"/><rect x="56" y="5" width="10" height="14"/><rect x="72" y="5" width="10" height="14"/><rect x="88" y="5" width="10" height="14"/><rect x="104" y="5" width="10" height="14"/><rect x="120" y="5" width="10" height="14"/><rect x="136" y="5" width="10" height="14"/><rect x="152" y="5" width="10" height="14"/><rect x="168" y="5" width="10" height="14"/><rect x="184" y="5" width="10" height="14"/><rect x="200" y="5" width="10" height="14"/><rect x="216" y="5" width="10" height="14"/><rect x="232" y="5" width="10" height="14"/>
+      </g>
+      <text x="50" y="-8" font-family="'Inter', sans-serif" font-weight="700" font-size="11" fill="#ffffff">POWER</text>
+      <text x="165" y="-8" font-family="'Inter', sans-serif" font-weight="700" font-size="11" fill="#ffffff">ANALOG IN</text>
+    </g>
+
+    <!-- Arduino Official Logo & Silkscreen -->
+    <g transform="translate(170, 75)">
+      <!-- Infinity Symbol with Plus and Minus -->
+      <path d="M 25 15 C 10 5, 5 25, 20 25 C 28 25, 35 15, 45 15 C 55 15, 60 25, 45 25 C 38 25, 30 15, 25 15 Z" fill="none" stroke="#ffffff" stroke-width="3"/>
+      <text x="18" y="19" font-family="monospace" font-weight="bold" font-size="10" fill="#ffffff">-</text>
+      <text x="44" y="20" font-family="monospace" font-weight="bold" font-size="10" fill="#ffffff">+</text>
+      <!-- Text -->
+      <text x="80" y="22" font-family="'Inter', sans-serif" font-weight="900" font-size="24" fill="#ffffff" letter-spacing="1">UNO</text>
+      <text x="5" y="44" font-family="'Inter', sans-serif" font-weight="700" font-size="12" fill="#ffffff" letter-spacing="2">ARDUINO</text>
+    </g>
+
+    <!-- Status LEDs: ON, L, TX, RX with Live Blinking -->
+    <g transform="translate(370, 100)">
+      <!-- Green Power ON LED -->
+      <circle cx="0" cy="0" r="5" class="pwr-led"/>
+      <text x="12" y="4" font-family="'Inter', sans-serif" font-size="9" font-weight="700" fill="#ffffff">ON</text>
+    </g>
+    <g transform="translate(145, 100)">
+      <!-- Yellow Pin 13 'L' LED -->
+      <circle cx="0" cy="0" r="4.5" class="blink-l"/>
+      <text x="-12" y="3" font-family="'Inter', sans-serif" font-size="9" font-weight="700" fill="#ffffff">L</text>
+    </g>
+    <g transform="translate(145, 120)">
+      <!-- Yellow TX LED -->
+      <circle cx="0" cy="0" r="4" class="blink-tx"/>
+      <text x="-16" y="3" font-family="'Inter', sans-serif" font-size="9" font-weight="700" fill="#ffffff">TX</text>
+    </g>
+    <g transform="translate(145, 138)">
+      <!-- Yellow RX LED -->
+      <circle cx="0" cy="0" r="4" class="blink-rx"/>
+      <text x="-16" y="3" font-family="'Inter', sans-serif" font-size="9" font-weight="700" fill="#ffffff">RX</text>
+    </g>
+  </g>
+
+  <!-- ==================== 3x 74HC595 SHIFT REGISTERS (Right Edge) ==================== -->
+  <g transform="translate(930, 780)" filter="url(#dropShadow)">
+    <!-- IC 1 -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="120" height="45" rx="3" fill="url(#icPlastic)" stroke="#475569" stroke-width="1"/>
+      <path d="M 0 16 A 6 6 0 0 1 0 28 Z" fill="#1e293b"/>
+      <text x="60" y="27" font-family="'Courier New', monospace" font-weight="700" font-size="12" fill="#cbd5e1" text-anchor="middle">74HC595</text>
+      <!-- Pins -->
+      <path d="M -12 6 L 0 6 M -12 16 L 0 16 M -12 26 L 0 26 M -12 36 L 0 36 M 120 6 L 132 6 M 120 16 L 132 16 M 120 26 L 132 26 M 120 36 L 132 36" stroke="#e2e8f0" stroke-width="3"/>
+    </g>
+    <!-- IC 2 -->
+    <g transform="translate(0, 85)">
+      <rect x="0" y="0" width="120" height="45" rx="3" fill="url(#icPlastic)" stroke="#475569" stroke-width="1"/>
+      <path d="M 0 16 A 6 6 0 0 1 0 28 Z" fill="#1e293b"/>
+      <text x="60" y="27" font-family="'Courier New', monospace" font-weight="700" font-size="12" fill="#cbd5e1" text-anchor="middle">74HC595</text>
+      <path d="M -12 6 L 0 6 M -12 16 L 0 16 M -12 26 L 0 26 M -12 36 L 0 36 M 120 6 L 132 6 M 120 16 L 132 16 M 120 26 L 132 26 M 120 36 L 132 36" stroke="#e2e8f0" stroke-width="3"/>
+    </g>
+    <!-- IC 3 -->
+    <g transform="translate(0, 170)">
+      <rect x="0" y="0" width="120" height="45" rx="3" fill="url(#icPlastic)" stroke="#475569" stroke-width="1"/>
+      <path d="M 0 16 A 6 6 0 0 1 0 28 Z" fill="#1e293b"/>
+      <text x="60" y="27" font-family="'Courier New', monospace" font-weight="700" font-size="12" fill="#cbd5e1" text-anchor="middle">74HC595</text>
+      <path d="M -12 6 L 0 6 M -12 16 L 0 16 M -12 26 L 0 26 M -12 36 L 0 36 M 120 6 L 132 6 M 120 16 L 132 16 M 120 26 L 132 26 M 120 36 L 132 36" stroke="#e2e8f0" stroke-width="3"/>
+    </g>
+  </g>
+
+  <!-- ==================== 3x BLUE SENSOR BREAKOUT MODULES (Bottom) ==================== -->
+  <g transform="translate(420, 1220)" filter="url(#dropShadow)">
+    <!-- Sensor Module 1 -->
+    <g transform="translate(0, 0)">
+      <rect x="0" y="0" width="220" height="75" rx="3" fill="url(#blueModule)" stroke="#38bdf8" stroke-width="1"/>
+      <!-- Screw Terminal / Header Pins Left -->
+      <rect x="-14" y="20" width="14" height="36" fill="#ef4444"/>
+      <circle cx="-7" cy="28" r="3" fill="#ffffff"/><circle cx="-7" cy="46" r="3" fill="#ffffff"/>
+      <!-- Blue Precision Trimpot -->
+      <rect x="80" y="15" width="40" height="45" rx="3" fill="#0284c7" stroke="#38bdf8" stroke-width="1"/>
+      <circle cx="100" cy="37" r="12" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+      <line x1="94" y1="37" x2="106" y2="37" stroke="#0284c7" stroke-width="3"/>
+      <!-- Indicator LEDs -->
+      <circle cx="150" cy="25" r="4" class="pwr-led"/>
+      <circle cx="150" cy="50" r="4" class="blink-l"/>
+      <!-- Header Pins Right -->
+      <path d="M 220 20 L 250 20 M 220 35 L 250 35 M 220 50 L 250 50 M 220 65 L 250 65" stroke="#cbd5e1" stroke-width="3.5"/>
+    </g>
+
+    <!-- Sensor Module 2 -->
+    <g transform="translate(0, 95)">
+      <rect x="0" y="0" width="220" height="75" rx="3" fill="url(#blueModule)" stroke="#38bdf8" stroke-width="1"/>
+      <rect x="-14" y="20" width="14" height="36" fill="#ef4444"/>
+      <circle cx="-7" cy="28" r="3" fill="#ffffff"/><circle cx="-7" cy="46" r="3" fill="#ffffff"/>
+      <rect x="80" y="15" width="40" height="45" rx="3" fill="#0284c7" stroke="#38bdf8" stroke-width="1"/>
+      <circle cx="100" cy="37" r="12" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+      <line x1="94" y1="37" x2="106" y2="37" stroke="#0284c7" stroke-width="3"/>
+      <circle cx="150" cy="25" r="4" class="pwr-led"/>
+      <circle cx="150" cy="50" r="4" class="blink-tx"/>
+      <path d="M 220 20 L 250 20 M 220 35 L 250 35 M 220 50 L 250 50 M 220 65 L 250 65" stroke="#cbd5e1" stroke-width="3.5"/>
+    </g>
+
+    <!-- Sensor Module 3 -->
+    <g transform="translate(0, 190)">
+      <rect x="0" y="0" width="220" height="75" rx="3" fill="url(#blueModule)" stroke="#38bdf8" stroke-width="1"/>
+      <rect x="-14" y="20" width="14" height="36" fill="#ef4444"/>
+      <circle cx="-7" cy="28" r="3" fill="#ffffff"/><circle cx="-7" cy="46" r="3" fill="#ffffff"/>
+      <rect x="80" y="15" width="40" height="45" rx="3" fill="#0284c7" stroke="#38bdf8" stroke-width="1"/>
+      <circle cx="100" cy="37" r="12" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+      <line x1="94" y1="37" x2="106" y2="37" stroke="#0284c7" stroke-width="3"/>
+      <circle cx="150" cy="25" r="4" class="pwr-led"/>
+      <circle cx="150" cy="50" r="4" class="blink-rx"/>
+      <path d="M 220 20 L 250 20 M 220 35 L 250 35 M 220 50 L 250 50 M 220 65 L 250 65" stroke="#cbd5e1" stroke-width="3.5"/>
+    </g>
+  </g>
+</svg>

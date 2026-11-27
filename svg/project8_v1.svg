@@ -1,0 +1,183 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
+  <defs>
+    <linearGradient id="p8Bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#04060c"/>
+      <stop offset="50%" stop-color="#0a0e1a"/>
+      <stop offset="100%" stop-color="#030408"/>
+    </linearGradient>
+    <filter id="p8Glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1920" height="1080" fill="url(#p8Bg)"/>
+
+  <!-- Top Title HUD Bar -->
+  <rect x="48" y="44" width="1824" height="64" rx="12" fill="#0f172a" stroke="#334155" stroke-width="1.5"/>
+  <circle cx="80" cy="76" r="8" fill="#38bdf8" filter="url(#p8Glow)"/>
+  <text x="105" y="82" fill="#f8fafc" font-family="'Segoe UI', sans-serif" font-size="20" font-weight="700" letter-spacing="1.5">LINUX WORKSTATION &amp; OFFENSIVE CYBERSECURITY LAB</text>
+  <text x="730" y="82" fill="#38bdf8" font-family="'Segoe UI', sans-serif" font-size="16" font-weight="600">PROJECT 08: WSL2 DUAL-DISTRO (KALI LINUX &amp; UBUNTU)</text>
+  <rect x="1560" y="56" width="140" height="40" rx="8" fill="#38bdf8" fill-opacity="0.12" stroke="#38bdf8" stroke-width="1"/>
+  <text x="1630" y="81" fill="#38bdf8" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="700" text-anchor="middle">ULTRA HD 1080P</text>
+  <rect x="1715" y="56" width="135" height="40" rx="8" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1"/>
+  <text x="1782" y="81" fill="#34d399" font-family="'Segoe UI', sans-serif" font-size="14" font-weight="700" text-anchor="middle">WSL2 KERNEL 6.18</text>
+
+  <!-- Left: Ubuntu 24.04 LTS Terminal Window with Fastfetch ASCII Art -->
+  <g transform="translate(68, 140)">
+    <rect x="0" y="0" width="872" height="760" rx="14" fill="#090d16" stroke="#e11d48" stroke-width="2"/>
+    <!-- Terminal Titlebar -->
+    <rect x="0" y="0" width="872" height="45" rx="14" fill="#1f2937"/>
+    <circle cx="25" cy="22" r="7" fill="#ef4444"/>
+    <circle cx="45" cy="22" r="7" fill="#f59e0b"/>
+    <circle cx="65" cy="22" r="7" fill="#10b981"/>
+    <text x="436" y="28" fill="#f3f4f6" font-family="monospace" font-size="14" font-weight="700" text-anchor="middle">dafa_fairuz_rahman@someone: ~ (Ubuntu 24.04.1 LTS WSL2)</text>
+
+    <!-- Terminal Content (Ubuntu & Fastfetch) -->
+    <g transform="translate(25, 75)" font-family="monospace" font-size="13" xml:space="preserve">
+      <!-- Command Prompt -->
+      <text y="0" fill="#34d399" font-weight="700">dafa_fairuz_rahman@someone<tspan fill="#f8fafc">:</tspan><tspan fill="#38bdf8">~</tspan><tspan fill="#f8fafc">$ fastfetch</tspan></text>
+      
+      <!-- Ubuntu ASCII Art (Left) -->
+      <g fill="#e11d48" font-weight="800">
+        <text y="35">            .-/+oossssoo+/-.           </text>
+        <text y="55">        `:+ssssssssssssssssss+:`       </text>
+        <text y="75">      -+ssssssssssssssssssyyssss+-     </text>
+        <text y="95">    .ossssssssssssssssssdMMMNysssso.   </text>
+        <text y="115">   /ssssssssssshdmmNNmmyNMMMMhssssss/  </text>
+        <text y="135">  +ssssssssshmydMMMMMMMNddddyssssssss+ </text>
+        <text y="155"> /sssssssshNMMMyhhyyyyhmNMMMNhssssssss/ </text>
+        <text y="175">.ssssssssdMMMNhsssssssssshNMMMdssssssss.</text>
+        <text y="195">+sssshhhyNMMNyssssssssssssyNMMMysssssss+</text>
+        <text y="215">ossyNMMMNyMMhsssssssssssssshmmmhssssssso</text>
+        <text y="235">ossyNMMMNyMMhsssssssssssssshmmmhssssssso</text>
+        <text y="255">+sssshhhyNMMNyssssssssssssyNMMMysssssss+</text>
+        <text y="275">.ssssssssdMMMNhsssssssssshNMMMdssssssss.</text>
+        <text y="295"> /sssssssshNMMMyhhyyyyhdNMMMNhssssssss/ </text>
+        <text y="315">  +sssssssssdmydMMMMMMMMddddyssssssss+ </text>
+        <text y="335">   /ssssssssssshdmNNNNmyNMMMMhssssss/  </text>
+        <text y="355">    .ossssssssssssssssssdMMMNysssso.   </text>
+        <text y="375">      -+sssssssssssssssssyyyssss+-     </text>
+      </g>
+
+      <!-- System Telemetry Specs (Right) -->
+      <g transform="translate(380, 30)">
+        <text y="10" fill="#e11d48" font-weight="800" font-size="18">dafa_fairuz_rahman@someone</text>
+        <text y="28" fill="#64748b">--------------------------</text>
+        <text y="50" fill="#f8fafc"><tspan fill="#e11d48" font-weight="700">OS:</tspan> Ubuntu 24.04.1 LTS x86_64</text>
+        <text y="75" fill="#f8fafc"><tspan fill="#e11d48" font-weight="700">Host:</tspan> Windows Subsystem for Linux (WSL2)</text>
+        <text y="100" fill="#f8fafc"><tspan fill="#e11d48" font-weight="700">Kernel:</tspan> 6.18.54.1-microsoft-standard-WSL2</text>
+        <text y="125" fill="#f8fafc"><tspan fill="#e11d48" font-weight="700">Uptime:</tspan> 4 hours, 32 mins</text>
+        <text y="150" fill="#f8fafc"><tspan fill="#e11d48" font-weight="700">Packages:</tspan> 612 (dpkg), 18 (snap)</text>
+        <text y="175" fill="#f8fafc"><tspan fill="#e11d48" font-weight="700">Shell:</tspan> bash 5.3.9</text>
+        <text y="200" fill="#f8fafc"><tspan fill="#e11d48" font-weight="700">Display (WSLg):</tspan> 1920x1080 @ 144Hz (Wayland)</text>
+        <text y="225" fill="#f8fafc"><tspan fill="#e11d48" font-weight="700">CPU:</tspan> Intel Core i7-13700H (16) @ 3.40 GHz</text>
+        <text y="250" fill="#f8fafc"><tspan fill="#e11d48" font-weight="700">GPU:</tspan> NVIDIA GeForce RTX 4050 Laptop (6GB)</text>
+        <text y="275" fill="#f8fafc"><tspan fill="#e11d48" font-weight="700">Memory:</tspan> 1.84 GiB / 7.61 GiB (24%)</text>
+        <text y="300" fill="#f8fafc"><tspan fill="#e11d48" font-weight="700">Disk (/):</tspan> 26.71 GiB / 475.42 GiB (6%)</text>
+
+        <!-- Color Swatches Block -->
+        <g transform="translate(0, 335)">
+          <rect x="0" y="0" width="30" height="18" fill="#1e293b"/>
+          <rect x="30" y="0" width="30" height="18" fill="#ef4444"/>
+          <rect x="60" y="0" width="30" height="18" fill="#10b981"/>
+          <rect x="90" y="0" width="30" height="18" fill="#f59e0b"/>
+          <rect x="120" y="0" width="30" height="18" fill="#3b82f6"/>
+          <rect x="150" y="0" width="30" height="18" fill="#8b5cf6"/>
+          <rect x="180" y="0" width="30" height="18" fill="#00e5ff"/>
+          <rect x="210" y="0" width="30" height="18" fill="#f8fafc"/>
+        </g>
+      </g>
+
+      <!-- Bottom CLI interaction in Ubuntu -->
+      <g transform="translate(0, 460)">
+        <text y="0" fill="#34d399" font-weight="700">dafa_fairuz_rahman@someone<tspan fill="#f8fafc">:</tspan><tspan fill="#38bdf8">~</tspan><tspan fill="#f8fafc">$ ls -la /mnt/c/Users/Dafa\ Fairuz\ Rahman/Documents/english\ web/</tspan></text>
+        <text y="25" fill="#94a3b8">drwxrwxrwx 1 dafa dafa   4096 Feb 12 18:30 .</text>
+        <text y="48" fill="#94a3b8">-rwxrwxrwx 1 dafa dafa 185240 Feb 12 18:25 index.html</text>
+        <text y="71" fill="#94a3b8">-rwxrwxrwx 1 dafa dafa  98120 Feb 12 18:25 style.css</text>
+        <text y="94" fill="#94a3b8">-rwxrwxrwx 1 dafa dafa  78410 Feb 12 18:25 script.js</text>
+        <text y="125" fill="#34d399" font-weight="700">dafa_fairuz_rahman@someone<tspan fill="#f8fafc">:</tspan><tspan fill="#38bdf8">~</tspan><tspan fill="#f8fafc">$ </tspan><tspan fill="#00e5ff" font-weight="900">_</tspan></text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right: Kali Linux Offensive Security Terminal Window -->
+  <g transform="translate(980, 140)">
+    <rect x="0" y="0" width="872" height="760" rx="14" fill="#070a12" stroke="#00e5ff" stroke-width="2" filter="url(#p8Glow)"/>
+    <!-- Terminal Titlebar -->
+    <rect x="0" y="0" width="872" height="45" rx="14" fill="#1e293b"/>
+    <circle cx="25" cy="22" r="7" fill="#ef4444"/>
+    <circle cx="45" cy="22" r="7" fill="#f59e0b"/>
+    <circle cx="65" cy="22" r="7" fill="#10b981"/>
+    <text x="436" y="28" fill="#00e5ff" font-family="monospace" font-size="14" font-weight="700" text-anchor="middle">nitro@someone: ~ (Kali GNU/Linux Rolling 2026.1 - WSL2)</text>
+
+    <!-- Terminal Content (Kali Linux & Security Diagnostics) -->
+    <g transform="translate(25, 75)" font-family="monospace" font-size="13" xml:space="preserve">
+      <!-- Kali Dragon ASCII Watermark Banner -->
+      <g fill="#00e5ff" opacity="0.3" transform="translate(560, 20)">
+        <text y="0">   .....   </text>
+        <text y="18">  ;ccloo:. </text>
+        <text y="36"> ;looool'  </text>
+        <text y="54">.loooool;  </text>
+        <text y="72"> ;clll;.   </text>
+      </g>
+
+      <!-- Command 1: Nmap Audit -->
+      <text y="0" fill="#00e5ff" font-weight="800">┌──(nitro㉿someone)-[~/security_lab]</text>
+      <text y="24" fill="#00e5ff" font-weight="800">└─$ <tspan fill="#ffffff">nmap -sV -sC -Pn -T4 192.168.1.100</tspan></text>
+      <text y="52" fill="#94a3b8">Starting Nmap 7.94SVN ( https://nmap.org ) at 2026-02-12 18:32 WIB</text>
+      <text y="75" fill="#94a3b8">Nmap scan report for target.lab (192.168.1.100)</text>
+      <text y="98" fill="#94a3b8">Host is up (0.00042s latency). Scanned in 4.12 seconds.</text>
+
+      <!-- Port Scan Results Table -->
+      <text y="130" fill="#f8fafc" font-weight="700"><tspan fill="#38bdf8">PORT</tspan>     <tspan fill="#38bdf8">STATE</tspan>  <tspan fill="#38bdf8">SERVICE</tspan>       <tspan fill="#38bdf8">VERSION</tspan></text>
+      <text y="155" fill="#34d399">22/tcp   open   ssh           OpenSSH 9.6p1 Ubuntu (Ubuntu Linux; protocol 2.0)</text>
+      <text y="180" fill="#34d399">80/tcp   open   http          nginx 1.24.0 (Ubuntu)</text>
+      <text y="205" fill="#34d399">443/tcp  open   ssl/http      nginx 1.24.0 (TLSv1.3, ECDHE-ECDSA-AES256-GCM-SHA384)</text>
+      <text y="230" fill="#f59e0b">3306/tcp open   mysql         MySQL 8.0.36-0ubuntu0.24.04.1 (Protected by IP whitelist)</text>
+
+      <!-- Vulnerability Check & SSL Certificate Details -->
+      <text y="270" fill="#38bdf8">| ssl-cert: Subject: commonName=portfolio.local/organizationName=DafaDev</text>
+      <text y="295" fill="#38bdf8">| ssl-enum-ciphers: TLSv1.3: Secure ciphersuites verified ✓</text>
+      <text y="320" fill="#38bdf8">|_http-server-header: nginx/1.24.0 (Server tokens hardened)</text>
+
+      <!-- Command 2: Bash Diagnostics Script -->
+      <g transform="translate(0, 360)">
+        <text y="0" fill="#00e5ff" font-weight="800">┌──(nitro㉿someone)-[~/security_lab]</text>
+        <text y="24" fill="#00e5ff" font-weight="800">└─$ <tspan fill="#ffffff">./system_diagnostic.sh --firewall --integrity</tspan></text>
+        <text y="52" fill="#34d399">[+] UFW Firewall Status: ACTIVE (Default: DENY Incoming, ALLOW Outgoing)</text>
+        <text y="75" fill="#34d399">[+] SSH Root Login: DISABLED (Public-Key Authentication Enforced)</text>
+        <text y="98" fill="#34d399">[+] Fail2ban Jail Status: RUNNING (Banned IPs: 0, Rate-limit: 5 attempts/10m)</text>
+        <text y="121" fill="#34d399">[+] SHA256 Checksum: ALL SYSTEM BINARIES VERIFIED 100% UNMODIFIED</text>
+        
+        <text y="160" fill="#00e5ff" font-weight="800">┌──(nitro㉿someone)-[~/security_lab]</text>
+        <text y="184" fill="#00e5ff" font-weight="800">└─$ <tspan fill="#f8fafc">echo \"Security Audit Passed!\" &amp;&amp; </tspan><tspan fill="#00e5ff" font-weight="900\">_</tspan></text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Bottom Telemetry HUD Bar -->
+  <g transform="translate(48, 925)">
+    <rect x="0" y="0" width="1824" height="105" rx="14" fill="#0a0f1d" stroke="#1e293b" stroke-width="1.5"/>
+    <g transform="translate(30, 25)">
+      <text x="0" y="20" fill="#94a3b8" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="600">VIRTUALIZATION ENGINE</text>
+      <text x="0" y="52" fill="#38bdf8" font-family="monospace" font-size="22" font-weight="800">Microsoft WSL2 (Hyper-V Micro-VM)</text>
+    </g>
+    <g transform="translate(490, 25)">
+      <text x="0" y="20" fill="#94a3b8" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="600">SECURITY AUDIT TOOLSET</text>
+      <text x="0" y="52" fill="#00e5ff" font-family="monospace" font-size="22" font-weight="800">Nmap • Wireshark • UFW • Fail2ban</text>
+    </g>
+    <g transform="translate(980, 25)">
+      <text x="0" y="20" fill="#94a3b8" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="600">CLI ENVIRONMENTS</text>
+      <text x="0" y="52" fill="#a78bfa" font-family="monospace" font-size="22" font-weight="800">Zsh + Powerlevel10k &amp; GNU Bash 5.3</text>
+    </g>
+    <g transform="translate(1450, 25)">
+      <text x="0" y="20" fill="#94a3b8" font-family="'Segoe UI', sans-serif" font-size="13" font-weight="600">SYSTEM PERFORMANCE</text>
+      <text x="0" y="52" fill="#34d399" font-family="monospace" font-size="22" font-weight="800">Near-Native IOPS • 10Gbps vSwitch</text>
+    </g>
+  </g>
+</svg>

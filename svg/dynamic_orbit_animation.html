@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Animasi Presisi - Orbital Ring</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #030712; /* Latar belakang sangat gelap */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    svg {
+      width: 100vw;
+      height: 100vh;
+      max-width: 1200px;
+    }
+  </style>
+</head>
+<body>
+
+  <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <!-- Filter untuk memberikan pendaran cahaya (Glow) pada cincin dan bola -->
+      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="15" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+
+      <!-- Filter khusus bola untuk glow yang lebih tajam -->
+      <filter id="ballGlow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="8" result="blur" />
+        <feMerge>
+          <feMergeNode in="blur" />
+          <feMergeNode in="blur" />
+          <feMergeNode in="SourceGraphic" />
+        </feMerge>
+      </filter>
+
+      <!-- Jalur orbit presisi -->
+      <path 
+        id="orbitPath" 
+        d="M 200 500 A 300 120 0 1 1 800 500 A 300 120 0 1 1 200 500" 
+      />
+
+      <!-- Gradien Masker: Putih (terlihat 100%) di tengah memudar ke Hitam (tersembunyi) di luar -->
+      <radialGradient id="lightGradient" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#ffffff" stop-opacity="1"/>
+        <stop offset="40%" stop-color="#ffffff" stop-opacity="0.8"/>
+        <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+      </radialGradient>
+
+      <!-- Masker SVG (maskUnits userSpaceOnUse penting untuk animasi bergerak) -->
+      <mask id="illuminationMask" maskUnits="userSpaceOnUse">
+        <!-- Lingkaran masker yang berukuran besar sebagai 'area terang' -->
+        <circle r="250" fill="url(#lightGradient)">
+          <!-- Digerakkan menggunakan jalur orbit yang sama -->
+          <animateMotion 
+            dur="6s" 
+            repeatCount="indefinite" 
+            calcMode="linear">
+            <mpath href="#orbitPath"/>
+          </animateMotion>
+        </circle>
+      </mask>
+    </defs>
+
+    <!-- Grup rotasi untuk memiringkan seluruh set orbit -->
+    <g transform="rotate(-25 500 500)">
+      
+      <!-- LAYER 1: Cincin Dasar Statis (Sangat redup / hitam kebiruan) -->
+      <use 
+        href="#orbitPath" 
+        stroke="#0f172a" 
+        stroke-width="12" 
+        fill="none" 
+      />
+
+      <!-- LAYER 2: Cincin Iluminasi (Cyan terang yang ditutupi oleh Masker) -->
+      <!-- Hanya bagian yang dilintasi "lubang cahaya" dari masker yang akan terlihat -->
+      <use 
+        href="#orbitPath" 
+        stroke="#00e5ff" 
+        stroke-width="12" 
+        fill="none" 
+        mask="url(#illuminationMask)"
+        filter="url(#glow)"
+      />
+
+      <!-- LAYER 3: Bola Putih Bercahaya (Pusat Cahaya) -->
+      <circle r="24" fill="#ffffff" filter="url(#ballGlow)">
+        <!-- Digerakkan sinkron sempurna dengan lingkaran masker di atas -->
+        <animateMotion 
+          dur="6s" 
+          repeatCount="indefinite" 
+          calcMode="linear">
+          <mpath href="#orbitPath"/>
+        </animateMotion>
+      </circle>
+
+    </g>
+  </svg>
+
+</body>
+</html>
