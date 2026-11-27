@@ -4182,9 +4182,9 @@
       const btn = document.getElementById("footer-swarm-btn");
       if (!btn) return;
       btn.classList.toggle("is-active", !!active);
-      const smile = btn.querySelector(".swarm-box-smile");
-      if (smile) {
-        smile.textContent = active ? ";)" : ":)";
+      const label = btn.querySelector(".swarm-btn-label");
+      if (label) {
+        label.textContent = active ? "Stop Swarm" : "Live Swarm";
       }
       btn.title = active
         ? "Stop live rebuild (Shortcut: Alt+S or Esc)"
