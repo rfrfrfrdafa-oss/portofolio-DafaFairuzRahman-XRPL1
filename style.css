@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
 
-/* ==========================================================================
-   CSS VARIABLES & THEMING
-   ========================================================================== */
+/* CSS VARIABLES & THEMING */
 :root {
     --bg-color: #0b0f19;
     --second-bg-color: #121a2d;
@@ -117,9 +115,7 @@
     opacity: 0 !important;
 }
 
-/* ==========================================================================
-   ASTRONOMICAL STAR-CHART BLUEPRINT / CONSTELLATIONS (LIGHT MODE)
-   ========================================================================== */
+/* ASTRONOMICAL STAR-CHART BLUEPRINT / CONSTELLATIONS (LIGHT MODE) */
 #constellation-canvas {
     position: fixed;
     inset: 0;
@@ -280,9 +276,7 @@
     forced-color-adjust: none;
 }
 
-/* ==========================================================================
-   BASE & RESET
-   ========================================================================== */
+/* BASE & RESET */
 * {
     margin: 0;
     padding: 0;
@@ -391,9 +385,7 @@ section {
     z-index: 1;
 }
 
-/* ==========================================================================
-   TYPOGRAPHY & SECTION HEADINGS
-   ========================================================================== */
+/* TYPOGRAPHY & SECTION HEADINGS */
 .section-tag {
     display: inline-block;
     font-size: 1.3rem;
@@ -430,9 +422,7 @@ section {
     background-clip: text;
 }
 
-/* ==========================================================================
-   BUTTONS
-   ========================================================================== */
+/* BUTTONS */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -476,9 +466,7 @@ section {
     box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.2);
 }
 
-/* ==========================================================================
-   HEADER & NAVIGATION
-   ========================================================================== */
+/* HEADER & NAVIGATION */
 .header {
     position: fixed;
     top: 0;
@@ -608,17 +596,7 @@ section {
     font-style: normal;
 }
 
-/* ==========================================================================
-   ORBITAL RING SIGNATURE ON CAPITAL 'D'
-   ========================================================================== */
-.orbital-ring-defs {
-    position: absolute;
-    width: 0;
-    height: 0;
-    overflow: hidden;
-    pointer-events: none;
-}
-
+/* ORBITAL RING SIGNATURE ON CAPITAL 'D' */
 .orbital-d {
     position: relative;
     display: inline-block;
@@ -1120,9 +1098,7 @@ section {
     outline-offset: .3rem;
 }
 
-/* ==========================================================================
-   HERO / HOME SECTION
-   ========================================================================== */
+/* HERO / HOME SECTION */
 .home {
     display: flex;
     justify-content: space-between;
@@ -1452,9 +1428,7 @@ section {
     100% { transform: translateY(-1rem); }
 }
 
-/* ==========================================================================
-   ABOUT SECTION
-   ========================================================================== */
+/* ABOUT SECTION */
 .about {
     background: var(--second-bg-color);
     display: flex;
@@ -1601,9 +1575,7 @@ section {
     color: var(--text-muted);
 }
 
-/* ==========================================================================
-   SKILLS SECTION
-   ========================================================================== */
+/* SKILLS SECTION */
 .skills {
     background: var(--bg-color);
 }
@@ -1814,9 +1786,7 @@ section {
     }
 }
 
-/* ==========================================================================
-   SERVICES SECTION
-   ========================================================================== */
+/* SERVICES SECTION */
 .services {
     background: var(--second-bg-color);
 }
@@ -1975,9 +1945,7 @@ section {
     to { transform: rotate(360deg); }
 }
 
-/* ==========================================================================
-   PORTFOLIO SECTION
-   ========================================================================== */
+/* PORTFOLIO SECTION */
 .portfolio {
     background: var(--bg-color);
 }
@@ -2204,9 +2172,7 @@ section {
     outline-offset: 2px;
 }
 
-/* ==========================================================================
-   PORTFOLIO PROJECT LIGHTBOX MODAL (Tahap 2)
-   ========================================================================== */
+/* PORTFOLIO PROJECT LIGHTBOX MODAL */
 body.lightbox-open {
     overflow: hidden !important;
     touch-action: none;
@@ -2984,9 +2950,7 @@ body.lightbox-open .orbital-d-ring {
     }
 }
 
-/* ==========================================================================
-   CERTIFICATES & CREDENTIALS SECTION
-   ========================================================================== */
+/* CERTIFICATES & CREDENTIALS SECTION */
 .certificates {
     background: var(--second-bg-color);
 }
@@ -3326,9 +3290,7 @@ body.lightbox-open .orbital-d-ring {
     transform: translateY(-1px);
 }
 
-/* ==========================================================================
-   CONTACT SECTION
-   ========================================================================== */
+/* CONTACT SECTION */
 .contact {
     background: var(--bg-color);
 }
@@ -3642,9 +3604,7 @@ body.lightbox-open .orbital-d-ring {
     padding: 1.4rem;
 }
 
-/* ==========================================================================
-   FEEDBACK MODAL
-   ========================================================================== */
+/* FEEDBACK MODAL */
 .feedback-modal-backdrop {
     position: fixed;
     inset: 0;
@@ -3768,9 +3728,7 @@ body.lightbox-open .orbital-d-ring {
     to { opacity: 0; transform: translate3d(var(--confetti-x), var(--confetti-y), 0) rotate(var(--confetti-rotation)) scale(0.65); }
 }
 
-/* ==========================================================================
-   FOOTER
-   ========================================================================== */
+/* FOOTER */
 .footer {
     background: var(--second-bg-color);
     padding: 4rem 9% 3rem;
@@ -4025,9 +3983,7 @@ body.lightbox-open .orbital-d-ring {
     color: #ffffff;
 }
 
-/* ==========================================================================
-   RESPONSIVE DESIGN BREAKPOINTS
-   ========================================================================== */
+/* RESPONSIVE DESIGN BREAKPOINTS */
 /* Header compact mode for 1201px–1280px viewports (and snapped/split-screen windows) */
 @media (max-width: 1280px) {
     .header-actions {
@@ -4116,10 +4072,10 @@ body.lightbox-open .orbital-d-ring {
         flex-direction: column;
         align-items: flex-start;
         gap: 0.4rem;
-        transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1), 
-                    opacity 0.3s ease, 
-                    padding 0.35s ease, 
-                    visibility 0.3s ease, 
+        transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+                    opacity 0.3s ease,
+                    padding 0.35s ease,
+                    visibility 0.3s ease,
                     border-color 0.3s ease;
     }
     .navbar.active {
@@ -4380,9 +4336,7 @@ body.lightbox-open .orbital-d-ring {
     }
 }
 
-/* ==========================================================================
-   METEOR COLLISION IMPACT & COSMIC EVENT HUD
-   ========================================================================== */
+/* METEOR COLLISION IMPACT & COSMIC EVENT HUD */
 @keyframes meteorImpactShake {
     0% {
         transform: scale(1);
@@ -4433,15 +4387,13 @@ body.lightbox-open .orbital-d-ring {
 
 .meteor-burning,
 .meteor-burning *:not(img):not(i):not(svg) {
-    text-shadow: 
+    text-shadow:
         0 0 8px rgba(255, 120, 0, 0.85),
         0 0 18px rgba(255, 60, 0, 0.65),
         0 0 28px rgba(255, 190, 0, 0.4) !important;
 }
 
-/* ==========================================================================
-   LIGHT MODE ADAPTATIONS (METEOR COLLISION, BURNING & TOAST)
-   ========================================================================== */
+/* LIGHT MODE ADAPTATIONS (METEOR COLLISION, BURNING & TOAST) */
 :root[data-scheme="light"] .meteor-impacted {
     animation: meteorImpactShakeLight 0.48s cubic-bezier(0.2, 0.9, 0.3, 1) !important;
 }
@@ -4671,9 +4623,7 @@ body.lightbox-open .orbital-d-ring {
     }
 }
 
-/* ==========================================================================
-   MOBILE PERFORMANCE OPTIMIZATIONS (METEOR SHOWER, VIDEO & COLLISION)
-   ========================================================================== */
+/* MOBILE PERFORMANCE OPTIMIZATIONS (METEOR SHOWER, VIDEO & COLLISION) */
 @media (max-width: 768px) {
     #background-video {
         filter: none !important;
@@ -4725,9 +4675,7 @@ body.lightbox-open .orbital-d-ring {
     }
 }
 
-/* ==========================================================================
-   PERFORMANCE & LOW-SPEC / ECO MODE OPTIMIZATIONS (GPU & RENDERING ACCELERATION)
-   ========================================================================== */
+/* PERFORMANCE & LOW-SPEC / ECO MODE OPTIMIZATIONS (GPU & RENDERING ACCELERATION) */
 .portfolio-card,
 .certificate-card,
 .services-box,

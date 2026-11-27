@@ -1,13 +1,4 @@
-/*
- * Swarm Rebuild
- *
- * Snapshots the current page into a blueprint (boxes, text blocks, media,
- * borders, repeated components), blanks the page, then lets a swarm of
- * multiplayer cursors rebuild it on a canvas: crosshair-drawn rects, typed
- * text, pen-tool lines, ruler guides with snapping, alt-drag duplicates.
- *
- * Injected by background.js; injecting again toggles it off.
- */
+/* Interactive Canvas Page Reconstruction Effect */
 (() => {
   "use strict";
 
@@ -4295,11 +4286,6 @@
     debug: { captureModel, detectEnv, Sound },
   };
 
-  // Expose convenient global helpers for site integration
-  window.startSwarmRebuild = start;
-  window.stopSwarmRebuild = stop;
-  window.toggleSwarmRebuild = () => window[KEY].toggle();
-
   // Keyboard shortcut listener: Alt + Shift + S or Alt + S
   window.addEventListener("keydown", (e) => {
     if (e.altKey && (e.key === "s" || e.key === "S")) {
@@ -4325,6 +4311,5 @@
     attachButtonListener();
   }
 
-  // Note: start() is not auto-called here so the site opens normally.
-  // Trigger it via window.startSwarmRebuild() or keyboard shortcut Alt+Shift+S / Alt+S anytime!
+  // Activated via footer button or Alt+S keyboard shortcut.
 })();

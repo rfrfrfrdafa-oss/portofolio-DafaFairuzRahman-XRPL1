@@ -1,10 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- =====================================================================
-         [CUSTOMIZATION GUIDE: 1. BRANDING & METADATA]
-         Customize: Update the title, description, and author to your personal info.
-         ===================================================================== -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,7 +8,6 @@
     <meta name="author" content="Dafa Fairuz Rahman">
     <title>404: Cosmic Coordinates Lost — Dafa Fairuz Rahman</title>
 
-    <!-- [CUSTOMIZATION GUIDE: FAVICON] -->
     <!-- Matches the main portfolio vector SVG icon. Ensure svg/favicon.svg is present -->
     <link rel="icon" type="image/svg+xml" href="svg/favicon.svg" id="favicon-link">
 
@@ -51,11 +46,7 @@
         }
     </script>
 
-    <!-- =====================================================================
-         SELF-CONTAINED STYLES
-         Render cleanly and independently across GitHub Pages, Netlify,
-         and Vercel without broken sub-directory path dependencies.
-         ===================================================================== -->
+    <!-- Page Styles -->
     <style>
         /* CSS Variables & Cosmic Theming */
         :root {
@@ -355,9 +346,6 @@
             100% { transform: scale(0.95) translate(-15px, 15px); opacity: 0.3; }
         }
 
-        /* =====================================================================
-           HEADER NAVIGATION
-           ===================================================================== */
         .header {
             position: fixed;
             top: 0;
@@ -495,9 +483,6 @@
             font-size: 1.6rem;
         }
 
-        /* =====================================================================
-           MAIN ERROR SECTION
-           ===================================================================== */
         .error-wrapper {
             position: relative;
             z-index: 10;
@@ -657,9 +642,6 @@
             word-break: break-all;
         }
 
-        /* =====================================================================
-           TELEMETRY TERMINAL CARD
-           ===================================================================== */
         .telemetry-card {
             background: var(--terminal-bg);
             border: 1px solid var(--terminal-border);
@@ -739,9 +721,6 @@
         .text-warn { color: var(--color-warn); }
         .text-muted { color: var(--text-muted); }
 
-        /* =====================================================================
-           ACTION BUTTONS
-           ===================================================================== */
         .actions-group {
             display: flex;
             align-items: center;
@@ -853,9 +832,6 @@
             color: var(--main-color);
         }
 
-        /* =====================================================================
-           FOOTER
-           ===================================================================== */
         .footer {
             position: relative;
             z-index: 10;
@@ -897,9 +873,6 @@
             transform: translateX(3px);
         }
 
-        /* =====================================================================
-           ORBITAL RING SIGNATURE ON CAPITAL 'D'
-           ===================================================================== */
         .orbital-ring-defs {
             position: absolute;
             width: 0;
@@ -975,9 +948,6 @@
             box-shadow: 0 0 20px rgba(var(--accent-rgb), 0.45);
         }
 
-        /* =====================================================================
-           RESPONSIVE DESIGN (Mobile, Tablet, Desktop)
-           ===================================================================== */
         @media (max-width: 768px) {
             html {
                 font-size: 56.25%; /* 1rem = 9px */
@@ -1144,20 +1114,10 @@
         </defs>
     </svg>
 
-    <!-- =====================================================================
-         COSMIC BACKGROUND ELEMENTS
-         - Starfield interactive canvas (drifting celestial particles)
-         - Ambient neon glowing orbs
-         ===================================================================== -->
     <canvas id="starfield-canvas" aria-hidden="true"></canvas>
     <div class="bg-glow bg-glow-1" aria-hidden="true"></div>
     <div class="bg-glow bg-glow-2" aria-hidden="true"></div>
 
-    <!-- =====================================================================
-         [CUSTOMIZATION GUIDE: 2. HEADER NAVIGATION & LOGO]
-         Customize: Update the logo text or return link. The 'data-home-link'
-         attribute ensures it dynamically navigates to the root regardless of URL depth.
-         ===================================================================== -->
     <header class="header">
         <a href="index.html" class="logo" data-home-link aria-label="CV D - Dafa Fairuz Rahman Portfolio">
             <span class="logo-text">CV</span>
@@ -1193,9 +1153,6 @@
         </div>
     </header>
 
-    <!-- =====================================================================
-         MAIN 404 CONTENT
-         ===================================================================== -->
     <main class="error-wrapper" role="main">
         <section class="error-card">
 
@@ -1238,7 +1195,7 @@
 
                         <!-- Central Capsule Core -->
                         <circle cx="110" cy="96" r="22" fill="#0f172a" stroke="url(#neonGradient)" stroke-width="2.5" />
-                        
+
                         <!-- Visor / Core Sensor Glow -->
                         <circle cx="110" cy="96" r="14" fill="url(#neonGradient)" opacity="0.9" />
                         <ellipse cx="106" cy="92" rx="5" ry="3" fill="#ffffff" opacity="0.75" />
@@ -1264,20 +1221,12 @@
             <!-- Stylized 404 Heading with Neon Gradient Mask -->
             <h1 class="error-code" aria-label="Error 404">404</h1>
 
-            <!-- =====================================================================
-                 [CUSTOMIZATION GUIDE: 3. HEADLINE & MESSAGING]
-                 Customize: Edit the heading and description below to personalize your cosmic tone.
-                 ===================================================================== -->
             <h2 class="error-title">Cosmic Coordinates Lost</h2>
             <p class="error-desc">
                 You've drifted into deep space. The planetary coordinates you are attempting to reach
                 (<code class="lost-route" id="display-path">/unresolved-orbit</code>) do not exist or have been pulled into a gravitational anomaly.
             </p>
 
-            <!-- =====================================================================
-                 [CUSTOMIZATION GUIDE: 4. TELEMETRY LOGS & SYSTEM CODE]
-                 Customize: Add or modify system telemetry diagnostics here.
-                 ===================================================================== -->
             <div class="telemetry-card" role="region" aria-label="System diagnostic telemetry">
                 <div class="telemetry-header">
                     <div class="terminal-dots" aria-hidden="true">
@@ -1308,12 +1257,6 @@
                 </div>
             </div>
 
-            <!-- =====================================================================
-                 [CUSTOMIZATION GUIDE: 5. ACTION BUTTONS & DESTINATIONS]
-                 Customize: Change button text, icons, or links.
-                 - data-home-link: Automatically navigates to the homepage root.
-                 - data-section-link: Automatically navigates to a section on the homepage root.
-                 ===================================================================== -->
             <div class="actions-group">
                 <a href="index.html" class="btn btn-primary" id="btn-home" data-home-link>
                     <i class='bx bx-compass' aria-hidden="true"></i>
@@ -1331,10 +1274,6 @@
                 </button>
             </div>
 
-            <!-- =====================================================================
-                 [CUSTOMIZATION GUIDE: 6. QUICK TELEPORT SECTOR PILLS]
-                 Customize: Add, remove, or modify links to specific sections of your portfolio.
-                 ===================================================================== -->
             <nav class="quick-sectors" aria-label="Quick Navigation">
                 <span class="quick-sectors-title"><i class='bx bx-radar' aria-hidden="true"></i> Quick Teleport:</span>
                 <a href="index.html#home" class="sector-pill" data-section-link="#home"><i class='bx bx-planet'></i> Home</a>
@@ -1349,10 +1288,6 @@
         </section>
     </main>
 
-    <!-- =====================================================================
-         [CUSTOMIZATION GUIDE: 7. FOOTER]
-         Matches main portfolio footer styling & branding.
-         ===================================================================== -->
     <footer class="footer">
         <a href="index.html" class="footer-logo" data-home-link aria-label="Return to Dafa Fairuz Rahman Portfolio">
             <span class="logo-bracket">&lt;</span><span class="orbital-d"><span class="orbital-d-char">D</span><svg class="orbital-d-ring" viewBox="0 0 1024 1024" aria-hidden="true"><use href="#orbital-ring-symbol-404"/></svg></span>afa<span class="logo-accent">.dev</span><span class="logo-bracket">/&gt;</span>
@@ -1370,13 +1305,6 @@
         </div>
     </footer>
 
-    <!-- =====================================================================
-         CLIENT-SIDE SCRIPTS
-         1. Cross-Platform Dynamic Root Resolution (GitHub Pages, Netlify, Vercel, file:///)
-         2. Dynamic Path Reflection in Telemetry Log (with privacy sanitation)
-         3. Intelligent History Navigation Handling
-         4. Interactive Cosmic Starfield Animation (self-throttling & leak-free)
-         ===================================================================== -->
     <script>
         (function() {
             'use strict';

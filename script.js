@@ -1,63 +1,4 @@
-// Early global availability for portfolio lightbox API
-window.openPortfolioLightbox = window.openPortfolioLightbox || function(idx, triggerEl) {
-    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.open === 'function') {
-        window.__portfolioLightboxEngine.open(idx, triggerEl);
-    } else {
-        window.__portfolioPendingOpen = { idx: Number(idx), triggerEl: triggerEl || null };
-    }
-};
-window.openPortfolio = window.openPortfolioLightbox;
-window.openCertificateLightbox = window.openCertificateLightbox || function(idx, triggerEl) {
-    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.openCertificate === 'function') {
-        window.__portfolioLightboxEngine.openCertificate(idx, triggerEl);
-    } else {
-        window.__portfolioPendingOpen = { idx: Number(idx), triggerEl: triggerEl || null, gallery: 'certificate' };
-    }
-};
-window.closePortfolioLightbox = window.closePortfolioLightbox || function() {
-    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.close === 'function') {
-        window.__portfolioLightboxEngine.close();
-    }
-};
-window.setLightboxMode = window.setLightboxMode || function(mode) {
-    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.setMode === 'function') {
-        window.__portfolioLightboxEngine.setMode(mode);
-    } else {
-        window.__portfolioPendingMode = mode;
-    }
-};
-window.lightboxNext = window.lightboxNext || function() {
-    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.next === 'function') {
-        window.__portfolioLightboxEngine.next();
-    }
-};
-window.lightboxPrev = window.lightboxPrev || function() {
-    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.prev === 'function') {
-        window.__portfolioLightboxEngine.prev();
-    }
-};
-window.lightboxZoomIn = window.lightboxZoomIn || function() {
-    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.zoomIn === 'function') {
-        window.__portfolioLightboxEngine.zoomIn();
-    }
-};
-window.lightboxZoomOut = window.lightboxZoomOut || function() {
-    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.zoomOut === 'function') {
-        window.__portfolioLightboxEngine.zoomOut();
-    }
-};
-window.lightboxZoomReset = window.lightboxZoomReset || function() {
-    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.zoomReset === 'function') {
-        window.__portfolioLightboxEngine.zoomReset();
-    }
-};
-window.lightboxToggleFullscreen = window.lightboxToggleFullscreen || function() {
-    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.toggleFullscreen === 'function') {
-        window.__portfolioLightboxEngine.toggleFullscreen();
-    }
-};
-
-/*==================== Toggle Icon Navbar ====================*/
+/* Toggle Icon Navbar */
 let menuIcon = document.querySelector('#menu-icon');
 let navbar = document.querySelector('.navbar');
 
@@ -101,7 +42,7 @@ window.addEventListener('resize', () => {
     }
 }, { passive: true });
 
-/*==================== Smooth Scroll for Nav Links ====================*/
+/* Smooth Scroll for Nav Links */
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         const href = this.getAttribute('href');
@@ -125,7 +66,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-/*==================== Parallax Effect on Hero Image ====================*/
+/* Parallax Effect on Hero Image */
 const homeImg = document.querySelector('.home-img img');
 if (homeImg) {
     window.addEventListener('mousemove', (e) => {
@@ -137,7 +78,7 @@ if (homeImg) {
     });
 }
 
-/*==================== Color Theme Picker ====================*/
+/* Color Theme Picker */
 const themeSelect = document.getElementById('theme-select');
 const availableThemes = new Set(Array.from(themeSelect.options, option => option.value));
 const themeStorageKey = 'portfolio-theme';
@@ -164,7 +105,7 @@ if (themeSelect) {
     });
 }
 
-/*==================== Light and Dark Appearance Toggle & Background System ====================*/
+/* Light and Dark Appearance Toggle & Background System */
 const schemeToggle = document.getElementById('scheme-toggle');
 const schemeStorageKey = 'portfolio-scheme';
 const nightModeRecommendation = document.getElementById('night-mode-recommendation');
@@ -301,7 +242,7 @@ if (useDarkModeButton) {
     });
 }
 
-/*==================== Hardware Detection & Performance Mode System ====================*/
+/* Hardware Detection & Performance Mode System */
 const perfToggle = document.getElementById('perf-toggle');
 const perfStorageKey = 'portfolio-perf-mode';
 
@@ -393,8 +334,8 @@ const applyPerfMode = (mode, persist = false) => {
 
     if (perfToggle) {
         perfToggle.setAttribute('aria-checked', String(isEco));
-        perfToggle.title = isEco 
-            ? 'Performance Mode: Eco (Click to switch to High Performance)' 
+        perfToggle.title = isEco
+            ? 'Performance Mode: Eco (Click to switch to High Performance)'
             : 'Performance Mode: High (Click to switch to Eco / Battery Saver)';
         const textSpan = perfToggle.querySelector('.perf-toggle-text');
         const icon = perfToggle.querySelector('i');
@@ -433,8 +374,7 @@ const applyPerfMode = (mode, persist = false) => {
         }
     }
 
-    // Update outer portfolio card images dynamically:
-    // khusus image10 dan images7 ketika normal memanggil versi originalnya lalu ketika efisiensi mode memanggil versi pressnya
+    // Update portfolio card thumbnails for Eco vs. High mode
     updatePortfolioCardsImageSource(isEco);
 
     // If lightbox is currently open, dynamically refresh preview media to match mode
@@ -703,7 +643,7 @@ if (videoBackgroundButton) {
     }
 }
 
-/*==================== Space Meteor Shower (Custom Interactive Animation) ====================*/
+/* Space Meteor Shower (Custom Interactive Animation) */
 class MeteorShower {
     constructor(canvas) {
         if (!canvas) return;
@@ -916,12 +856,12 @@ class MeteorShower {
 
         const isBolide = !!options.isBolide;
         const angle = options.angle ?? (Math.PI / 180 * (35 + Math.random() * 18));
-        const defaultSpeed = isBolide 
-            ? (this.isMobile ? 1100 : 1350) 
+        const defaultSpeed = isBolide
+            ? (this.isMobile ? 1100 : 1350)
             : (this.isMobile ? 800 + Math.random() * 450 : 950 + Math.random() * 650);
         const speed = options.speed ?? defaultSpeed;
-        const defaultLength = isBolide 
-            ? (this.isMobile ? 220 : 290) 
+        const defaultLength = isBolide
+            ? (this.isMobile ? 220 : 290)
             : (this.isMobile ? 100 + Math.random() * 90 : 130 + Math.random() * 140);
         const length = options.length ?? defaultLength;
         const thickness = options.thickness ?? (isBolide ? (this.isMobile ? 3.6 : 4.5) : (this.isMobile ? 1.4 : 1.6) + Math.random() * 1.1);
@@ -1042,7 +982,7 @@ class MeteorShower {
         }
 
         // 3. Stardust Sparks Burst
-        const sparkCount = this.isMobile 
+        const sparkCount = this.isMobile
             ? (isBolide ? 12 : (targetBox ? 7 : 4))
             : (isBolide ? 38 : (targetBox ? 26 : 14));
         const maxSpeed = this.isMobile ? (isBolide ? 170 : 130) : (isBolide ? 260 : 190);
@@ -1129,7 +1069,7 @@ class MeteorShower {
         }
     }
 
-    /*==================== Random Cosmic Events ====================*/
+    /* Random Cosmic Events */
     scheduleNextCosmicEvent(customDelay = null) {
         if (this.cosmicEventTimeout) {
             clearTimeout(this.cosmicEventTimeout);
@@ -1604,7 +1544,7 @@ if (toastCloseBtn && meteorShower) {
     });
 }
 
-/*==================== Services Rainbow Icon Toggle ====================*/
+/* Services Rainbow Icon Toggle */
 const servicesRainbowToggle = document.getElementById('services-rainbow');
 const servicesRainbowStorageKey = 'services-rainbow-icons';
 
@@ -1632,7 +1572,7 @@ if (servicesRainbowToggle) {
     });
 }
 
-/*==================== Scroll Sections Active Link ====================*/
+/* Scroll Sections Active Link */
 let sections = document.querySelectorAll('section');
 let navLinks = document.querySelectorAll('header nav a');
 
@@ -1652,17 +1592,17 @@ window.onscroll = () => {
         };
     });
 
-    /*==================== Sticky Navbar ====================*/
+    /* Sticky Navbar */
     let header = document.querySelector('header');
     if (header) header.classList.toggle('sticky', window.scrollY > 100);
 
-    /*==================== Remove Toggle Icon and Navbar when click navbar link (scroll) ====================*/
+    /* Remove Toggle Icon and Navbar when click navbar link (scroll) */
     if (navbar && navbar.classList.contains('active')) setMobileMenuOpen(false);
 };
 
-/*==================== Scroll Reveal ====================*/
+/* Scroll Reveal */
 // Protected ScrollReveal
-try { if (typeof ScrollReveal !== 'undefined') ScrollReveal({ 
+try { if (typeof ScrollReveal !== 'undefined') ScrollReveal({
     distance: '60px',
     duration: 1800,
     delay: 150,
@@ -1674,7 +1614,7 @@ ScrollReveal().reveal('.home-img-wrapper, .hero-stats, .skills-container, .servi
 ScrollReveal().reveal('.about-img-wrapper', { origin: 'left' });
 ScrollReveal().reveal('.about-content', { origin: 'right' }); } } catch (e) {}
 
-/*==================== Typed JS ====================*/
+/* Typed JS */
 try { if (typeof Typed !== 'undefined' && document.querySelector('.multiple-text')) { window.typedInstance = new Typed('.multiple-text', {
     strings: ['Backend Developer', 'Web Developer', 'Robotics & IoT Enthusiast', 'AI Explorer'],
     typeSpeed: 65,
@@ -1684,7 +1624,7 @@ try { if (typeof Typed !== 'undefined' && document.querySelector('.multiple-text
     contentType: 'null'
 }); } else { window.typedInstance = null; } } catch (e) { window.typedInstance = null; }
 
-/*==================== Read More / Read Less (About Me) ====================*/
+/* Read More / Read Less (About Me) */
 const readMoreBtn = document.getElementById('read-more-btn');
 const moreText = document.querySelector('.more-text');
 
@@ -1703,7 +1643,7 @@ if (readMoreBtn && moreText) {
     });
 }
 
-/*==================== Feedback Confirmation Popup ====================*/
+/* Feedback Confirmation Popup */
 const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
@@ -1899,7 +1839,7 @@ if (contactForm) {
     });
 }
 
-/*==================== Contact Email Copy Action ====================*/
+/* Contact Email Copy Action */
 const copyEmailBtn = document.getElementById('copy-email-btn');
 
 if (copyEmailBtn) {
@@ -1957,7 +1897,7 @@ if (copyEmailBtn) {
     });
 }
 
-/*==================== Astronomical Star-Chart Blueprint / Constellations (Light Mode) ====================*/
+/* Astronomical Star-Chart Blueprint / Constellations (Light Mode) */
 class ConstellationStarChart {
     constructor(canvas) {
         if (!canvas) return;
@@ -2286,7 +2226,7 @@ if (constellationChart && document.documentElement.dataset.scheme === 'light' &&
     constellationChart.start();
 }
 
-/*==================== PCB Trace Reveal (Robotics & IoT card) ====================*/
+/* PCB Trace Reveal (Robotics & IoT card) */
 const pcbTrace = document.querySelector('.pcb-trace');
 
 if (pcbTrace) {
@@ -2308,7 +2248,7 @@ if (pcbTrace) {
 }
 
 
-/*==================== Portfolio Project Lightbox Modal (Tahap 2) ====================*/
+/* Portfolio Project Lightbox Modal */
 let isPortfolioLightboxInitialized = false;
 function initPortfolioLightbox() {
     if (isPortfolioLightboxInitialized) return;
@@ -2700,17 +2640,15 @@ function initPortfolioLightbox() {
                 hdLink.href = targetSrc;
                 hdLink.removeAttribute('download');
                 hdLink.title = currentViewMode === 'svg'
-                    ? 'Buka file vektor SVG animasi terpisah di tab baru'
-                    : `Buka file resolusi penuh terpisah di tab baru (${targetSrc})`;
+                    ? 'Open animated SVG in a new tab'
+                    : 'Open full-resolution image in a new tab';
                 const labelSpan = hdLink.querySelector('span');
-                if (labelSpan) labelSpan.textContent = 'Buka File Tab Baru';
+                if (labelSpan) labelSpan.textContent = 'Open in New Tab';
             }
             if (verifyLink) {
                 verifyLink.hidden = true;
             }
         }
-
-        console.log(`[Lightbox:${activeGallery}] Item ${currentIndex + 1} (${proj.titleText}) -> Loading: ${targetSrc} | Eco: ${isEco}`);
 
         imgEl.src = targetSrc;
         imgEl.alt = proj.alt;
@@ -2731,7 +2669,6 @@ function initPortfolioLightbox() {
 
         newImg.onerror = () => {
             if (requestId !== currentMediaRequestId) return;
-            console.warn('[Lightbox] Failed to load:', targetSrc);
             const fallback = (activeGallery === 'portfolio' && currentViewMode === 'svg')
                 ? (proj.previewHd || proj.normalImg)
                 : (proj.normalImg || proj.ecoImg);
@@ -2866,45 +2803,23 @@ function initPortfolioLightbox() {
         renderProject(prevIdx, activeGallery);
     };
 
-    // Direct click listeners for certificate cards, buttons & zoom hints
-    certCards.forEach((card, idx) => {
-        card.addEventListener('click', (e) => {
-            if (e.target.closest('.btn-certificate-view, a, button')) return;
-            e.preventDefault();
-            openCertificateLightbox(idx, card);
+    // Keyboard activation for portfolio and certificate cards
+    cards.forEach((card, idx) => {
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                if (e.target.closest('.btn-portfolio-view, a, button')) return;
+                e.preventDefault();
+                openLightbox(idx, card);
+            }
         });
+    });
+
+    certCards.forEach((card, idx) => {
         card.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 if (e.target.closest('.btn-certificate-view, a, button')) return;
                 e.preventDefault();
                 openCertificateLightbox(idx, card);
-            }
-        });
-    });
-
-    document.querySelectorAll('.btn-certificate-view').forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const openAttr = btn.getAttribute('data-cert-open');
-            const card = btn.closest('.certificate-card');
-            const cardAttr = card ? card.getAttribute('data-cert-index') : null;
-            const idx = parseInt(openAttr !== null ? openAttr : cardAttr, 10);
-            if (!isNaN(idx) && idx >= 0 && idx < certificates.length) {
-                openCertificateLightbox(idx, btn);
-            }
-        });
-    });
-
-    document.querySelectorAll('.certificate-zoom-hint').forEach((hint) => {
-        hint.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const card = hint.closest('.certificate-card');
-            const idxAttr = hint.getAttribute('data-cert-open') || (card ? card.getAttribute('data-cert-index') : null);
-            const idx = parseInt(idxAttr, 10);
-            if (!isNaN(idx) && idx >= 0 && idx < certificates.length) {
-                openCertificateLightbox(idx, hint);
             }
         });
     });
@@ -2917,81 +2832,14 @@ function initPortfolioLightbox() {
             if (icon) {
                 if (shellEl.classList.contains('stage-expanded')) {
                     icon.className = 'bx bx-exit-fullscreen';
-                    fullscreenBtn.setAttribute('title', 'Kembalikan Ukuran Stage');
+                    fullscreenBtn.setAttribute('title', 'Restore view size');
                 } else {
                     icon.className = 'bx bx-fullscreen';
-                    fullscreenBtn.setAttribute('title', 'Perluas Panggung Gambar');
+                    fullscreenBtn.setAttribute('title', 'Expand view');
                 }
             }
         }
     };
-
-    // Direct click listeners for all Preview Project buttons
-    document.querySelectorAll('.btn-portfolio-view').forEach((btn) => {
-        btn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const openAttr = btn.getAttribute('data-project-open');
-            const card = btn.closest('.portfolio-card');
-            const cardAttr = card ? card.getAttribute('data-project-index') : null;
-            const idx = parseInt(openAttr !== null ? openAttr : cardAttr, 10);
-            if (!isNaN(idx) && idx >= 0 && idx < projects.length) {
-                openLightbox(idx, btn);
-            }
-        });
-    });
-
-    // Direct click listeners for all portfolio cards and keyboard navigation
-    cards.forEach((card, idx) => {
-        card.addEventListener('click', (e) => {
-            if (e.target.closest('.btn-portfolio-view, a, button')) return;
-            e.preventDefault();
-            openLightbox(idx, card);
-        });
-        card.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                if (e.target.closest('.btn-portfolio-view, a, button')) return;
-                e.preventDefault();
-                openLightbox(idx, card);
-            }
-        });
-    });
-
-    // Direct click listeners for image zoom hints
-    document.querySelectorAll('.portfolio-zoom-hint').forEach((hint) => {
-        hint.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const card = hint.closest('.portfolio-card');
-            const idxAttr = hint.getAttribute('data-project-open') || (card ? card.getAttribute('data-project-index') : null);
-            const idx = parseInt(idxAttr, 10);
-            if (!isNaN(idx) && idx >= 0 && idx < projects.length) {
-                openLightbox(idx, hint);
-            }
-        });
-    });
-
-    // Direct click listeners for all format switchers (Raster vs SVG Boost)
-    document.querySelectorAll('#portfolio-lightbox [data-mode]').forEach((modeBtn) => {
-        modeBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            const mode = modeBtn.getAttribute('data-mode');
-            if (mode) setViewMode(mode);
-        });
-    });
-
-    // Control buttons
-    if (closeBtn) closeBtn.addEventListener('click', (e) => { e.preventDefault(); closeLightbox(); });
-    if (backdrop) backdrop.addEventListener('click', (e) => { e.preventDefault(); closeLightbox(); });
-    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); prevProject(); });
-    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); nextProject(); });
-
-    // Zoom toolbar controls
-    if (zoomInBtn) zoomInBtn.addEventListener('click', (e) => { e.preventDefault(); zoomIn(); });
-    if (zoomOutBtn) zoomOutBtn.addEventListener('click', (e) => { e.preventDefault(); zoomOut(); });
-    if (zoomResetBtn) zoomResetBtn.addEventListener('click', (e) => { e.preventDefault(); resetZoom(); });
-    if (fullscreenBtn) fullscreenBtn.addEventListener('click', (e) => { e.preventDefault(); toggleFullscreen(); });
 
     // Double-click on image to toggle zoom
     if (imgEl) {
@@ -3134,7 +2982,7 @@ function initPortfolioLightbox() {
         }
 
         // 6. Portfolio Card / Action Button / Preview Overlay
-        const openTrigger = e.target.closest('[data-project-open], .btn-portfolio-view, .portfolio-zoom-hint, .portfolio-card');
+        const openTrigger = !e.target.closest('a') && e.target.closest('[data-project-open], .btn-portfolio-view, .portfolio-zoom-hint, .portfolio-card');
         if (openTrigger) {
             const card = openTrigger.closest('.portfolio-card') || openTrigger;
             const indexAttr = openTrigger.getAttribute('data-project-open') || card.getAttribute('data-project-index');
@@ -3162,47 +3010,10 @@ function initPortfolioLightbox() {
         }
     });
 
-    // Global programmatic access & engine handle
     window.__portfolioLightboxEngine = {
-        open: openLightbox,
-        openCertificate: openCertificateLightbox,
-        close: closeLightbox,
-        next: nextProject,
-        prev: prevProject,
-        zoomIn: zoomIn,
-        zoomOut: zoomOut,
-        zoomReset: resetZoom,
-        toggleFullscreen: toggleFullscreen,
-        setMode: setViewMode,
-        getMode: () => currentViewMode,
         refreshMedia: () => applyCurrentProjectMedia(false)
     };
-    window.openPortfolioLightbox = openLightbox;
-    window.openCertificateLightbox = openCertificateLightbox;
-    window.closePortfolioLightbox = closeLightbox;
-    window.openPortfolio = openLightbox;
-    window.setLightboxMode = setViewMode;
-    window.getLightboxMode = () => currentViewMode;
-    window.refreshPortfolioLightbox = () => applyCurrentProjectMedia(false);
-    window.lightboxNext = nextProject;
-    window.lightboxPrev = prevProject;
-    window.lightboxZoomIn = zoomIn;
-    window.lightboxZoomOut = zoomOut;
-    window.lightboxZoomReset = resetZoom;
-    window.lightboxToggleFullscreen = toggleFullscreen;
 
-    // Process any request that was queued before lightbox initialization completed
-    if (window.__portfolioPendingOpen && typeof window.__portfolioPendingOpen.idx === 'number') {
-        const pending = window.__portfolioPendingOpen;
-        window.__portfolioPendingOpen = null;
-        openLightbox(pending.idx, pending.triggerEl, pending.gallery || 'portfolio');
-    }
-
-    if (window.__portfolioPendingMode && (window.__portfolioPendingMode === 'svg' || window.__portfolioPendingMode === 'raster')) {
-        const pendingMode = window.__portfolioPendingMode;
-        window.__portfolioPendingMode = null;
-        setViewMode(pendingMode);
-    }
 
     // Keyboard navigation (ESC, ArrowLeft, ArrowRight, +, -, 0)
     document.addEventListener('keydown', (e) => {

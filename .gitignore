@@ -8,10 +8,7 @@ desktop.ini
 .vscode/
 .idea/
 
-# Local AI workspace / agent artifacts (not part of public site)
+# Local AI workspace / non-public artifacts
 .agents/
 GEMINI.md
-svg/GEMINI.md
-
-# Unoptimized raw camera source image (web uses images13_web.jpg & images13_HD.jpg)
 images/images13.jpg

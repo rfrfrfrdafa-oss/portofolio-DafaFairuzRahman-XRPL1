@@ -47,10 +47,9 @@ portofolio-DafaFairuzRahman-XRPL1/
 ├── script.js                   # Interaksi UI, tema, filter sertifikat, lightbox, validasi & animasi
 ├── swarm.js                    # Mesin animasi interaktif footer (Swarm Rebuild)
 ├── cv.pdf                      # Berkas CV publik untuk diunduh pengunjung
-├── CV_Dafa_Fairuz_Rahman.pdf   # Salinan berkas CV
 ├── 352344_medium.mp4           # Video latar belakang mode malam sinematik
 ├── images/                     # Aset foto & pratinjau proyek (versi web & HD)
-├── svg/                        # Ikon kustom, favicon, logo orbital, & SVG animasi proyek 1–10
+├── svg/                        # Ikon kustom, favicon, & animasi SVG proyek 1–10
 ├── certificate/                # Arsip sertifikat PDF resmi + folder previews/ (Normal & HD)
 ├── .gitignore                  # Pengabaian berkas internal editor/OS & file mentah non-publik
 └── README.md                   # Dokumentasi proyek
