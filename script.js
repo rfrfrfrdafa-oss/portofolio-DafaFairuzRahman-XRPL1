@@ -1,23 +1,120 @@
+// Early global availability for portfolio lightbox API
+window.openPortfolioLightbox = window.openPortfolioLightbox || function(idx, triggerEl) {
+    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.open === 'function') {
+        window.__portfolioLightboxEngine.open(idx, triggerEl);
+    } else {
+        window.__portfolioPendingOpen = { idx: Number(idx), triggerEl: triggerEl || null };
+    }
+};
+window.openPortfolio = window.openPortfolioLightbox;
+window.openCertificateLightbox = window.openCertificateLightbox || function(idx, triggerEl) {
+    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.openCertificate === 'function') {
+        window.__portfolioLightboxEngine.openCertificate(idx, triggerEl);
+    } else {
+        window.__portfolioPendingOpen = { idx: Number(idx), triggerEl: triggerEl || null, gallery: 'certificate' };
+    }
+};
+window.closePortfolioLightbox = window.closePortfolioLightbox || function() {
+    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.close === 'function') {
+        window.__portfolioLightboxEngine.close();
+    }
+};
+window.setLightboxMode = window.setLightboxMode || function(mode) {
+    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.setMode === 'function') {
+        window.__portfolioLightboxEngine.setMode(mode);
+    } else {
+        window.__portfolioPendingMode = mode;
+    }
+};
+window.lightboxNext = window.lightboxNext || function() {
+    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.next === 'function') {
+        window.__portfolioLightboxEngine.next();
+    }
+};
+window.lightboxPrev = window.lightboxPrev || function() {
+    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.prev === 'function') {
+        window.__portfolioLightboxEngine.prev();
+    }
+};
+window.lightboxZoomIn = window.lightboxZoomIn || function() {
+    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.zoomIn === 'function') {
+        window.__portfolioLightboxEngine.zoomIn();
+    }
+};
+window.lightboxZoomOut = window.lightboxZoomOut || function() {
+    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.zoomOut === 'function') {
+        window.__portfolioLightboxEngine.zoomOut();
+    }
+};
+window.lightboxZoomReset = window.lightboxZoomReset || function() {
+    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.zoomReset === 'function') {
+        window.__portfolioLightboxEngine.zoomReset();
+    }
+};
+window.lightboxToggleFullscreen = window.lightboxToggleFullscreen || function() {
+    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.toggleFullscreen === 'function') {
+        window.__portfolioLightboxEngine.toggleFullscreen();
+    }
+};
+
 /*==================== Toggle Icon Navbar ====================*/
 let menuIcon = document.querySelector('#menu-icon');
 let navbar = document.querySelector('.navbar');
 
 const setMobileMenuOpen = isOpen => {
+    if (!menuIcon || !navbar) return;
     menuIcon.classList.toggle('bx-x', isOpen);
     navbar.classList.toggle('active', isOpen);
     menuIcon.setAttribute('aria-expanded', String(isOpen));
     menuIcon.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+    if (isOpen) {
+        const bgMenu = document.getElementById('background-menu');
+        if (bgMenu && bgMenu.open) bgMenu.open = false;
+    }
 };
 
-menuIcon.onclick = () => setMobileMenuOpen(!navbar.classList.contains('active'));
+if (menuIcon) {
+    menuIcon.onclick = () => setMobileMenuOpen(!navbar.classList.contains('active'));
+}
+
+// Close mobile menu if background customize menu opens
+const bgMenu = document.getElementById('background-menu');
+if (bgMenu) {
+    bgMenu.addEventListener('toggle', () => {
+        if (bgMenu.open && navbar && navbar.classList.contains('active')) {
+            setMobileMenuOpen(false);
+        }
+    });
+}
+
+// Close mobile menu when clicking outside header/navbar
+document.addEventListener('click', (e) => {
+    if (navbar && navbar.classList.contains('active') && !navbar.contains(e.target) && !menuIcon.contains(e.target)) {
+        setMobileMenuOpen(false);
+    }
+});
+
+// Reset mobile menu if resizing back to desktop (> 991px)
+window.addEventListener('resize', () => {
+    if (window.innerWidth > 991 && navbar && navbar.classList.contains('active')) {
+        setMobileMenuOpen(false);
+    }
+}, { passive: true });
 
 /*==================== Smooth Scroll for Nav Links ====================*/
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
-        const target = document.querySelector(this.getAttribute('href'));
+        const href = this.getAttribute('href');
+        if (!href || href === '#' || href === '#!') return;
+        let target;
+        try {
+            target = document.querySelector(href);
+        } catch (err) {
+            return;
+        }
         if (target) {
             e.preventDefault();
-            if (menuIcon && navbar) {
+            if (menuIcon && navbar && navbar.classList.contains('active')) {
                 setMobileMenuOpen(false);
             }
             target.scrollIntoView({
@@ -32,6 +129,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 const homeImg = document.querySelector('.home-img img');
 if (homeImg) {
     window.addEventListener('mousemove', (e) => {
+        if (document.body.classList.contains('lightbox-open')) return;
         const x = (e.clientX / window.innerWidth - 0.5) * 10;
         const y = (e.clientY / window.innerHeight - 0.5) * 10;
         homeImg.style.setProperty('--pointer-x', `${Math.round(x)}px`);
@@ -214,6 +312,81 @@ const detectLowSpecDevice = () => {
     return cores <= 4 || memory <= 4 || isSmallScreen;
 };
 
+let isEcoAutoDetected = typeof window !== 'undefined' && typeof window.__isEcoAutoDetected === 'boolean'
+    ? window.__isEcoAutoDetected
+    : false;
+
+const showEcoMeteorNotice = () => {
+    const noticeText = isEcoAutoDetected
+        ? 'Maaf, perangkat atau ukuran layar Anda terlalu kecil untuk mode ini.'
+        : 'Anda mengaktifkan mode Eco. Jika ingin menggunakan efek ini, sebaiknya dimatikan terlebih dahulu.';
+
+    if (backgroundEffectStatus) {
+        backgroundEffectStatus.textContent = noticeText;
+        backgroundEffectStatus.classList.remove('status-highlight');
+        void backgroundEffectStatus.offsetWidth;
+        backgroundEffectStatus.classList.add('status-highlight');
+    }
+
+    if (meteorShowerToggle) {
+        meteorShowerToggle.classList.remove('btn-blocked-shake');
+        void meteorShowerToggle.offsetWidth;
+        meteorShowerToggle.classList.add('btn-blocked-shake');
+        setTimeout(() => {
+            meteorShowerToggle.classList.remove('btn-blocked-shake');
+        }, 400);
+    }
+
+    if (meteorEventToast && toastEventTitle && toastEventDesc) {
+        toastEventTitle.textContent = isEcoAutoDetected ? 'Perangkat Tidak Mendukung' : 'Mode Eco Sedang Aktif';
+        toastEventDesc.textContent = noticeText;
+        const toastBadge = meteorEventToast.querySelector('.toast-badge');
+        if (toastBadge) {
+            toastBadge.textContent = 'Eco Mode Notice';
+            toastBadge.style.background = 'rgba(16, 185, 129, 0.2)';
+            toastBadge.style.color = '#10b981';
+            toastBadge.style.borderColor = 'rgba(16, 185, 129, 0.35)';
+        }
+        const toastIcon = meteorEventToast.querySelector('.toast-icon i');
+        if (toastIcon) {
+            toastIcon.className = 'bx bx-leaf';
+        }
+        meteorEventToast.setAttribute('aria-hidden', 'false');
+        meteorEventToast.classList.add('show');
+
+        if (toastProgressBar) {
+            toastProgressBar.style.transition = 'none';
+            toastProgressBar.style.transform = 'scaleX(1)';
+            void toastProgressBar.offsetWidth;
+            toastProgressBar.style.transition = 'transform 5s linear';
+            toastProgressBar.style.transform = 'scaleX(0)';
+        }
+
+        if (window.__ecoToastTimer) clearTimeout(window.__ecoToastTimer);
+        window.__ecoToastTimer = setTimeout(() => {
+            meteorEventToast.classList.remove('show');
+            meteorEventToast.setAttribute('aria-hidden', 'true');
+        }, 5000);
+    }
+};
+window.showEcoMeteorNotice = showEcoMeteorNotice;
+
+// Dynamic portfolio image manager based on efficiency/eco mode
+const updatePortfolioCardsImageSource = (isEco) => {
+    const cards = document.querySelectorAll('.portfolio-card');
+    cards.forEach(card => {
+        const img = card.querySelector('.portfolio-image-wrap img');
+        if (!img) return;
+        const targetSrc = isEco
+            ? (card.dataset.ecoImg || card.dataset.fallbackImg || card.dataset.normalImg)
+            : (card.dataset.normalImg || card.dataset.fullImg);
+        if (targetSrc && img.getAttribute('src') !== targetSrc) {
+            img.src = targetSrc;
+        }
+    });
+};
+window.updatePortfolioCardsImageSource = updatePortfolioCardsImageSource;
+
 const applyPerfMode = (mode, persist = false) => {
     const isEco = mode === 'eco';
     document.documentElement.dataset.perfMode = mode;
@@ -233,13 +406,85 @@ const applyPerfMode = (mode, persist = false) => {
         }
     }
 
-    if (meteorShower && typeof meteorShower.resize === 'function') {
-        meteorShower.isMobile = meteorShower.checkIsMobileOrEco();
-        meteorShower.resize();
+    // Update Meteor Shower toggle button state and title in background menu
+    if (meteorShowerToggle) {
+        if (isEco) {
+            meteorShowerToggle.setAttribute('aria-disabled', 'true');
+            meteorShowerToggle.title = isEcoAutoDetected
+                ? 'Dinonaktifkan: Perangkat/layar terlalu kecil untuk mode ini'
+                : 'Dinonaktifkan dalam Mode Eco (Matikan Mode Eco untuk mengaktifkan)';
+        } else {
+            meteorShowerToggle.removeAttribute('aria-disabled');
+            meteorShowerToggle.title = 'Toggle meteor shower trails';
+        }
     }
-    if (constellationChart && typeof constellationChart.resize === 'function') {
-        constellationChart.isMobile = constellationChart.checkIsMobileOrEco();
-        constellationChart.resize();
+
+    // Update Hero Wish button accessibility and title
+    const heroMeteorBadge = document.getElementById('hero-meteor-btn');
+    if (heroMeteorBadge) {
+        if (isEco) {
+            heroMeteorBadge.removeAttribute('role');
+            heroMeteorBadge.removeAttribute('tabindex');
+            heroMeteorBadge.title = 'Software Engineering • SMK Krian 1';
+        } else {
+            heroMeteorBadge.setAttribute('role', 'button');
+            heroMeteorBadge.setAttribute('tabindex', '0');
+            heroMeteorBadge.title = 'Software Engineering • SMK Krian 1';
+        }
+    }
+
+    // Update outer portfolio card images dynamically:
+    // khusus image10 dan images7 ketika normal memanggil versi originalnya lalu ketika efisiensi mode memanggil versi pressnya
+    updatePortfolioCardsImageSource(isEco);
+
+    // If lightbox is currently open, dynamically refresh preview media to match mode
+    if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.refreshMedia === 'function') {
+        window.__portfolioLightboxEngine.refreshMedia();
+    }
+
+    // Canvas & Video animation throttling for genuine power and GPU saving
+    if (isEco) {
+        // 1. Pause Meteor Shower canvas loop & cosmic event timer
+        if (typeof meteorShower !== 'undefined' && meteorShower && typeof meteorShower.pause === 'function') {
+            meteorShower.pause();
+            if (meteorShower.cosmicEventTimeout) {
+                clearTimeout(meteorShower.cosmicEventTimeout);
+                meteorShower.cosmicEventTimeout = 0;
+            }
+            if (typeof meteorShower.hideCosmicEventNotification === 'function') {
+                meteorShower.hideCosmicEventNotification();
+            }
+        }
+        // 2. Stop Constellation Star Chart canvas loop
+        if (typeof constellationChart !== 'undefined' && constellationChart && typeof constellationChart.stop === 'function') {
+            constellationChart.stop();
+        }
+        // 3. Pause 1080p background video decoding
+        if (typeof backgroundVideo !== 'undefined' && backgroundVideo && !backgroundVideo.paused && !backgroundVideo.hidden) {
+            try { backgroundVideo.pause(); } catch (e) {}
+        }
+    } else {
+        // High Mode: resume animations if not inside an open lightbox
+        const isLightboxOpen = document.body.classList.contains('lightbox-open') || document.documentElement.dataset.lightboxActive === 'true';
+        if (!isLightboxOpen) {
+            if (typeof meteorShower !== 'undefined' && meteorShower && typeof meteorShower.start === 'function' && meteorShower.active) {
+                meteorShower.isMobile = meteorShower.checkIsMobileOrEco();
+                meteorShower.resize();
+                meteorShower.lastTime = performance.now();
+                meteorShower.start();
+                if (typeof meteorShower.scheduleNextCosmicEvent === 'function') {
+                    meteorShower.scheduleNextCosmicEvent();
+                }
+            }
+            if (typeof constellationChart !== 'undefined' && constellationChart && typeof constellationChart.start === 'function' && document.documentElement.dataset.scheme === 'light') {
+                constellationChart.isMobile = constellationChart.checkIsMobileOrEco();
+                constellationChart.resize();
+                constellationChart.start();
+            }
+            if (document.documentElement.dataset.backgroundEffect === 'video' && typeof backgroundVideo !== 'undefined' && backgroundVideo && backgroundVideo.paused && !backgroundVideo.hidden) {
+                try { backgroundVideo.play().catch(() => {}); } catch (e) {}
+            }
+        }
     }
 
     if (persist) {
@@ -250,13 +495,31 @@ const applyPerfMode = (mode, persist = false) => {
 };
 
 if (perfToggle) {
-    const initialPerfMode = document.documentElement.dataset.perfMode || 
-        (localStorage.getItem(perfStorageKey) || (detectLowSpecDevice() ? 'eco' : 'high'));
+    let initialPerfMode = document.documentElement.dataset.perfMode;
+    if (!initialPerfMode) {
+        let stored = null;
+        try { stored = localStorage.getItem(perfStorageKey); } catch (e) {}
+        if (stored === 'eco' || stored === 'high') {
+            initialPerfMode = stored;
+            isEcoAutoDetected = false;
+        } else if (detectLowSpecDevice()) {
+            initialPerfMode = 'eco';
+            isEcoAutoDetected = true;
+        } else {
+            initialPerfMode = 'high';
+            isEcoAutoDetected = false;
+        }
+    } else if (initialPerfMode === 'eco' && window.__isEcoAutoDetected) {
+        isEcoAutoDetected = true;
+    }
+
     applyPerfMode(initialPerfMode);
 
     perfToggle.addEventListener('click', () => {
         const currentMode = document.documentElement.dataset.perfMode || 'high';
         const nextMode = currentMode === 'eco' ? 'high' : 'eco';
+        isEcoAutoDetected = false; // User explicitly selected their preference
+        if (typeof window !== 'undefined') window.__isEcoAutoDetected = false;
         applyPerfMode(nextMode, true);
     });
 }
@@ -364,11 +627,23 @@ if (backgroundMenu && backgroundColorInput) {
             localStorage.removeItem(backgroundEffectStorageKey);
         } catch {}
 
-        if (meteorShower) {
+        if (meteorShower && root.dataset.perfMode !== 'eco') {
             meteorShower.setActive(!isLight, true);
         }
         if (meteorShowerToggle) {
-            meteorShowerToggle.setAttribute('aria-pressed', String(!isLight));
+            meteorShowerToggle.setAttribute('aria-pressed', String(!isLight && root.dataset.perfMode !== 'eco'));
+        }
+    });
+}
+
+if (backgroundMenu) {
+    backgroundMenu.addEventListener('toggle', () => {
+        if (backgroundMenu.open && document.documentElement.dataset.perfMode === 'eco') {
+            if (backgroundEffectStatus && !backgroundEffectStatus.textContent) {
+                backgroundEffectStatus.textContent = isEcoAutoDetected
+                    ? 'Mode Eco aktif otomatis untuk perangkat/layar ini.'
+                    : 'Mode Eco aktif. Efek meteor dan video diistirahatkan.';
+            }
         }
     });
 }
@@ -396,9 +671,15 @@ const startVideoBackground = async (persist = true) => {
     }
 
     try {
-        await backgroundVideo.play();
-        if (root.dataset.backgroundEffect !== 'video') return;
-        backgroundEffectStatus.textContent = 'Cinematic video scene active.';
+        if (root.dataset.perfMode === 'eco') {
+            backgroundVideo.pause();
+            if (root.dataset.backgroundEffect !== 'video') return;
+            backgroundEffectStatus.textContent = 'Cinematic video paused (Eco mode active).';
+        } else {
+            await backgroundVideo.play();
+            if (root.dataset.backgroundEffect !== 'video') return;
+            backgroundEffectStatus.textContent = 'Cinematic video scene active.';
+        }
     } catch (error) {
         if (root.dataset.backgroundEffect !== 'video' || error.name === 'AbortError') return;
         console.error('Could not play video background:', error);
@@ -488,6 +769,7 @@ class MeteorShower {
         window.addEventListener('resize', () => this.resize(), { passive: true });
 
         window.addEventListener('pointermove', (e) => {
+            if (document.body.classList.contains('lightbox-open')) return;
             this.pointer.x = e.clientX;
             this.pointer.y = e.clientY;
             this.pointer.active = true;
@@ -498,8 +780,8 @@ class MeteorShower {
         });
 
         window.addEventListener('pointerdown', (e) => {
-            if (!this.active) return;
-            const interactive = e.target.closest('a, button, input, textarea, select, label, summary, details, .theme-picker, .background-menu, .meteor-event-toast');
+            if (!this.active || document.body.classList.contains('lightbox-open')) return;
+            const interactive = e.target.closest('a, button, input, textarea, select, label, summary, details, .theme-picker, .background-menu, .meteor-event-toast, #portfolio-lightbox');
             if (interactive) return;
 
             this.summonMeteor(e.clientX, e.clientY, true);
@@ -542,9 +824,17 @@ class MeteorShower {
     }
 
     start() {
+        if (document.documentElement.dataset.perfMode === 'eco') {
+            this.pause();
+            return;
+        }
         if (this.rafId) return;
         this.lastTime = performance.now();
         const loop = (currentTime) => {
+            if (document.documentElement.dataset.perfMode === 'eco') {
+                this.pause();
+                return;
+            }
             const dt = Math.min((currentTime - this.lastTime) / 1000, 0.1);
             this.lastTime = currentTime;
 
@@ -569,6 +859,13 @@ class MeteorShower {
     }
 
     setActive(shouldBeActive, persist = true) {
+        if (shouldBeActive && document.documentElement.dataset.perfMode === 'eco') {
+            this.pause();
+            if (meteorShowerToggle) {
+                meteorShowerToggle.setAttribute('aria-pressed', 'false');
+            }
+            return;
+        }
         this.active = shouldBeActive;
         const root = document.documentElement;
         root.dataset.meteorShower = shouldBeActive ? 'true' : 'false';
@@ -836,10 +1133,15 @@ class MeteorShower {
     scheduleNextCosmicEvent(customDelay = null) {
         if (this.cosmicEventTimeout) {
             clearTimeout(this.cosmicEventTimeout);
+            this.cosmicEventTimeout = 0;
+        }
+        if (document.documentElement.dataset.perfMode === 'eco') {
+            return;
         }
         // Truly rare event timing: repeats every 4 to 8 minutes
         const delay = customDelay !== null ? customDelay : 240000 + Math.random() * 240000;
         this.cosmicEventTimeout = setTimeout(() => {
+            if (document.documentElement.dataset.perfMode === 'eco') return;
             if (this.active && !document.hidden) {
                 this.triggerRandomCosmicEvent();
             }
@@ -978,7 +1280,7 @@ class MeteorShower {
                     const targetBox = hitEl.closest(
                         '.stat-card, .btn, .hero-name, .hero-greeting, .hero-role, .heading, .section-tag, ' +
                         '.about-img-card, .about-card-badge, .highlight-item, .service-card, .services-box, ' +
-                        '.portfolio-card, .portfolio-box, .skill-card, .skill-box, .floating-chip, ' +
+                        '.portfolio-card, .portfolio-box, .certificate-card, .cert-filter-btn, .skill-card, .skill-box, .floating-chip, ' +
                         '.chip-top, .chip-bottom, .social-media a, h1, h2, h3, h4, ' +
                         '.hero-desc, .about-content p, .home-img, .contact-card, .hero-badge, .feedback-modal'
                     );
@@ -1214,8 +1516,15 @@ class MeteorShower {
 meteorShower = meteorCanvas ? new MeteorShower(meteorCanvas) : null;
 
 if (meteorShowerToggle && meteorShower) {
-    meteorShowerToggle.setAttribute('aria-pressed', String(meteorShower.active));
-    meteorShowerToggle.addEventListener('click', () => {
+    meteorShowerToggle.setAttribute('aria-pressed', String(meteorShower.active && document.documentElement.dataset.perfMode !== 'eco'));
+    meteorShowerToggle.addEventListener('click', (e) => {
+        if (document.documentElement.dataset.perfMode === 'eco') {
+            e.preventDefault();
+            e.stopPropagation();
+            showEcoMeteorNotice();
+            backgroundMenu.open = true;
+            return;
+        }
         meteorShower.setActive(!meteorShower.active, true);
         if (meteorShower.active) {
             recommendDarkMode('Meteor trails are recommended in dark mode for a clearer night-sky effect.');
@@ -1231,7 +1540,7 @@ if (heroMeteorBtn && meteorShower) {
     let wishResetTimer = 0;
 
     const handleWishAction = (e) => {
-        if (document.documentElement.dataset.scheme === 'light') return;
+        if (document.documentElement.dataset.perfMode === 'eco' || document.documentElement.dataset.scheme === 'light') return;
         if (!meteorShower.active) {
             meteorShower.setActive(true, true);
         }
@@ -1337,41 +1646,43 @@ window.onscroll = () => {
         if (top >= offset && top < offset + height) {
             navLinks.forEach(links => {
                 links.classList.remove('active');
-                document.querySelector('header nav a[href*=' + id + ']').classList.add('active');
+                const activeEl = document.querySelector('header nav a[href*=' + id + ']');
+                if (activeEl) activeEl.classList.add('active');
             });
         };
     });
 
     /*==================== Sticky Navbar ====================*/
     let header = document.querySelector('header');
-    header.classList.toggle('sticky', window.scrollY > 100);
+    if (header) header.classList.toggle('sticky', window.scrollY > 100);
 
     /*==================== Remove Toggle Icon and Navbar when click navbar link (scroll) ====================*/
-    setMobileMenuOpen(false);
+    if (navbar && navbar.classList.contains('active')) setMobileMenuOpen(false);
 };
 
 /*==================== Scroll Reveal ====================*/
-ScrollReveal({ 
+// Protected ScrollReveal
+try { if (typeof ScrollReveal !== 'undefined') ScrollReveal({ 
     distance: '60px',
     duration: 1800,
     delay: 150,
     reset: false
 });
 
-ScrollReveal().reveal('.hero-badge, .home-content h3, .home-content h1, .hero-desc, .hero-btn-group, .heading, .section-tag', { origin: 'top', interval: 80 });
-ScrollReveal().reveal('.home-img-wrapper, .hero-stats, .skills-container, .services-container, .portfolio-card, .contact-wrapper', { origin: 'bottom', interval: 100 });
+if (typeof ScrollReveal !== 'undefined') { ScrollReveal().reveal('.hero-badge, .hero-greeting, .home-content h1, .hero-role, .hero-desc, .hero-btn-group, .heading, .section-tag', { origin: 'top', interval: 80 });
+ScrollReveal().reveal('.home-img-wrapper, .hero-stats, .skills-container, .services-container, .portfolio-card, .cert-controls, .certificates-container, .contact-wrapper', { origin: 'bottom', interval: 100 });
 ScrollReveal().reveal('.about-img-wrapper', { origin: 'left' });
-ScrollReveal().reveal('.about-content', { origin: 'right' });
+ScrollReveal().reveal('.about-content', { origin: 'right' }); } } catch (e) {}
 
 /*==================== Typed JS ====================*/
-new Typed('.multiple-text', {
+try { if (typeof Typed !== 'undefined' && document.querySelector('.multiple-text')) { window.typedInstance = new Typed('.multiple-text', {
     strings: ['Backend Developer', 'Web Developer', 'Robotics & IoT Enthusiast', 'AI Explorer'],
     typeSpeed: 65,
     backSpeed: 45,
     backDelay: 1500,
     loop: true,
     contentType: 'null'
-});
+}); } else { window.typedInstance = null; } } catch (e) { window.typedInstance = null; }
 
 /*==================== Read More / Read Less (About Me) ====================*/
 const readMoreBtn = document.getElementById('read-more-btn');
@@ -1396,8 +1707,106 @@ if (readMoreBtn && moreText) {
 const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
+    const nameInput = document.getElementById('contact-name');
+    const emailInput = document.getElementById('contact-email');
+    const phoneInput = document.getElementById('contact-phone');
+    const subjectInput = document.getElementById('contact-subject');
+    const messageInput = document.getElementById('contact-message');
+    const formStatus = document.getElementById('contact-form-status');
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+    const phonePattern = /^[+]?[\d\s()-]{7,18}$/;
+
+    const setFieldError = (input, errorMsg) => {
+        if (!input) return;
+        const wrap = input.closest('.input-field');
+        const errId = input.getAttribute('aria-describedby');
+        const errEl = errId ? document.getElementById(errId) : null;
+        if (errorMsg) {
+            if (wrap) wrap.classList.add('has-error');
+            input.setAttribute('aria-invalid', 'true');
+            if (errEl) errEl.textContent = errorMsg;
+        } else {
+            if (wrap) wrap.classList.remove('has-error');
+            input.removeAttribute('aria-invalid');
+            if (errEl) errEl.textContent = '';
+        }
+    };
+
+    const validateSingleField = (input) => {
+        if (!input) return '';
+        const val = input.value.trim();
+        if (input === nameInput) {
+            if (!val) return 'Please enter your full name.';
+            if (val.length < 2) return 'Name must be at least 2 characters long.';
+        } else if (input === emailInput) {
+            if (!val) return 'Please enter your email address.';
+            if (!emailPattern.test(val)) return 'Please enter a valid email address (example: name@domain.com).';
+        } else if (input === phoneInput) {
+            if (val && !phonePattern.test(val)) return 'Please enter a valid phone number (7-18 digits) or leave it blank.';
+        } else if (input === subjectInput) {
+            if (val && val.length < 3) return 'Subject must be at least 3 characters or left blank.';
+        } else if (input === messageInput) {
+            if (!val) return 'Please write your message before sending.';
+            if (val.length < 10) return 'Message must be at least 10 characters long.';
+        }
+        return '';
+    };
+
+    const clearAllFormErrors = () => {
+        [nameInput, emailInput, phoneInput, subjectInput, messageInput].forEach((input) => setFieldError(input, ''));
+        if (formStatus) {
+            formStatus.hidden = true;
+            formStatus.textContent = '';
+        }
+    };
+
+    [nameInput, emailInput, phoneInput, subjectInput, messageInput].forEach((input) => {
+        if (!input) return;
+        input.addEventListener('input', () => {
+            if (input.getAttribute('aria-invalid') === 'true') {
+                setFieldError(input, validateSingleField(input));
+            }
+            if (formStatus && !formStatus.hidden) {
+                formStatus.hidden = true;
+                formStatus.textContent = '';
+            }
+        });
+        input.addEventListener('blur', () => {
+            if (input.value.trim() !== '') {
+                setFieldError(input, validateSingleField(input));
+            }
+        });
+    });
+
     contactForm.addEventListener('submit', function(event) {
         event.preventDefault();
+
+        const fields = [nameInput, emailInput, phoneInput, subjectInput, messageInput];
+        let firstInvalid = null;
+        let errorCount = 0;
+
+        fields.forEach((input) => {
+            const msg = validateSingleField(input);
+            setFieldError(input, msg);
+            if (msg) {
+                errorCount++;
+                if (!firstInvalid) firstInvalid = input;
+            }
+        });
+
+        if (errorCount > 0) {
+            if (formStatus) {
+                formStatus.hidden = false;
+                formStatus.textContent = `Please fix ${errorCount} highlighted field${errorCount > 1 ? 's' : ''} before submitting.`;
+            }
+            if (firstInvalid) firstInvalid.focus();
+            return;
+        }
+
+        if (formStatus) {
+            formStatus.hidden = true;
+            formStatus.textContent = '';
+        }
 
         const returnFocus = document.activeElement;
         const modalOverlay = document.createElement('div');
@@ -1464,6 +1873,7 @@ if (contactForm) {
             modalOverlay.remove();
             window.removeEventListener('keydown', handleKeydown);
             contactForm.reset();
+            clearAllFormErrors();
             returnFocus?.focus();
         };
 
@@ -1486,6 +1896,64 @@ if (contactForm) {
         modalOverlay.appendChild(modalBox);
         document.body.appendChild(modalOverlay);
         modalBtn.focus();
+    });
+}
+
+/*==================== Contact Email Copy Action ====================*/
+const copyEmailBtn = document.getElementById('copy-email-btn');
+
+if (copyEmailBtn) {
+    let copyResetTimer = 0;
+
+    const fallbackCopyText = (text) => {
+        const helper = document.createElement('textarea');
+        helper.value = text;
+        helper.setAttribute('readonly', '');
+        helper.style.position = 'fixed';
+        helper.style.opacity = '0';
+        helper.style.pointerEvents = 'none';
+        document.body.appendChild(helper);
+        helper.select();
+        let ok = false;
+        try {
+            ok = document.execCommand('copy');
+        } catch {}
+        helper.remove();
+        return ok;
+    };
+
+    const showCopiedState = (success) => {
+        const icon = copyEmailBtn.querySelector('i');
+        const label = copyEmailBtn.querySelector('span');
+        if (copyResetTimer) clearTimeout(copyResetTimer);
+
+        if (success) {
+            copyEmailBtn.classList.add('is-copied');
+            if (icon) icon.className = 'bx bx-check';
+            if (label) label.textContent = 'Copied!';
+        } else {
+            if (label) label.textContent = 'Copy Failed';
+        }
+
+        copyResetTimer = setTimeout(() => {
+            copyEmailBtn.classList.remove('is-copied');
+            if (icon) icon.className = 'bx bx-copy';
+            if (label) label.textContent = 'Copy Email';
+        }, 2200);
+    };
+
+    copyEmailBtn.addEventListener('click', async () => {
+        const email = copyEmailBtn.dataset.copyEmail || 'dafafairuzrahman@gmail.com';
+        try {
+            if (navigator.clipboard && window.isSecureContext) {
+                await navigator.clipboard.writeText(email);
+                showCopiedState(true);
+            } else {
+                showCopiedState(fallbackCopyText(email));
+            }
+        } catch {
+            showCopiedState(fallbackCopyText(email));
+        }
     });
 }
 
@@ -1534,7 +2002,7 @@ class ConstellationStarChart {
         window.addEventListener('resize', () => this.resize(), { passive: true });
 
         window.addEventListener('pointermove', (e) => {
-            if (!this.active) return;
+            if (!this.active || document.body.classList.contains('lightbox-open')) return;
             this.pointer.x = e.clientX;
             this.pointer.y = e.clientY;
             this.pointer.active = true;
@@ -1600,12 +2068,16 @@ class ConstellationStarChart {
     }
 
     start() {
+        if (document.documentElement.dataset.perfMode === 'eco') {
+            this.stop();
+            return;
+        }
         this.active = true;
         if (this.rafId) return;
         this.lastTime = performance.now();
 
         const loop = (currentTime) => {
-            if (!this.active || document.documentElement.dataset.scheme !== 'light') {
+            if (!this.active || document.documentElement.dataset.scheme !== 'light' || document.documentElement.dataset.perfMode === 'eco') {
                 this.stop();
                 return;
             }
@@ -1810,7 +2282,1027 @@ class ConstellationStarChart {
 }
 
 constellationChart = constellationCanvas ? new ConstellationStarChart(constellationCanvas) : null;
-if (constellationChart && document.documentElement.dataset.scheme === 'light') {
+if (constellationChart && document.documentElement.dataset.scheme === 'light' && document.documentElement.dataset.perfMode !== 'eco') {
     constellationChart.start();
 }
 
+/*==================== PCB Trace Reveal (Robotics & IoT card) ====================*/
+const pcbTrace = document.querySelector('.pcb-trace');
+
+if (pcbTrace) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isEcoMode = document.documentElement.dataset.perfMode === 'eco';
+
+    if (!prefersReducedMotion && !isEcoMode && 'IntersectionObserver' in window) {
+        pcbTrace.classList.add('pcb-armed');
+
+        const pcbObserver = new IntersectionObserver((entries, observer) => {
+            if (entries.some(entry => entry.isIntersecting)) {
+                pcbTrace.classList.add('is-live');
+                observer.disconnect();
+            }
+        }, { threshold: 0.6 });
+
+        pcbObserver.observe(pcbTrace);
+    }
+}
+
+
+/*==================== Portfolio Project Lightbox Modal (Tahap 2) ====================*/
+let isPortfolioLightboxInitialized = false;
+function initPortfolioLightbox() {
+    if (isPortfolioLightboxInitialized) return;
+    const lightbox = document.getElementById('portfolio-lightbox');
+    if (!lightbox) {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initPortfolioLightbox, { once: true });
+        }
+        return;
+    }
+
+    const backdrop = document.getElementById('lightbox-backdrop');
+    const closeBtn = document.getElementById('lightbox-close-btn');
+    const prevBtn = document.getElementById('lightbox-arrow-prev');
+    const nextBtn = document.getElementById('lightbox-arrow-next');
+    const imgEl = document.getElementById('lightbox-image');
+    const loaderEl = document.getElementById('lightbox-loader');
+    const counterEl = document.getElementById('lightbox-counter');
+    const categoryEl = document.getElementById('lightbox-category');
+    const titleEl = document.getElementById('lightbox-title');
+    const tagsContainer = document.getElementById('lightbox-tags');
+    const descEl = document.getElementById('lightbox-desc');
+    const lightboxStage = document.getElementById('lightbox-stage');
+    const mediaWrap = document.getElementById('lightbox-media-wrap');
+    const zoomInBtn = document.getElementById('lightbox-zoom-in');
+    const zoomOutBtn = document.getElementById('lightbox-zoom-out');
+    const zoomResetBtn = document.getElementById('lightbox-zoom-reset');
+    const zoomLevelBadge = document.getElementById('lightbox-zoom-level');
+    const fullscreenBtn = document.getElementById('lightbox-fullscreen-btn');
+    const hdLink = document.getElementById('lightbox-hd-link');
+    const verifyLink = document.getElementById('lightbox-verify-link');
+    const toolbarDivider = document.getElementById('lightbox-toolbar-divider');
+    const toolbarModeSwitch = document.getElementById('lightbox-toolbar-mode-switch');
+    const footerModeToggle = document.getElementById('lightbox-mode-toggle-footer');
+    const shellEl = lightbox.querySelector('.lightbox-shell');
+    const cards = Array.from(document.querySelectorAll('.portfolio-card'));
+    const certCards = Array.from(document.querySelectorAll('.certificate-card'));
+
+    if (cards.length === 0 && certCards.length === 0) {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initPortfolioLightbox, { once: true });
+        }
+        return;
+    }
+
+    isPortfolioLightboxInitialized = true;
+    let activeGallery = 'portfolio';
+    let currentIndex = 0;
+    let lastActiveElement = null;
+
+    // Zoom & Pan Engine state
+    let zoomScale = 1.0;
+    let panX = 0;
+    let panY = 0;
+    const MIN_ZOOM = 1.0;
+    const MAX_ZOOM = 4.0;
+    const ZOOM_STEP = 0.35;
+
+    let isDragging = false;
+    let dragStartX = 0;
+    let dragStartY = 0;
+    let dragPanStartX = 0;
+    let dragPanStartY = 0;
+
+    // Collect project data from DOM
+    const projects = cards.map((card, idx) => {
+        const catBadge = card.querySelector('.portfolio-category-badge');
+        const h4 = card.querySelector('.portfolio-body h3, .portfolio-body h4');
+        const p = card.querySelector('.portfolio-body p');
+        const tagSpans = card.querySelectorAll('.project-tags span');
+        const img = card.querySelector('.portfolio-image-wrap img');
+
+        const normalImg = card.dataset.normalImg || card.dataset.fullImg || (img ? img.getAttribute('src') : '');
+        const ecoImg = card.dataset.ecoImg || card.dataset.fallbackImg || normalImg;
+        const previewHd = card.dataset.previewHd || card.dataset.hdImg || card.dataset.fullImg || normalImg;
+        const previewEco = card.dataset.previewEco || ecoImg || normalImg;
+        const hdSvg = card.dataset.hdSvg || card.dataset.hdImg || '';
+        const hdImg = card.dataset.hdImg || '';
+        const fullImg = card.dataset.fullImg || normalImg;
+        const fallbackImg = card.dataset.fallbackImg || ecoImg;
+        const primaryImg = previewHd || fullImg;
+
+        const tags = Array.from(tagSpans).map(span => span.textContent.trim());
+
+        return {
+            gallery: 'portfolio',
+            index: idx,
+            category: catBadge ? catBadge.textContent.trim() : 'Project',
+            titleHTML: h4 ? h4.innerHTML : 'Project Title',
+            titleText: h4 ? h4.textContent.trim() : 'Project Title',
+            desc: p ? p.textContent.trim() : '',
+            normalImg: normalImg,
+            ecoImg: ecoImg,
+            previewHd: previewHd,
+            previewEco: previewEco,
+            hdSvg: hdSvg,
+            hdImg: hdImg,
+            primaryImg: primaryImg,
+            fullImg: fullImg,
+            fallbackImg: fallbackImg,
+            alt: img ? img.getAttribute('alt') || 'Project Preview' : 'Project Preview',
+            tags: tags
+        };
+    });
+
+    // Collect verified certificate data from DOM
+    const certificates = certCards.map((card, idx) => {
+        const catBadge = card.querySelector('.certificate-category-badge');
+        const h4 = card.querySelector('.certificate-body h3, .certificate-body h4');
+        const img = card.querySelector('.certificate-image-wrap img');
+        const certId = card.dataset.certId || '';
+        const issuer = card.dataset.certIssuer || 'Sololearn';
+        const issuedDate = card.dataset.certDate || '';
+        const pdfUrl = card.dataset.pdfUrl || '';
+        const verifyUrl = card.dataset.verifyUrl || '';
+        const normalImg = card.dataset.normalImg || (img ? img.getAttribute('src') : '');
+        const previewHd = card.dataset.previewHd || normalImg;
+        const previewEco = card.dataset.previewEco || normalImg;
+        const customDesc = card.dataset.certDesc || `Verified completion certificate issued by ${issuer} on ${issuedDate} (Credential ID: ${certId}).`;
+
+        return {
+            gallery: 'certificate',
+            cardEl: card,
+            index: idx,
+            category: catBadge ? catBadge.textContent.trim() : 'Certificate',
+            titleHTML: h4 ? h4.innerHTML : 'Certificate',
+            titleText: h4 ? h4.textContent.trim() : 'Certificate',
+            desc: customDesc,
+            normalImg: normalImg,
+            ecoImg: normalImg,
+            previewHd: previewHd,
+            previewEco: previewEco,
+            pdfUrl: pdfUrl,
+            verifyUrl: verifyUrl,
+            certId: certId,
+            issuer: issuer,
+            issuedDate: issuedDate,
+            alt: img ? img.getAttribute('alt') || 'Certificate Preview' : 'Certificate Preview',
+            tags: [issuer, issuedDate, certId ? `ID: ${certId}` : ''].filter(Boolean)
+        };
+    });
+
+    const updateTransform = (animate = true) => {
+        if (!imgEl) return;
+
+        if (zoomScale <= 1.0) {
+            zoomScale = 1.0;
+            panX = 0;
+            panY = 0;
+            if (lightboxStage) lightboxStage.classList.remove('is-zoomed');
+        } else {
+            if (lightboxStage) lightboxStage.classList.add('is-zoomed');
+
+            // Bounded panning so image doesn't fly off screen
+            if (mediaWrap) {
+                const wrapRect = mediaWrap.getBoundingClientRect();
+                const maxPanX = Math.max(0, (wrapRect.width * (zoomScale - 1)) / 2 + 80);
+                const maxPanY = Math.max(0, (wrapRect.height * (zoomScale - 1)) / 2 + 80);
+                panX = Math.max(-maxPanX, Math.min(maxPanX, panX));
+                panY = Math.max(-maxPanY, Math.min(maxPanY, panY));
+            }
+        }
+
+        if (!animate) {
+            imgEl.classList.add('no-transition');
+        } else {
+            imgEl.classList.remove('no-transition');
+        }
+
+        if (zoomScale === 1.0 && panX === 0 && panY === 0) {
+            imgEl.style.transform = '';
+        } else {
+            imgEl.style.transform = `translate3d(${panX}px, ${panY}px, 0px) scale(${zoomScale})`;
+        }
+
+        if (zoomLevelBadge) {
+            zoomLevelBadge.textContent = `${Math.round(zoomScale * 100)}%`;
+        }
+    };
+
+    const setZoom = (newScale, focalX, focalY) => {
+        const clampedScale = Math.max(MIN_ZOOM, Math.min(MAX_ZOOM, +newScale.toFixed(2)));
+        if (focalX !== undefined && focalY !== undefined && clampedScale !== zoomScale && zoomScale > 0) {
+            const factor = clampedScale / zoomScale;
+            panX = focalX - factor * (focalX - panX);
+            panY = focalY - factor * (focalY - panY);
+        } else if (clampedScale === 1.0) {
+            panX = 0;
+            panY = 0;
+        }
+        zoomScale = clampedScale;
+        updateTransform(true);
+    };
+
+    const zoomIn = () => {
+        setZoom(Math.min(MAX_ZOOM, +(zoomScale + ZOOM_STEP).toFixed(2)));
+    };
+
+    const zoomOut = () => {
+        setZoom(Math.max(MIN_ZOOM, +(zoomScale - ZOOM_STEP).toFixed(2)));
+    };
+
+    const resetZoom = () => {
+        zoomScale = 1.0;
+        panX = 0;
+        panY = 0;
+        updateTransform(true);
+    };
+
+    // Active preview mode: 'raster' (upscale HD photo/image) or 'svg' (interactive/animated vector)
+    let currentViewMode = 'raster';
+
+    // Outside background web pause manager to eliminate lag when lightbox is active
+    const bgPauseState = {
+        meteorShower: false,
+        constellationChart: false,
+        backgroundVideo: false,
+        typed: false
+    };
+
+    const pauseOutsideWeb = () => {
+        document.body.classList.add('lightbox-open');
+        document.documentElement.dataset.lightboxActive = 'true';
+
+        // 1. Meteor shower animation loop & cosmic events
+        if (typeof meteorShower !== 'undefined' && meteorShower && meteorShower.active) {
+            bgPauseState.meteorShower = true;
+            try {
+                meteorShower.pause();
+                if (meteorShower.cosmicEventTimeout) {
+                    clearTimeout(meteorShower.cosmicEventTimeout);
+                    meteorShower.cosmicEventTimeout = 0;
+                }
+                if (typeof meteorShower.hideCosmicEventNotification === 'function') {
+                    meteorShower.hideCosmicEventNotification();
+                }
+            } catch (e) {}
+        }
+
+        // 2. Constellation star chart animation loop
+        if (typeof constellationChart !== 'undefined' && constellationChart && constellationChart.active) {
+            bgPauseState.constellationChart = true;
+            try { constellationChart.stop(); } catch (e) {}
+        }
+
+        // 3. Background video playback
+        if (typeof backgroundVideo !== 'undefined' && backgroundVideo && !backgroundVideo.paused && !backgroundVideo.hidden) {
+            bgPauseState.backgroundVideo = true;
+            try { backgroundVideo.pause(); } catch (e) {}
+        }
+
+        // 4. Typed.js typing animation
+        if (window.typedInstance && typeof window.typedInstance.stop === 'function') {
+            bgPauseState.typed = true;
+            try { window.typedInstance.stop(); } catch (e) {}
+        }
+    };
+
+    const resumeOutsideWeb = () => {
+        document.body.classList.remove('lightbox-open');
+        delete document.documentElement.dataset.lightboxActive;
+
+        const isEco = document.documentElement.dataset.perfMode === 'eco';
+
+        // 1. Resume meteor shower (only when not in Eco mode)
+        if (bgPauseState.meteorShower) {
+            bgPauseState.meteorShower = false;
+            if (!isEco && typeof meteorShower !== 'undefined' && meteorShower && meteorShower.active) {
+                try {
+                    meteorShower.lastTime = performance.now();
+                    meteorShower.start();
+                    if (typeof meteorShower.scheduleNextCosmicEvent === 'function') {
+                        meteorShower.scheduleNextCosmicEvent();
+                    }
+                } catch (e) {}
+            }
+        }
+
+        // 2. Resume constellation chart (only when not in Eco mode)
+        if (bgPauseState.constellationChart) {
+            bgPauseState.constellationChart = false;
+            if (!isEco && typeof constellationChart !== 'undefined' && constellationChart && document.documentElement.dataset.scheme === 'light') {
+                try { constellationChart.start(); } catch (e) {}
+            }
+        }
+
+        // 3. Resume background video (only when not in Eco mode)
+        if (bgPauseState.backgroundVideo) {
+            bgPauseState.backgroundVideo = false;
+            if (!isEco && typeof backgroundVideo !== 'undefined' && backgroundVideo && !backgroundVideo.hidden) {
+                try { backgroundVideo.play().catch(() => {}); } catch (e) {}
+            }
+        }
+
+        // 4. Resume Typed.js
+        if (bgPauseState.typed) {
+            bgPauseState.typed = false;
+            if (window.typedInstance && typeof window.typedInstance.start === 'function') {
+                try { window.typedInstance.start(); } catch (e) {}
+            }
+        }
+    };
+
+    const updateModeUI = (mode) => {
+        const modeBtns = lightbox.querySelectorAll('[data-mode]');
+        modeBtns.forEach(btn => {
+            const isActive = btn.getAttribute('data-mode') === mode;
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-checked', String(isActive));
+        });
+    };
+
+    let currentMediaRequestId = 0;
+
+    const getActiveList = () => (activeGallery === 'certificate' ? certificates : projects);
+
+    const getNavigableIndices = () => {
+        if (activeGallery !== 'certificate') {
+            return projects.map((_, idx) => idx);
+        }
+        const visible = certificates
+            .filter((item) => item.cardEl && !item.cardEl.classList.contains('is-filtered-out') && !item.cardEl.hidden)
+            .map((item) => item.index);
+        return visible.length > 0 ? visible : certificates.map((_, idx) => idx);
+    };
+
+    const syncLightboxGalleryControls = (isCert) => {
+        if (toolbarDivider) toolbarDivider.hidden = isCert;
+        if (toolbarModeSwitch) toolbarModeSwitch.hidden = isCert;
+        if (footerModeToggle) footerModeToggle.hidden = isCert;
+    };
+
+    const applyCurrentProjectMedia = (resetScale = false) => {
+        const list = getActiveList();
+        const proj = list[currentIndex];
+        if (!proj || !imgEl) return;
+
+        if (resetScale) {
+            resetZoom();
+        }
+
+        const requestId = ++currentMediaRequestId;
+        const isEco = document.documentElement.dataset.perfMode === 'eco';
+        let targetSrc = '';
+
+        if (activeGallery === 'certificate') {
+            targetSrc = isEco
+                ? (proj.previewEco || proj.normalImg)
+                : (proj.previewHd || proj.normalImg);
+
+            if (hdLink) {
+                hdLink.href = proj.pdfUrl || targetSrc;
+                hdLink.removeAttribute('download');
+                hdLink.title = 'Open original certificate PDF in new tab';
+                const labelSpan = hdLink.querySelector('span');
+                if (labelSpan) labelSpan.textContent = 'Open Original PDF';
+            }
+            if (verifyLink) {
+                if (proj.verifyUrl) {
+                    verifyLink.href = proj.verifyUrl;
+                    verifyLink.hidden = false;
+                    verifyLink.title = `Verify ${proj.titleText} (${proj.certId}) on ${proj.issuer || 'Issuer'}`;
+                } else {
+                    verifyLink.hidden = true;
+                }
+            }
+        } else {
+            // Portfolio Project:
+            // - Khusus Project 4 (images7) & Project 7 (image10):
+            //   * Mode Normal preview: memanggil versi HD upscale (images/images7_HD.jpg / images/image10_HD.jpg)
+            //   * Mode Efisien ON dan preview: memanggil versi original (images/images7_orig.jpg / images/image10_orig.jpg)
+            // - Proyek lainnya (1, 2, 3, 5, 6, 8): SELALU memanggil versi HD upscale (previewHd) saat preview!
+            if (currentViewMode === 'svg') {
+                targetSrc = proj.hdSvg || proj.hdImg || proj.previewHd;
+            } else {
+                const isSpecialProject = (proj.index === 3 || proj.index === 6 || /images7|image10/i.test(proj.normalImg || ''));
+                if (isSpecialProject) {
+                    targetSrc = isEco
+                        ? (proj.previewEco || proj.normalImg || (proj.index === 3 ? 'images/images7_orig.jpg' : 'images/image10_orig.jpg'))
+                        : (proj.previewHd || proj.hdImg || (proj.index === 3 ? 'images/images7_HD.jpg' : 'images/image10_HD.jpg'));
+                } else {
+                    targetSrc = isEco
+                        ? (proj.previewEco || proj.normalImg || proj.ecoImg)
+                        : (proj.previewHd || proj.hdImg || proj.fullImg || proj.normalImg);
+                }
+            }
+
+            if (hdLink) {
+                hdLink.href = targetSrc;
+                hdLink.removeAttribute('download');
+                hdLink.title = currentViewMode === 'svg'
+                    ? 'Buka file vektor SVG animasi terpisah di tab baru'
+                    : `Buka file resolusi penuh terpisah di tab baru (${targetSrc})`;
+                const labelSpan = hdLink.querySelector('span');
+                if (labelSpan) labelSpan.textContent = 'Buka File Tab Baru';
+            }
+            if (verifyLink) {
+                verifyLink.hidden = true;
+            }
+        }
+
+        console.log(`[Lightbox:${activeGallery}] Item ${currentIndex + 1} (${proj.titleText}) -> Loading: ${targetSrc} | Eco: ${isEco}`);
+
+        imgEl.src = targetSrc;
+        imgEl.alt = proj.alt;
+        imgEl.classList.add('loading');
+        if (loaderEl) loaderEl.classList.add('active');
+
+        const newImg = new Image();
+        newImg.src = targetSrc;
+
+        newImg.onload = () => {
+            if (requestId !== currentMediaRequestId) return;
+            imgEl.src = targetSrc;
+            imgEl.alt = proj.alt;
+            imgEl.classList.remove('loading');
+            if (loaderEl) loaderEl.classList.remove('active');
+            updateTransform(!resetScale);
+        };
+
+        newImg.onerror = () => {
+            if (requestId !== currentMediaRequestId) return;
+            console.warn('[Lightbox] Failed to load:', targetSrc);
+            const fallback = (activeGallery === 'portfolio' && currentViewMode === 'svg')
+                ? (proj.previewHd || proj.normalImg)
+                : (proj.normalImg || proj.ecoImg);
+            if (fallback && fallback !== targetSrc) {
+                imgEl.src = fallback;
+                imgEl.alt = proj.alt;
+            }
+            imgEl.classList.remove('loading');
+            if (loaderEl) loaderEl.classList.remove('active');
+            updateTransform(!resetScale);
+        };
+
+        if (newImg.complete) {
+            if (requestId === currentMediaRequestId) {
+                imgEl.classList.remove('loading');
+                if (loaderEl) loaderEl.classList.remove('active');
+                updateTransform(!resetScale);
+            }
+        }
+    };
+
+    const setViewMode = (mode) => {
+        if (activeGallery !== 'portfolio') return;
+        if (mode !== 'svg' && mode !== 'raster') return;
+        currentViewMode = mode;
+        updateModeUI(mode);
+        applyCurrentProjectMedia(false); // Keeps zoom level and pan coordinates!
+    };
+
+    const renderProject = (idx, gallery = activeGallery) => {
+        activeGallery = gallery === 'certificate' ? 'certificate' : 'portfolio';
+        const list = getActiveList();
+        const proj = list[idx];
+        if (!proj) return;
+
+        currentIndex = idx;
+        const isCert = activeGallery === 'certificate';
+        syncLightboxGalleryControls(isCert);
+
+        const navList = getNavigableIndices();
+        const navPos = navList.indexOf(idx);
+        const displayPos = navPos >= 0 ? navPos + 1 : idx + 1;
+        const displayTotal = isCert ? navList.length : list.length;
+
+        if (counterEl) {
+            counterEl.textContent = isCert
+                ? `Certificate ${displayPos} of ${displayTotal}`
+                : `Project ${idx + 1} of ${list.length}`;
+        }
+        if (categoryEl) categoryEl.textContent = proj.category;
+        if (titleEl) titleEl.innerHTML = proj.titleHTML;
+        if (descEl) descEl.textContent = proj.desc;
+
+        if (tagsContainer) {
+            tagsContainer.innerHTML = '';
+            const tagList = Array.isArray(proj.tags) ? proj.tags : [];
+            tagList.forEach(tag => {
+                const span = document.createElement('span');
+                span.className = 'lightbox-tag-pill';
+                span.textContent = tag;
+                tagsContainer.appendChild(span);
+            });
+        }
+
+        if (!isCert) updateModeUI(currentViewMode);
+        applyCurrentProjectMedia(true);
+    };
+
+    const openLightbox = (idx, triggerElement, gallery = 'portfolio') => {
+        const targetGallery = gallery === 'certificate' ? 'certificate' : 'portfolio';
+        if (lightbox.classList.contains('active') && activeGallery === targetGallery && currentIndex === idx) return;
+        try {
+            lastActiveElement = triggerElement || document.activeElement;
+            pauseOutsideWeb();
+            lightbox.classList.add('active');
+            lightbox.setAttribute('aria-hidden', 'false');
+            renderProject(idx, targetGallery);
+            if (closeBtn) closeBtn.focus();
+        } catch (err) {
+            console.error('Error opening lightbox:', err);
+            pauseOutsideWeb();
+            lightbox.classList.add('active');
+            lightbox.setAttribute('aria-hidden', 'false');
+        }
+    };
+
+    const openCertificateLightbox = (idx, triggerElement) => {
+        openLightbox(idx, triggerElement, 'certificate');
+    };
+
+    const closeLightbox = () => {
+        if (!lightbox.classList.contains('active')) return;
+
+        resetZoom();
+        if (shellEl) shellEl.classList.remove('stage-expanded');
+        if (fullscreenBtn) {
+            const icon = fullscreenBtn.querySelector('i');
+            if (icon) icon.className = 'bx bx-fullscreen';
+        }
+
+        lightbox.classList.remove('active');
+        lightbox.setAttribute('aria-hidden', 'true');
+
+        if (imgEl) {
+            imgEl.src = '';
+        }
+
+        const isEco = document.documentElement.dataset.perfMode === 'eco';
+        updatePortfolioCardsImageSource(isEco);
+        resumeOutsideWeb();
+
+        if (lastActiveElement && typeof lastActiveElement.focus === 'function') {
+            try {
+                lastActiveElement.focus();
+            } catch {}
+        }
+    };
+
+    const nextProject = () => {
+        const navList = getNavigableIndices();
+        if (!navList.length) return;
+        const pos = navList.indexOf(currentIndex);
+        const nextIdx = pos >= 0 ? navList[(pos + 1) % navList.length] : navList[0];
+        renderProject(nextIdx, activeGallery);
+    };
+
+    const prevProject = () => {
+        const navList = getNavigableIndices();
+        if (!navList.length) return;
+        const pos = navList.indexOf(currentIndex);
+        const prevIdx = pos >= 0 ? navList[(pos - 1 + navList.length) % navList.length] : navList[0];
+        renderProject(prevIdx, activeGallery);
+    };
+
+    // Direct click listeners for certificate cards, buttons & zoom hints
+    certCards.forEach((card, idx) => {
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('.btn-certificate-view, a, button')) return;
+            e.preventDefault();
+            openCertificateLightbox(idx, card);
+        });
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                if (e.target.closest('.btn-certificate-view, a, button')) return;
+                e.preventDefault();
+                openCertificateLightbox(idx, card);
+            }
+        });
+    });
+
+    document.querySelectorAll('.btn-certificate-view').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const openAttr = btn.getAttribute('data-cert-open');
+            const card = btn.closest('.certificate-card');
+            const cardAttr = card ? card.getAttribute('data-cert-index') : null;
+            const idx = parseInt(openAttr !== null ? openAttr : cardAttr, 10);
+            if (!isNaN(idx) && idx >= 0 && idx < certificates.length) {
+                openCertificateLightbox(idx, btn);
+            }
+        });
+    });
+
+    document.querySelectorAll('.certificate-zoom-hint').forEach((hint) => {
+        hint.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const card = hint.closest('.certificate-card');
+            const idxAttr = hint.getAttribute('data-cert-open') || (card ? card.getAttribute('data-cert-index') : null);
+            const idx = parseInt(idxAttr, 10);
+            if (!isNaN(idx) && idx >= 0 && idx < certificates.length) {
+                openCertificateLightbox(idx, hint);
+            }
+        });
+    });
+
+    const toggleFullscreen = () => {
+        if (!shellEl) return;
+        shellEl.classList.toggle('stage-expanded');
+        if (fullscreenBtn) {
+            const icon = fullscreenBtn.querySelector('i');
+            if (icon) {
+                if (shellEl.classList.contains('stage-expanded')) {
+                    icon.className = 'bx bx-exit-fullscreen';
+                    fullscreenBtn.setAttribute('title', 'Kembalikan Ukuran Stage');
+                } else {
+                    icon.className = 'bx bx-fullscreen';
+                    fullscreenBtn.setAttribute('title', 'Perluas Panggung Gambar');
+                }
+            }
+        }
+    };
+
+    // Direct click listeners for all Preview Project buttons
+    document.querySelectorAll('.btn-portfolio-view').forEach((btn) => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const openAttr = btn.getAttribute('data-project-open');
+            const card = btn.closest('.portfolio-card');
+            const cardAttr = card ? card.getAttribute('data-project-index') : null;
+            const idx = parseInt(openAttr !== null ? openAttr : cardAttr, 10);
+            if (!isNaN(idx) && idx >= 0 && idx < projects.length) {
+                openLightbox(idx, btn);
+            }
+        });
+    });
+
+    // Direct click listeners for all portfolio cards and keyboard navigation
+    cards.forEach((card, idx) => {
+        card.addEventListener('click', (e) => {
+            if (e.target.closest('.btn-portfolio-view, a, button')) return;
+            e.preventDefault();
+            openLightbox(idx, card);
+        });
+        card.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                if (e.target.closest('.btn-portfolio-view, a, button')) return;
+                e.preventDefault();
+                openLightbox(idx, card);
+            }
+        });
+    });
+
+    // Direct click listeners for image zoom hints
+    document.querySelectorAll('.portfolio-zoom-hint').forEach((hint) => {
+        hint.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const card = hint.closest('.portfolio-card');
+            const idxAttr = hint.getAttribute('data-project-open') || (card ? card.getAttribute('data-project-index') : null);
+            const idx = parseInt(idxAttr, 10);
+            if (!isNaN(idx) && idx >= 0 && idx < projects.length) {
+                openLightbox(idx, hint);
+            }
+        });
+    });
+
+    // Direct click listeners for all format switchers (Raster vs SVG Boost)
+    document.querySelectorAll('#portfolio-lightbox [data-mode]').forEach((modeBtn) => {
+        modeBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            const mode = modeBtn.getAttribute('data-mode');
+            if (mode) setViewMode(mode);
+        });
+    });
+
+    // Control buttons
+    if (closeBtn) closeBtn.addEventListener('click', (e) => { e.preventDefault(); closeLightbox(); });
+    if (backdrop) backdrop.addEventListener('click', (e) => { e.preventDefault(); closeLightbox(); });
+    if (prevBtn) prevBtn.addEventListener('click', (e) => { e.preventDefault(); prevProject(); });
+    if (nextBtn) nextBtn.addEventListener('click', (e) => { e.preventDefault(); nextProject(); });
+
+    // Zoom toolbar controls
+    if (zoomInBtn) zoomInBtn.addEventListener('click', (e) => { e.preventDefault(); zoomIn(); });
+    if (zoomOutBtn) zoomOutBtn.addEventListener('click', (e) => { e.preventDefault(); zoomOut(); });
+    if (zoomResetBtn) zoomResetBtn.addEventListener('click', (e) => { e.preventDefault(); resetZoom(); });
+    if (fullscreenBtn) fullscreenBtn.addEventListener('click', (e) => { e.preventDefault(); toggleFullscreen(); });
+
+    // Double-click on image to toggle zoom
+    if (imgEl) {
+        imgEl.addEventListener('dblclick', (e) => {
+            e.preventDefault();
+            if (zoomScale > 1.0) {
+                resetZoom();
+            } else {
+                if (mediaWrap) {
+                    const rect = mediaWrap.getBoundingClientRect();
+                    const mouseX = e.clientX - (rect.left + rect.width / 2);
+                    const mouseY = e.clientY - (rect.top + rect.height / 2);
+                    setZoom(2.2, mouseX, mouseY);
+                } else {
+                    setZoom(2.2);
+                }
+            }
+        });
+    }
+
+    // Mouse wheel zoom inside stage
+    if (lightboxStage) {
+        lightboxStage.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const rect = mediaWrap ? mediaWrap.getBoundingClientRect() : lightboxStage.getBoundingClientRect();
+            const mouseX = e.clientX - (rect.left + rect.width / 2);
+            const mouseY = e.clientY - (rect.top + rect.height / 2);
+
+            if (e.deltaY < 0) {
+                // Zoom in
+                setZoom(Math.min(MAX_ZOOM, +(zoomScale + 0.25).toFixed(2)), mouseX, mouseY);
+            } else {
+                // Zoom out
+                setZoom(Math.max(MIN_ZOOM, +(zoomScale - 0.25).toFixed(2)), mouseX, mouseY);
+            }
+        }, { passive: false });
+    }
+
+    // Drag-to-pan Pointer events (mouse & touch) when zoomed
+    if (mediaWrap) {
+        mediaWrap.addEventListener('pointerdown', (e) => {
+            if (zoomScale <= 1.0) return;
+            if (e.button !== 0) return; // Left mouse button or touch only
+
+            isDragging = true;
+            dragStartX = e.clientX;
+            dragStartY = e.clientY;
+            dragPanStartX = panX;
+            dragPanStartY = panY;
+
+            try { mediaWrap.setPointerCapture(e.pointerId); } catch {}
+            if (lightboxStage) lightboxStage.classList.add('is-dragging');
+            if (imgEl) imgEl.classList.add('no-transition');
+            e.preventDefault();
+        });
+
+        mediaWrap.addEventListener('pointermove', (e) => {
+            if (!isDragging) return;
+            const dx = e.clientX - dragStartX;
+            const dy = e.clientY - dragStartY;
+            panX = dragPanStartX + dx;
+            panY = dragPanStartY + dy;
+            updateTransform(false);
+        });
+
+        const stopDragging = (e) => {
+            if (!isDragging) return;
+            isDragging = false;
+            if (lightboxStage) lightboxStage.classList.remove('is-dragging');
+            if (imgEl) imgEl.classList.remove('no-transition');
+            try { mediaWrap.releasePointerCapture(e.pointerId); } catch {}
+            updateTransform(true);
+        };
+
+        mediaWrap.addEventListener('pointerup', stopDragging);
+        mediaWrap.addEventListener('pointercancel', stopDragging);
+    }
+
+    // Global Event Delegation for all portfolio buttons & lightbox controls
+    document.addEventListener('click', (e) => {
+        // 1. Lightbox close button
+        const closeClicked = e.target.closest('#lightbox-close-btn, .lightbox-close-btn');
+        if (closeClicked) {
+            e.preventDefault();
+            closeLightbox();
+            return;
+        }
+
+        // 2. Lightbox backdrop
+        if (e.target.id === 'lightbox-backdrop' || e.target.classList.contains('lightbox-backdrop')) {
+            e.preventDefault();
+            closeLightbox();
+            return;
+        }
+
+        // 3. Navigation Arrows
+        const prevClicked = e.target.closest('#lightbox-arrow-prev, .lightbox-arrow-prev');
+        if (prevClicked) {
+            e.preventDefault();
+            prevProject();
+            return;
+        }
+
+        const nextClicked = e.target.closest('#lightbox-arrow-next, .lightbox-arrow-next');
+        if (nextClicked) {
+            e.preventDefault();
+            nextProject();
+            return;
+        }
+
+        // 4. Zoom toolbar controls
+        if (e.target.closest('#lightbox-zoom-in')) {
+            e.preventDefault();
+            zoomIn();
+            return;
+        }
+        if (e.target.closest('#lightbox-zoom-out')) {
+            e.preventDefault();
+            zoomOut();
+            return;
+        }
+        if (e.target.closest('#lightbox-zoom-reset')) {
+            e.preventDefault();
+            resetZoom();
+            return;
+        }
+        if (e.target.closest('#lightbox-fullscreen-btn')) {
+            e.preventDefault();
+            toggleFullscreen();
+            return;
+        }
+
+        // 5. Format Switcher button (PNG / Asli vs SVG Animasi)
+        const modeBtn = e.target.closest('[data-mode]');
+        if (modeBtn && lightbox.contains(modeBtn)) {
+            e.preventDefault();
+            const mode = modeBtn.getAttribute('data-mode');
+            if (mode) setViewMode(mode);
+            return;
+        }
+
+        // 6. Portfolio Card / Action Button / Preview Overlay
+        const openTrigger = e.target.closest('[data-project-open], .btn-portfolio-view, .portfolio-zoom-hint, .portfolio-card');
+        if (openTrigger) {
+            const card = openTrigger.closest('.portfolio-card') || openTrigger;
+            const indexAttr = openTrigger.getAttribute('data-project-open') || card.getAttribute('data-project-index');
+            const idx = parseInt(indexAttr, 10);
+            if (!isNaN(idx) && idx >= 0 && idx < projects.length) {
+                e.preventDefault();
+                openLightbox(idx, openTrigger, 'portfolio');
+                return;
+            }
+        }
+
+        // 7. Certificate Card / Action Button / Preview Overlay
+        if (!e.target.closest('.cert-action-link')) {
+            const certTrigger = e.target.closest('[data-cert-open], .btn-certificate-view, .certificate-zoom-hint, .certificate-card');
+            if (certTrigger) {
+                const card = certTrigger.closest('.certificate-card') || certTrigger;
+                const indexAttr = certTrigger.getAttribute('data-cert-open') || card.getAttribute('data-cert-index');
+                const idx = parseInt(indexAttr, 10);
+                if (!isNaN(idx) && idx >= 0 && idx < certificates.length) {
+                    e.preventDefault();
+                    openCertificateLightbox(idx, certTrigger);
+                    return;
+                }
+            }
+        }
+    });
+
+    // Global programmatic access & engine handle
+    window.__portfolioLightboxEngine = {
+        open: openLightbox,
+        openCertificate: openCertificateLightbox,
+        close: closeLightbox,
+        next: nextProject,
+        prev: prevProject,
+        zoomIn: zoomIn,
+        zoomOut: zoomOut,
+        zoomReset: resetZoom,
+        toggleFullscreen: toggleFullscreen,
+        setMode: setViewMode,
+        getMode: () => currentViewMode,
+        refreshMedia: () => applyCurrentProjectMedia(false)
+    };
+    window.openPortfolioLightbox = openLightbox;
+    window.openCertificateLightbox = openCertificateLightbox;
+    window.closePortfolioLightbox = closeLightbox;
+    window.openPortfolio = openLightbox;
+    window.setLightboxMode = setViewMode;
+    window.getLightboxMode = () => currentViewMode;
+    window.refreshPortfolioLightbox = () => applyCurrentProjectMedia(false);
+    window.lightboxNext = nextProject;
+    window.lightboxPrev = prevProject;
+    window.lightboxZoomIn = zoomIn;
+    window.lightboxZoomOut = zoomOut;
+    window.lightboxZoomReset = resetZoom;
+    window.lightboxToggleFullscreen = toggleFullscreen;
+
+    // Process any request that was queued before lightbox initialization completed
+    if (window.__portfolioPendingOpen && typeof window.__portfolioPendingOpen.idx === 'number') {
+        const pending = window.__portfolioPendingOpen;
+        window.__portfolioPendingOpen = null;
+        openLightbox(pending.idx, pending.triggerEl, pending.gallery || 'portfolio');
+    }
+
+    if (window.__portfolioPendingMode && (window.__portfolioPendingMode === 'svg' || window.__portfolioPendingMode === 'raster')) {
+        const pendingMode = window.__portfolioPendingMode;
+        window.__portfolioPendingMode = null;
+        setViewMode(pendingMode);
+    }
+
+    // Keyboard navigation (ESC, ArrowLeft, ArrowRight, +, -, 0)
+    document.addEventListener('keydown', (e) => {
+        if (!lightbox.classList.contains('active')) return;
+
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            closeLightbox();
+        } else if (e.key === 'ArrowRight' && zoomScale <= 1.0) {
+            e.preventDefault();
+            nextProject();
+        } else if (e.key === 'ArrowLeft' && zoomScale <= 1.0) {
+            e.preventDefault();
+            prevProject();
+        } else if (e.key === '+' || e.key === '=') {
+            e.preventDefault();
+            zoomIn();
+        } else if (e.key === '-' || e.key === '_') {
+            e.preventDefault();
+            zoomOut();
+        } else if (e.key === '0') {
+            e.preventDefault();
+            resetZoom();
+        } else if ((e.key === 'v' || e.key === 'V') && activeGallery === 'portfolio') {
+            e.preventDefault();
+            setViewMode(currentViewMode === 'svg' ? 'raster' : 'svg');
+        }
+    });
+
+    // Mobile touch swipe gestures (only active when not zoomed in)
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    lightbox.addEventListener('touchstart', (e) => {
+        if (zoomScale > 1.0) return; // Allow smooth panning on touch when zoomed
+        if (e.touches.length === 1) {
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+        }
+    }, { passive: true });
+
+    lightbox.addEventListener('touchend', (e) => {
+        if (zoomScale > 1.0) return;
+        if (e.changedTouches.length === 1) {
+            const diffX = e.changedTouches[0].clientX - touchStartX;
+            const diffY = e.changedTouches[0].clientY - touchStartY;
+
+            // Horizontal swipe with minimum distance & lower vertical variance
+            if (Math.abs(diffX) > 50 && Math.abs(diffY) < 70) {
+                if (diffX < 0) {
+                    nextProject();
+                } else {
+                    prevProject();
+                }
+            }
+        }
+    }, { passive: true });
+}
+
+function initCertificateFilters() {
+    const filterButtons = Array.from(document.querySelectorAll('.cert-filter-btn[data-cert-filter]'));
+    const certCards = Array.from(document.querySelectorAll('.certificate-card[data-cert-category]'));
+    const countStatus = document.getElementById('cert-count-status');
+    if (!filterButtons.length || !certCards.length) return;
+
+    const applyFilter = (category) => {
+        let visibleCount = 0;
+        certCards.forEach((card) => {
+            const matches = category === 'all' || card.dataset.certCategory === category;
+            card.classList.toggle('is-filtered-out', !matches);
+            card.hidden = !matches;
+            if (matches) {
+                visibleCount++;
+            }
+        });
+
+        filterButtons.forEach((btn) => {
+            const isActive = btn.dataset.certFilter === category;
+            btn.classList.toggle('active', isActive);
+            btn.setAttribute('aria-pressed', String(isActive));
+        });
+
+        if (countStatus) {
+            countStatus.textContent = `Showing ${visibleCount} of ${certCards.length} verified credentials`;
+        }
+    };
+
+    filterButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+            applyFilter(btn.dataset.certFilter || 'all');
+        });
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        initPortfolioLightbox();
+        initCertificateFilters();
+    }, { once: true });
+} else {
+    initPortfolioLightbox();
+    initCertificateFilters();
+}
