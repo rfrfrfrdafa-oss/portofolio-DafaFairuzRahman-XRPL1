@@ -15,7 +15,7 @@ Repositori website portofolio pribadi untuk proyek **Sumatif Akhir Semester (PPL
 2. **Tentang Saya (`#about`)** — Profil singkat siswa RPL dan ketertarikan bidang pengembangan perangkat lunak.
 3. **Keahlian (`#skills`)** — Daftar keahlian pemrograman web, backend, sistem Linux/hardware, serta dasar AI & IoT.
 4. **Layanan (`#services`)** — Bidang fokus utama meliputi keamanan web dasar, robotika/IoT, dan backend.
-5. **Proyek (`#portfolio`)** — 10 proyek latihan dan eksplorasi lengkap dengan pratinjau Lightbox (foto HD dan diagram SVG animasi).
+5. **Proyek (`#portfolio`)** — 11 proyek latihan dan eksplorasi lengkap dengan pratinjau Lightbox (foto HD dan diagram SVG animasi).
 6. **Sertifikat (`#certificates`)** — 14 sertifikat online (Sololearn & Dicoding) dengan filter kategori, ID kredensial, tautan verifikasi, dan PDF.
 7. **Kontak (`#contact`)** — Informasi kontak publik, tombol `mailto:` dan salin email, serta formulir pesan dengan validasi sisi klien.
 8. **Halaman `404.html`** — Halaman 404 kustom dengan navigasi kembali ke beranda.
