@@ -9,6 +9,6 @@ desktop.ini
 .idea/
 
 # Local AI workspace / non-public artifacts
-.agents/
-GEMINI.md
+.agents/ # ini untuk pengambiilan repo swarm
+GEMINI.md # <ini adalah commit dari gemini yang sebelumnya berisi biner svg untuk di patuhi sub agent untuk svg
 images/images13.jpg
