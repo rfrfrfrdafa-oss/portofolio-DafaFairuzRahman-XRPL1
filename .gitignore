@@ -1,0 +1,17 @@
+# OS & Editor temporary files
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.bak
+*.log
+.vscode/
+.idea/
+
+# Local AI workspace / agent artifacts (not part of public site)
+.agents/
+GEMINI.md
+svg/GEMINI.md
+
+# Unoptimized raw camera source image (web uses images13_web.jpg & images13_HD.jpg)
+images/images13.jpg
