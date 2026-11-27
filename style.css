@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap');
 
-/* CSS VARIABLES & THEMING */
+/* Theme Variables */
 :root {
     --bg-color: #0b0f19;
     --second-bg-color: #121a2d;
@@ -90,7 +90,7 @@
     --glass-nav: rgba(255, 255, 255, 0.96);
 }
 
-/* Light mode: pure solid white background, completely hide video, black hole, meteors, and bg glow */
+/* Light Mode Overrides */
 :root[data-scheme="light"] body {
     background-color: var(--bg-color) !important;
 }
@@ -115,7 +115,7 @@
     opacity: 0 !important;
 }
 
-/* ASTRONOMICAL STAR-CHART BLUEPRINT / CONSTELLATIONS (LIGHT MODE) */
+/* Light Mode Constellation Canvas */
 #constellation-canvas {
     position: fixed;
     inset: 0;
@@ -142,7 +142,7 @@
     --card-border: color-mix(in srgb, var(--text-color) 13%, transparent);
 }
 
-/* Space effects always use a dark, high-contrast surface */
+/* Background Effect Surface */
 :root[data-background-effect] {
     --bg-color: #050816;
     --second-bg-color: rgba(10, 16, 36, 0.82);
@@ -276,7 +276,7 @@
     forced-color-adjust: none;
 }
 
-/* BASE & RESET */
+/* Base & Reset */
 * {
     margin: 0;
     padding: 0;
@@ -385,7 +385,7 @@ section {
     z-index: 1;
 }
 
-/* TYPOGRAPHY & SECTION HEADINGS */
+/* Typography & Section Headings */
 .section-tag {
     display: inline-block;
     font-size: 1.3rem;
@@ -422,7 +422,7 @@ section {
     background-clip: text;
 }
 
-/* BUTTONS */
+/* Buttons */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -466,7 +466,7 @@ section {
     box-shadow: 0 6px 20px rgba(var(--accent-rgb), 0.2);
 }
 
-/* HEADER & NAVIGATION */
+/* Header & Navigation */
 .header {
     position: fixed;
     top: 0;
@@ -596,7 +596,7 @@ section {
     font-style: normal;
 }
 
-/* ORBITAL RING SIGNATURE ON CAPITAL 'D' */
+/* Logo Orbital Ring */
 .orbital-d {
     position: relative;
     display: inline-block;
@@ -660,7 +660,6 @@ section {
     100% { transform: translate(calc(-50% + 0.388em), calc(-50% - 0.207em)); }
 }
 
-/* Dynamic Interactive Hover: subtle rotation and energetic pulse */
 *:hover > .orbital-d .orbital-d-ring,
 .orbital-d:hover .orbital-d-ring,
 .btn:hover .orbital-d .orbital-d-ring,
@@ -1098,7 +1097,7 @@ section {
     outline-offset: .3rem;
 }
 
-/* HERO / HOME SECTION */
+/* Hero Section */
 .home {
     display: flex;
     justify-content: space-between;
@@ -1191,7 +1190,6 @@ section {
     animation: meteorTwinkle 2s ease-in-out infinite;
 }
 
-/* Hide Wish button on light/white background and in Eco mode */
 :root[data-scheme="light"] .badge-meteor-trigger,
 :root[data-perf-mode="eco"] .badge-meteor-trigger {
     display: none !important;
@@ -1428,7 +1426,7 @@ section {
     100% { transform: translateY(-1rem); }
 }
 
-/* ABOUT SECTION */
+/* About Section */
 .about {
     background: var(--second-bg-color);
     display: flex;
@@ -1575,7 +1573,7 @@ section {
     color: var(--text-muted);
 }
 
-/* SKILLS SECTION */
+/* Skills Section */
 .skills {
     background: var(--bg-color);
 }
@@ -1669,7 +1667,7 @@ section {
     transform: translateY(-2px);
 }
 
-/* PCB trace in the Robotics & IoT card: drawn once when it scrolls into view */
+/* PCB trace animation on Robotics card */
 .skill-category.has-pcb {
     padding-bottom: 5.4rem;
 }
@@ -1786,7 +1784,7 @@ section {
     }
 }
 
-/* SERVICES SECTION */
+/* Services Section */
 .services {
     background: var(--second-bg-color);
 }
@@ -1945,7 +1943,7 @@ section {
     to { transform: rotate(360deg); }
 }
 
-/* PORTFOLIO SECTION */
+/* Portfolio Section */
 .portfolio {
     background: var(--bg-color);
 }
@@ -2172,7 +2170,7 @@ section {
     outline-offset: 2px;
 }
 
-/* PORTFOLIO PROJECT LIGHTBOX MODAL */
+/* Project Lightbox Modal */
 body.lightbox-open {
     overflow: hidden !important;
     touch-action: none;
@@ -2311,12 +2309,11 @@ body.lightbox-open {
     transition: max-height 0.3s ease;
 }
 
-/* Expanded stage when user toggles fullscreen */
 .lightbox-shell.stage-expanded .lightbox-stage {
     max-height: 74vh;
 }
 
-/* Floating Zoom & Format Toolbar inside Stage */
+/* Lightbox Toolbar */
 .lightbox-zoom-toolbar {
     position: absolute;
     top: 1.4rem;
@@ -2344,7 +2341,6 @@ body.lightbox-open {
     box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6), 0 0 22px rgba(var(--accent-rgb), 0.25);
 }
 
-/* Tight zoom controls group without excessive spacing */
 .zoom-controls-group {
     display: inline-flex;
     align-items: center;
@@ -2407,7 +2403,7 @@ body.lightbox-open {
     flex-shrink: 0;
 }
 
-/* Floating Toolbar Format Switcher (PNG / Asli vs SVG Animasi) */
+/* Format Switcher */
 .toolbar-mode-switch {
     display: inline-flex;
     align-items: center;
@@ -2491,7 +2487,6 @@ body.lightbox-open {
     max-height: 70vh;
 }
 
-/* Cursor and interactive dragging states */
 .lightbox-stage.is-zoomed .lightbox-media-wrap,
 .lightbox-stage.is-zoomed .lightbox-image {
     cursor: grab;
@@ -2816,7 +2811,7 @@ body.lightbox-open {
     color: #ffffff !important;
 }
 
-/* ==================== Lightbox Active: Global Outside Web Pause Mode ====================
+/* Pause background animations while lightbox is open */
    Pauses all outside background web animations and GPU/CPU operations when preview is active
    to eliminate any lag. */
 body.lightbox-open {
@@ -2950,7 +2945,7 @@ body.lightbox-open .orbital-d-ring {
     }
 }
 
-/* CERTIFICATES & CREDENTIALS SECTION */
+/* Certificates Section */
 .certificates {
     background: var(--second-bg-color);
 }
@@ -3290,7 +3285,7 @@ body.lightbox-open .orbital-d-ring {
     transform: translateY(-1px);
 }
 
-/* CONTACT SECTION */
+/* Contact Section */
 .contact {
     background: var(--bg-color);
 }
@@ -3604,7 +3599,7 @@ body.lightbox-open .orbital-d-ring {
     padding: 1.4rem;
 }
 
-/* FEEDBACK MODAL */
+/* Feedback Modal */
 .feedback-modal-backdrop {
     position: fixed;
     inset: 0;
@@ -3728,7 +3723,7 @@ body.lightbox-open .orbital-d-ring {
     to { opacity: 0; transform: translate3d(var(--confetti-x), var(--confetti-y), 0) rotate(var(--confetti-rotation)) scale(0.65); }
 }
 
-/* FOOTER */
+/* Footer */
 .footer {
     background: var(--second-bg-color);
     padding: 4rem 9% 3rem;
@@ -3795,7 +3790,7 @@ body.lightbox-open .orbital-d-ring {
     margin-top: 0.4rem;
 }
 
-/* Footer Actions & Swarm Rebuild Trigger Button */
+/* Footer Actions */
 .footer-actions {
     display: inline-flex;
     align-items: center;
@@ -3923,7 +3918,7 @@ body.lightbox-open .orbital-d-ring {
     text-shadow: 0 0 10px #fbbf24;
 }
 
-/* Light Theme overrides */
+/* Light Mode Overrides */
 :root[data-scheme="light"] .footer-swarm-btn {
     background: rgba(255, 255, 255, 0.9);
     border-color: rgba(var(--accent-rgb), 0.45);
@@ -3983,7 +3978,7 @@ body.lightbox-open .orbital-d-ring {
     color: #ffffff;
 }
 
-/* RESPONSIVE DESIGN BREAKPOINTS */
+/* Responsive Breakpoints */
 /* Header compact mode for 1201px–1280px viewports (and snapped/split-screen windows) */
 @media (max-width: 1280px) {
     .header-actions {
@@ -4336,7 +4331,7 @@ body.lightbox-open .orbital-d-ring {
     }
 }
 
-/* METEOR COLLISION IMPACT & COSMIC EVENT HUD */
+/* Meteor Collision & Toast HUD */
 @keyframes meteorImpactShake {
     0% {
         transform: scale(1);
@@ -4363,7 +4358,7 @@ body.lightbox-open .orbital-d-ring {
     position: relative;
 }
 
-/* Fiery Burning Heat Shimmer on Hit Elements (Organic - Zero Boxes / Zero Borders) */
+/* Fire shimmer effect on impact */
 @keyframes fireHeatShimmer {
     0% {
         filter: brightness(1.2) drop-shadow(0 0 14px rgba(255, 95, 0, 0.6));
@@ -4393,7 +4388,7 @@ body.lightbox-open .orbital-d-ring {
         0 0 28px rgba(255, 190, 0, 0.4) !important;
 }
 
-/* LIGHT MODE ADAPTATIONS (METEOR COLLISION, BURNING & TOAST) */
+/* Light mode meteor impact & toast */
 :root[data-scheme="light"] .meteor-impacted {
     animation: meteorImpactShakeLight 0.48s cubic-bezier(0.2, 0.9, 0.3, 1) !important;
 }
@@ -4623,7 +4618,7 @@ body.lightbox-open .orbital-d-ring {
     }
 }
 
-/* MOBILE PERFORMANCE OPTIMIZATIONS (METEOR SHOWER, VIDEO & COLLISION) */
+/* Mobile canvas & video adjustments */
 @media (max-width: 768px) {
     #background-video {
         filter: none !important;
@@ -4675,7 +4670,7 @@ body.lightbox-open .orbital-d-ring {
     }
 }
 
-/* PERFORMANCE & LOW-SPEC / ECO MODE OPTIMIZATIONS (GPU & RENDERING ACCELERATION) */
+/* Eco Mode & Rendering Optimizations */
 .portfolio-card,
 .certificate-card,
 .services-box,
@@ -4691,7 +4686,6 @@ body.lightbox-open .orbital-d-ring {
     contain-intrinsic-size: auto 650px;
 }
 
-/* Eco / Low-Spec Hardware Mode (Active on low-spec devices or via toggle) */
 :root[data-perf-mode="eco"] .portfolio-card,
 :root[data-perf-mode="eco"] .certificate-card,
 :root[data-perf-mode="eco"] .cert-filter-btn,

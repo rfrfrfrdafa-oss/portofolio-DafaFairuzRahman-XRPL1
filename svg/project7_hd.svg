@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%">
   <defs>
-    <!-- Unity 6 Dark Theme Gradients -->
+
     <linearGradient id="unitySkyNight" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%" stop-color="#3b0764"/>
       <stop offset="40%" stop-color="#581c87"/>
@@ -18,7 +18,6 @@
       <stop offset="100%" stop-color="#f59e0b"/>
     </linearGradient>
 
-    <!-- Filters -->
     <filter id="starBloom" x="-50%" y="-50%" width="200%" height="200%">
       <feGaussianBlur stdDeviation="12" result="blur"/>
       <feMerge>
@@ -32,7 +31,7 @@
   </defs>
 
   <style>
-    /* Floating & Glowing 3D Collectible Stars CSS Animation */
+    /* Floating &amp; Glowing 3D Collectible Stars CSS Animation */
     @keyframes starFloat {
       0%, 100% { transform: translateY(0px) scale(1); filter: drop-shadow(0 0 15px rgba(254, 240, 138, 0.7)); }
       50% { transform: translateY(-16px) scale(1.08); filter: drop-shadow(0 0 30px rgba(254, 240, 138, 1)); }
@@ -49,14 +48,11 @@
     .scene-gizmo { transform-origin: 1080px 200px; animation: gizmoRotate 6s infinite ease-in-out; }
   </style>
 
-  <!-- Laptop Unity Editor Dark Theme Background -->
   <rect width="1920" height="1080" fill="#1e1e1e"/>
 
-  <!-- ==================== TOP WINDOW TITLE BAR & MENU ==================== -->
   <rect width="1920" height="42" fill="#2d2d2d"/>
   <text x="24" y="27" font-family="'Segoe UI', 'Inter', sans-serif" font-weight="600" font-size="15" fill="#facc15">My project - GetStarted_Scene* - Windows, Mac, Linux - Unity 6.6 (6000.0.4f1)* &lt;DX12&gt;</text>
-  
-  <!-- Window Controls Minimize, Maximize, Close -->
+
   <g transform="translate(1820, 12)" fill="#94a3b8">
     <line x1="0" y1="10" x2="16" y2="10" stroke="#94a3b8" stroke-width="2"/>
     <rect x="35" y="0" width="16" height="16" fill="none" stroke="#94a3b8" stroke-width="2"/>
@@ -64,41 +60,35 @@
     <line x1="84" y1="0" x2="70" y2="16" stroke="#94a3b8" stroke-width="2"/>
   </g>
 
-  <!-- Menu Bar -->
   <g transform="translate(0, 42)">
     <rect width="1920" height="34" fill="#252525"/>
     <text x="24" y="22" font-family="'Segoe UI', 'Inter', sans-serif" font-size="14" fill="#d1d5db" word-spacing="18px">File Edit Assets GameObject Component Services Jobs Tutorials AI Assistant Window Help</text>
   </g>
 
-  <!-- Play / Pause / Step Controls Header Bar -->
   <g transform="translate(0, 76)">
     <rect width="1920" height="44" fill="#303030"/>
     <text x="24" y="28" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="16" fill="#ffffff">Unity 6</text>
-    
-    <!-- Central Transport Buttons -->
+
     <g transform="translate(900, 8)">
-      <!-- Play -->
+
       <polygon points="15,7 32,15 15,23" fill="#22c55e"/>
-      <!-- Pause -->
+
       <rect x="45" y="7" width="5" height="16" fill="#94a3b8"/><rect x="55" y="7" width="5" height="16" fill="#94a3b8"/>
-      <!-- Step -->
+
       <polygon points="75,7 87,15 75,23" fill="#94a3b8"/><rect x="89" y="7" width="4" height="16" fill="#94a3b8"/>
     </g>
   </g>
 
-  <!-- ==================== LEFT PANEL: HIERARCHY ==================== -->
   <g transform="translate(10, 130)">
     <rect width="340" height="660" rx="4" fill="#282828" stroke="#1f1f1f" stroke-width="2"/>
     <rect width="340" height="32" fill="#333333"/>
     <text x="16" y="21" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="14" fill="#ffffff"># Hierarchy</text>
-    
-    <!-- Search Bar -->
+
     <rect x="12" y="42" width="316" height="26" rx="4" fill="#1e1e1e" stroke="#3f3f46" stroke-width="1"/>
     <text x="24" y="60" font-family="'Segoe UI', sans-serif" font-size="13" fill="#71717a">🔍 Name</text>
 
-    <!-- Tree Items from photo -->
     <g transform="translate(16, 95)" font-family="'Segoe UI', sans-serif" font-size="13.5" fill="#e4e4e7">
-      <!-- Scene Root -->
+
       <text x="0" y="0" font-weight="700">▼ 🌐 GetStarted_Scene*</text>
       <text x="20" y="26">💡 Directional Light</text>
       <text x="20" y="52">🟩 Ground</text>
@@ -106,7 +96,7 @@
       <text x="20" y="104">🟧 02_Box_Orange</text>
       <text x="20" y="130">🟧 03_Box_Orange</text>
       <text x="20" y="156">🟥 04_Box_Red</text>
-      <!-- Collectibles Group -->
+
       <text x="20" y="186" font-weight="700" fill="#38bdf8">▼ ⭐ Collectibles</text>
       <text x="40" y="212" fill="#facc15">⭐ Collectible_Star (1)</text>
       <text x="40" y="238" fill="#facc15">⭐ Collectible_Star (2)</text>
@@ -117,33 +107,30 @@
     </g>
   </g>
 
-  <!-- ==================== CENTER PANEL: 3D SCENE VIEW ==================== -->
   <g transform="translate(360, 130)">
-    <!-- Scene View Header Tabs -->
+
     <rect width="800" height="32" fill="#333333"/>
     <rect x="0" y="0" width="100" height="32" fill="#3f3f46"/>
     <text x="18" y="21" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="14" fill="#ffffff"># Scene</text>
     <text x="120" y="21" font-family="'Segoe UI', sans-serif" font-size="14" fill="#9ca3af">Game</text>
     <text x="180" y="21" font-family="'Segoe UI', sans-serif" font-size="14" fill="#9ca3af">Asset Store</text>
 
-    <!-- 3D Viewport Screen Canvas -->
     <g transform="translate(0, 32)">
       <clipPath id="sceneClip">
         <rect width="800" height="628" rx="2"/>
       </clipPath>
-      
+
       <g clip-path="url(#sceneClip)">
-        <!-- Dark Purple Starry Skybox: SkyNight (from photo) -->
+
         <rect width="800" height="628" fill="url(#unitySkyNight)"/>
-        
-        <!-- Perspective Horizon Grid Lines -->
+
         <g stroke="#7e22ce" stroke-width="1" opacity="0.4">
           <line x1="0" y1="200" x2="800" y2="200"/>
           <line x1="0" y1="220" x2="800" y2="220"/>
           <line x1="0" y1="250" x2="800" y2="250"/>
           <line x1="0" y1="290" x2="800" y2="290"/>
           <line x1="0" y1="340" x2="800" y2="340"/>
-          <!-- Perspective converging lines -->
+
           <line x1="400" y1="180" x2="-200" y2="600"/>
           <line x1="400" y1="180" x2="0" y2="600"/>
           <line x1="400" y1="180" x2="200" y2="600"/>
@@ -153,61 +140,49 @@
           <line x1="400" y1="180" x2="1000" y2="600"/>
         </g>
 
-        <!-- Green Grass Plane (Ground) from photo -->
         <polygon points="0,290 800,290 800,628 0,628" fill="url(#groundGrass)"/>
 
-        <!-- 3D Staircase Platform of Colored Blocks (from photo) -->
-        <!-- Cast Shadows on Grass Plane -->
         <polygon points="260,330 460,330 420,530 220,530" fill="#0f172a" opacity="0.45"/>
 
-        <!-- Blue High Box (04_Box_Red/Blue in photo) -->
         <g transform="translate(380, 220)">
-          <!-- Top Face -->
+
           <polygon points="0,0 120,-30 240,0 120,30" fill="#60a5fa"/>
-          <!-- Left Face -->
+
           <polygon points="0,0 120,30 120,120 0,90" fill="#2563eb"/>
-          <!-- Right Face -->
+
           <polygon points="120,30 240,0 240,90 120,120" fill="#1d4ed8"/>
         </g>
 
-        <!-- Yellow Mid Box (02_Box_Orange in photo) -->
         <g transform="translate(380, 275)">
           <polygon points="0,0 120,-25 240,0 120,25" fill="#fef08a"/>
           <polygon points="0,0 120,25 120,140 0,115" fill="#eab308"/>
           <polygon points="120,25 240,0 240,115 120,140" fill="#ca8a04"/>
         </g>
 
-        <!-- Lower Step Box (01_Box_Yellow in photo) -->
         <g transform="translate(390, 370)">
           <polygon points="0,0 110,-20 220,0 110,20" fill="#fed7aa"/>
           <polygon points="0,0 110,20 110,110 0,90" fill="#f97316"/>
           <polygon points="110,20 220,0 220,90 110,110" fill="#ea580c"/>
         </g>
 
-        <!-- Step 0 Entry Block (Green in photo) -->
         <g transform="translate(420, 450)">
           <polygon points="0,0 80,-15 160,0 80,15" fill="#86efac"/>
           <polygon points="0,0 80,15 80,70 0,55" fill="#22c55e"/>
           <polygon points="80,15 160,0 160,55 80,70" fill="#15803d"/>
         </g>
 
-        <!-- ==================== 3 FLOATING GLOWING 3D STARS (ANIMATED) ==================== -->
-        <!-- Star 1: On Top Blue Box -->
         <g class="floating-star-1" transform="translate(500, 190)" filter="url(#starBloom)">
           <polygon points="0,-36 10,-10 36,-10 16,6 24,32 0,16 -24,32 -16,6 -36,-10 -10,-10" fill="url(#starGlowGrad)"/>
         </g>
 
-        <!-- Star 2: On Middle Box -->
         <g class="floating-star-2" transform="translate(500, 260)" filter="url(#starBloom)">
           <polygon points="0,-36 10,-10 36,-10 16,6 24,32 0,16 -24,32 -16,6 -36,-10 -10,-10" fill="url(#starGlowGrad)"/>
         </g>
 
-        <!-- Star 3: On Lower Step Box -->
         <g class="floating-star-3" transform="translate(510, 370)" filter="url(#starBloom)">
           <polygon points="0,-36 10,-10 36,-10 16,6 24,32 0,16 -24,32 -16,6 -36,-10 -10,-10" fill="url(#starGlowGrad)"/>
         </g>
 
-        <!-- Top Right 3D Axis Orientation Gizmo: Persp (from photo) -->
         <g class="scene-gizmo" transform="translate(720, 45)">
           <line x1="0" y1="0" x2="35" y2="0" stroke="#ef4444" stroke-width="3"/>
           <text x="42" y="4" font-family="'Segoe UI', sans-serif" font-weight="bold" font-size="12" fill="#ef4444">x</text>
@@ -222,19 +197,17 @@
     </g>
   </g>
 
-  <!-- ==================== RIGHT PANEL: INSPECTOR & TUTORIALS ==================== -->
   <g transform="translate(1170, 130)">
-    <!-- Header -->
+
     <rect width="730" height="32" fill="#333333"/>
     <text x="16" y="21" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="14" fill="#ffffff"># Inspector</text>
     <text x="260" y="21" font-family="'Segoe UI', sans-serif" font-size="14" fill="#9ca3af">Tutorials</text>
 
-    <!-- Top: SkyNight Material Properties (from photo) -->
     <g transform="translate(0, 32)">
       <rect width="730" height="150" fill="#282828" stroke="#1f1f1f" stroke-width="1"/>
       <text x="24" y="32" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="15" fill="#ffffff">SkyNight (Material)</text>
       <text x="24" y="60" font-family="'Segoe UI', sans-serif" font-size="13" fill="#a1a1aa">Shader: Skybox/Cubemap</text>
-      <!-- Sliders -->
+
       <text x="24" y="95" font-family="'Segoe UI', sans-serif" font-size="13" fill="#a1a1aa">Tint Color</text>
       <rect x="140" y="82" width="60" height="18" rx="3" fill="#7e22ce"/>
       <text x="24" y="125" font-family="'Segoe UI', sans-serif" font-size="13" fill="#a1a1aa">Exposure</text>
@@ -242,18 +215,15 @@
       <circle cx="230" cy="121" r="7" fill="#ffffff"/>
     </g>
 
-    <!-- Bottom: Tutorials Step Card from photo: 'Add stairs to the scene' -->
     <g transform="translate(0, 190)">
       <rect width="730" height="470" fill="#242424" stroke="#1f1f1f" stroke-width="1"/>
       <text x="24" y="36" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="13" fill="#a1a1aa">Steps 6/12</text>
       <text x="24" y="70" font-family="'Segoe UI', sans-serif" font-weight="900" font-size="24" fill="#ffffff">Add stairs to the scene</text>
 
-      <!-- Description from photo -->
       <text x="24" y="120" font-family="'Segoe UI', sans-serif" font-size="16" fill="#cbd5e1">Let's add some stairs to allow the robot to get</text>
       <text x="24" y="148" font-family="'Segoe UI', sans-serif" font-size="16" fill="#cbd5e1">the third star on top of the red box.</text>
       <text x="24" y="190" font-family="'Segoe UI', sans-serif" font-size="15" fill="#94a3b8">We've provided you with a set of stairs in the Assets folder.</text>
 
-      <!-- Instructions Box with Green Header (from photo) -->
       <g transform="translate(24, 220)">
         <rect width="680" height="180" rx="6" fill="#18181b" stroke="#3f3f46" stroke-width="1.5"/>
         <text x="20" y="32" font-family="'Segoe UI', sans-serif" font-weight="800" font-size="15" fill="#22c55e">✔ INSTRUCTIONS</text>
@@ -264,16 +234,13 @@
     </g>
   </g>
 
-  <!-- ==================== BOTTOM PANEL: PROJECT ASSET EXPLORER ==================== -->
   <g transform="translate(10, 800)">
     <rect width="1900" height="260" rx="4" fill="#252525" stroke="#1f1f1f" stroke-width="2"/>
     <rect width="1900" height="28" fill="#303030"/>
     <text x="16" y="19" font-family="'Segoe UI', sans-serif" font-weight="700" font-size="13" fill="#ffffff"># Project   Console</text>
-    
-    <!-- Path Bar -->
+
     <text x="16" y="55" font-family="'Segoe UI', sans-serif" font-size="14" fill="#a1a1aa">Assets &gt; Skyboxes &gt; SkyNight.mat</text>
 
-    <!-- Folder Tree Left -->
     <g transform="translate(20, 80)" font-family="'Segoe UI', sans-serif" font-size="13" fill="#d1d5db">
       <text x="0" y="0">📁 Assets</text>
       <text x="20" y="24">📁 Audio</text>
@@ -285,16 +252,14 @@
       <text x="40" y="168" fill="#facc15">🟣 SkySunset</text>
     </g>
 
-    <!-- Floating Picture-in-Picture Video Window from photo (Bottom Center-Right) -->
     <g transform="translate(780, 20)" filter="url(#panelShadow)">
       <rect width="560" height="225" rx="8" fill="#18181b" stroke="#38bdf8" stroke-width="2"/>
       <rect width="560" height="26" rx="8" fill="#27272a"/>
       <text x="16" y="18" font-family="'Segoe UI', sans-serif" font-size="12" fill="#cbd5e1">Unity Tutorial Editor Media Player</text>
-      
-      <!-- Video Scene Preview inside PIP -->
+
       <g transform="translate(10, 36)">
         <rect width="540" height="175" fill="#38bdf8"/>
-        <!-- 3D Shapes preview inside PIP -->
+
         <polygon points="200,60 260,30 320,60 260,90" fill="#f43f5e"/>
         <polygon points="300,100 350,80 400,100 350,120" fill="#3b82f6"/>
       </g>

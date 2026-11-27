@@ -8,18 +8,14 @@
     <meta name="author" content="Dafa Fairuz Rahman">
     <title>404: Cosmic Coordinates Lost — Dafa Fairuz Rahman</title>
 
-    <!-- Matches the main portfolio vector SVG icon. Ensure svg/favicon.svg is present -->
     <link rel="icon" type="image/svg+xml" href="svg/favicon.svg" id="favicon-link">
 
-    <!-- BoxIcons CDN v2.1.4 (Cosmic & Developer icon set) -->
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
 
-    <!-- Fonts: Poppins (Clean Modern UI) & Black Ops One (Cosmic Display) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 
-    <!-- Theme State Persistence (Inherits active theme & mode from localStorage in index.html) -->
     <script>
         try {
             const root = document.documentElement;
@@ -42,11 +38,10 @@
                 root.dataset.customColors = 'true';
             }
         } catch (e) {
-            /* Fallback to default cosmic dark theme */
+
         }
     </script>
 
-    <!-- Page Styles -->
     <style>
         /* CSS Variables & Cosmic Theming */
         :root {
@@ -131,7 +126,6 @@
             --badge-border: rgba(244, 63, 94, 0.35);
         }
 
-        /* Light Scheme Base (matches style.css line 77) */
         :root[data-scheme="light"] {
             --bg-color: #ffffff;
             --second-bg-color: #f8fafc;
@@ -154,7 +148,6 @@
             color-scheme: light;
         }
 
-        /* Light Scheme Theme Accent Variations (matches style.css lines 234-265) */
         :root[data-scheme="light"][data-theme="ocean"] {
             --main-color: #0284c7;
             --main-hover: #0369a1;
@@ -195,7 +188,6 @@
             --badge-border: rgba(225, 29, 72, 0.3);
         }
 
-        /* Light Mode: Hide dark background glow orbs and starfield canvas (matches style.css line 111) */
         :root[data-scheme="light"] .bg-glow,
         :root[data-scheme="light"] #starfield-canvas {
             display: none !important;
@@ -269,7 +261,7 @@
         }
 
         html {
-            font-size: 62.5%; /* 1rem = 10px */
+            font-size: 62.5%;
             scroll-behavior: smooth;
             height: 100%;
         }
@@ -594,7 +586,6 @@
             }
         }
 
-        /* 404 Heading with Gradient & Cross-Browser Filter Glow */
         .error-code {
             font-family: var(--font-display);
             font-size: clamp(6.5rem, 14vw, 11rem);
@@ -606,7 +597,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            /* Using filter: drop-shadow prevents glyph clipping artifacts that occur with text-shadow */
+
             filter: drop-shadow(0 0 25px rgba(var(--accent-rgb), 0.45));
             position: relative;
             display: inline-block;
@@ -950,7 +941,7 @@
 
         @media (max-width: 768px) {
             html {
-                font-size: 56.25%; /* 1rem = 9px */
+                font-size: 56.25%;
             }
 
             .logo {
@@ -1093,7 +1084,6 @@
 </head>
 <body>
 
-    <!-- Shared Global SVG Defs for Orbital Ring Signature -->
     <svg class="orbital-ring-defs" aria-hidden="true" focusable="false">
         <defs>
             <linearGradient id="orbitalRingOuterGrad404" x1="135" y1="670" x2="885" y2="310" gradientUnits="userSpaceOnUse">
@@ -1156,13 +1146,11 @@
     <main class="error-wrapper" role="main">
         <section class="error-card">
 
-            <!-- Anomaly Badge -->
             <div class="status-badge" role="status">
                 <span class="pulse-beacon" aria-hidden="true"></span>
                 <span>Anomaly Detected // Sector 404</span>
             </div>
 
-            <!-- Cosmic SVG Illustration: Dynamic Theme-Responsive Space Probe -->
             <div class="cosmic-visual" aria-hidden="true">
                 <svg class="lost-probe-svg" viewBox="0 0 240 200" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
@@ -1177,30 +1165,24 @@
                         </radialGradient>
                     </defs>
 
-                    <!-- Distant Celestial Sphere with Orbital Ring -->
                     <circle cx="120" cy="100" r="70" fill="url(#planetGlow)" />
                     <ellipse cx="120" cy="100" rx="88" ry="24" stroke="url(#neonGradient)" stroke-width="1.8" stroke-dasharray="4 6" opacity="0.6" transform="rotate(-18 120 100)" />
 
-                    <!-- Probe / Satellite Body -->
                     <g transform="translate(10, 5)">
-                        <!-- Solar Panel Wings Left -->
+
                         <path d="M50 85 L85 92 L85 108 L50 101 Z" fill="rgba(var(--accent-rgb), 0.15)" stroke="url(#neonGradient)" stroke-width="1.8" />
                         <line x1="62" y1="88" x2="62" y2="104" stroke="var(--main-color)" stroke-width="1" opacity="0.6" />
                         <line x1="74" y1="90" x2="74" y2="106" stroke="var(--main-color)" stroke-width="1" opacity="0.6" />
 
-                        <!-- Solar Panel Wings Right -->
                         <path d="M135 101 L170 108 L170 92 L135 85 Z" fill="rgba(var(--accent-rgb), 0.15)" stroke="url(#neonGradient)" stroke-width="1.8" />
                         <line x1="147" y1="103" x2="147" y2="87" stroke="var(--main-color)" stroke-width="1" opacity="0.6" />
                         <line x1="159" y1="105" x2="159" y2="89" stroke="var(--main-color)" stroke-width="1" opacity="0.6" />
 
-                        <!-- Central Capsule Core -->
                         <circle cx="110" cy="96" r="22" fill="#0f172a" stroke="url(#neonGradient)" stroke-width="2.5" />
 
-                        <!-- Visor / Core Sensor Glow -->
                         <circle cx="110" cy="96" r="14" fill="url(#neonGradient)" opacity="0.9" />
                         <ellipse cx="106" cy="92" rx="5" ry="3" fill="#ffffff" opacity="0.75" />
 
-                        <!-- Antenna & Distress Beacon -->
                         <line x1="110" y1="74" x2="110" y2="52" stroke="url(#neonGradient)" stroke-width="2" stroke-linecap="round" />
                         <circle cx="110" cy="50" r="4.5" fill="#f43f5e">
                             <animate attributeName="opacity" values="1;0.2;1" dur="1.5s" repeatCount="indefinite" />
@@ -1209,7 +1191,6 @@
                             <animate attributeName="opacity" values="0.8;0.1;0.8" dur="1.5s" repeatCount="indefinite" />
                         </path>
 
-                        <!-- Cosmic Sparkles / Stars -->
                         <circle cx="35" cy="45" r="1.5" fill="#ffffff" opacity="0.8" />
                         <circle cx="185" cy="40" r="2" fill="var(--main-color)" opacity="0.8" />
                         <circle cx="195" cy="140" r="1.5" fill="#ffffff" opacity="0.7" />
@@ -1218,7 +1199,6 @@
                 </svg>
             </div>
 
-            <!-- Stylized 404 Heading with Neon Gradient Mask -->
             <h1 class="error-code" aria-label="Error 404">404</h1>
 
             <h2 class="error-title">Cosmic Coordinates Lost</h2>
@@ -1309,12 +1289,11 @@
         (function() {
             'use strict';
 
-            // 1. Resolve site base path (supports GitHub Pages subpaths, custom domain/Netlify/Vercel, and file:///)
             var isFile = window.location.protocol === 'file:';
             var basePath = './';
             if (!isFile) {
                 var pathSegments = window.location.pathname.split('/').filter(Boolean);
-                // On GitHub Pages project sites: username.github.io/repo-name/...
+
                 if (window.location.hostname.endsWith('github.io') && pathSegments.length > 0) {
                     basePath = '/' + pathSegments[0] + '/';
                 } else {
@@ -1323,7 +1302,6 @@
             }
             var homeUrl = isFile ? 'index.html' : basePath;
 
-            // Apply dynamic base to navigation links so nested 404 routes don't break
             try {
                 var homeLinks = document.querySelectorAll('[data-home-link]');
                 for (var i = 0; i < homeLinks.length; i++) {
@@ -1341,10 +1319,9 @@
                     favicon.setAttribute('href', basePath + 'svg/favicon.svg');
                 }
             } catch (e) {
-                // Graceful fallback to static HTML hrefs
+
             }
 
-            // 2. Safe Dynamic Path Reflection (Sanitizes local filesystem & direct /404.html previews)
             try {
                 var displayPath = '/lost-coordinates/sector-404';
                 if (!isFile) {
@@ -1365,7 +1342,6 @@
                 if (telemetryEl) telemetryEl.textContent = displayPath;
             } catch (err) {}
 
-            // 3. Smart History Navigation Handling
             var backBtn = document.getElementById('btn-back');
             if (backBtn) {
                 backBtn.addEventListener('click', function() {
@@ -1387,12 +1363,11 @@
                 });
             }
 
-            // 4. Starfield Canvas Particle System (Self-throttling & leak-free)
             var canvas = document.getElementById('starfield-canvas');
             if (!canvas) return;
 
             var isLightScheme = document.documentElement.dataset.scheme === 'light';
-            if (isLightScheme) return; // Cleanly disable dark starfield in light mode matching main site
+            if (isLightScheme) return;
 
             var prefersReducedMotion = false;
             try {
@@ -1410,7 +1385,7 @@
             function resizeCanvas() {
                 var newWidth = window.innerWidth;
                 var newHeight = window.innerHeight;
-                if (width === newWidth && height === newHeight) return; // Ignore mobile toolbar scroll resize
+                if (width === newWidth && height === newHeight) return;
                 width = canvas.width = newWidth;
                 height = canvas.height = newHeight;
                 initStars();

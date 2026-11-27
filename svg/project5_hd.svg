@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2160 1080" width="100%" height="100%">
   <defs>
-    <!-- Dark Studio Gradients -->
+
     <linearGradient id="p5DarkBg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#18181b"/>
       <stop offset="50%" stop-color="#111113"/>
@@ -21,7 +21,6 @@
       <stop offset="100%" stop-color="#dc2626"/>
     </linearGradient>
 
-    <!-- Filters -->
     <filter id="p5Glow" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur stdDeviation="6" result="blur"/>
       <feMerge>
@@ -66,29 +65,27 @@
     .ai-btn-glow { transform-origin: 1820px 330px; animation: aiPulse 2.4s infinite ease-in-out; }
   </style>
 
-  <!-- Canvas Background -->
   <rect width="2160" height="1080" fill="url(#p5DarkBg)"/>
 
-  <!-- ==================== LEFT VERTICAL TOOLBAR ==================== -->
   <g transform="translate(60, 40)" fill="none" stroke="#94a3b8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-    <!-- Back '<' Icon -->
+
     <path d="M 30 15 L 10 35 L 30 55"/>
-    <!-- Undo '↺' Icon -->
+
     <g transform="translate(5, 140)">
       <path d="M 25 25 A 15 15 0 1 0 10 10"/>
       <polyline points="0,10 10,10 10,0"/>
     </g>
-    <!-- Redo '↻' Icon -->
+
     <g transform="translate(5, 260)">
       <path d="M 5 25 A 15 15 0 1 1 20 10"/>
       <polyline points="30,10 20,10 20,0"/>
     </g>
-    <!-- Screen Capture Frame Icon -->
+
     <g transform="translate(5, 380)">
       <path d="M 0 10 L 0 0 L 10 0 M 30 0 L 40 0 L 40 10 M 40 30 L 40 40 L 30 40 M 10 40 L 0 40 L 0 30"/>
       <circle cx="20" cy="20" r="8" fill="#475569"/>
     </g>
-    <!-- Settings Gear Icon -->
+
     <g transform="translate(5, 520)">
       <circle cx="20" cy="20" r="14"/>
       <circle cx="20" cy="20" r="6"/>
@@ -97,22 +94,19 @@
     </g>
   </g>
 
-  <!-- ==================== TOP CENTER 16:9 PREVIEW MONITOR ==================== -->
   <g transform="translate(570, 30)">
-    <!-- 16:9 Monitor Frame -->
+
     <rect x="0" y="0" width="620" height="510" rx="8" fill="#000000" stroke="#27272a" stroke-width="2"/>
-    <!-- White Screen with Project Artwork from photo -->
+
     <rect x="0" y="100" width="620" height="310" fill="#ffffff"/>
 
-    <!-- Light Blue Pentagon Logo -->
     <g transform="translate(310, 255)">
       <polygon points="0,-110 105,-30 65,95 -65,95 -105,-30" fill="#93c5fd" stroke="#3b82f6" stroke-width="2"/>
-      
-      <!-- 12-Tooth Mechanical Gear (Animated Rotating) -->
+
       <g class="preview-gear" style="transform-origin: 0px 0px;">
         <circle cx="0" cy="0" r="60" fill="url(#gearOrange)"/>
         <circle cx="0" cy="0" r="38" fill="#ffffff"/>
-        <!-- 12 Gear Teeth -->
+
         <rect x="-8" y="-72" width="16" height="18" rx="3" fill="#ea580c"/>
         <rect x="-8" y="54" width="16" height="18" rx="3" fill="#ea580c"/>
         <rect x="-72" y="-8" width="18" height="16" rx="3" fill="#ea580c"/>
@@ -129,25 +123,21 @@
     </g>
   </g>
 
-  <!-- ==================== TOP RIGHT: RADIAL MEDIA CONTROL DIAL ==================== -->
   <g transform="translate(1600, 110)" filter="url(#dialShadow)">
-    <!-- Big Radial Wheel Disc -->
+
     <circle cx="220" cy="220" r="215" fill="#18181b" stroke="#27272a" stroke-width="3"/>
-    
-    <!-- Top Button: 'Media' -->
+
     <g transform="translate(220, 75)" style="cursor: pointer;">
       <path d="M -18 -15 L 18 -15 L 24 15 L -24 15 Z" fill="#ffffff" opacity="0.9"/>
       <polygon points="-5,-4 8,4 -5,12" fill="#0f172a"/>
       <text x="0" y="36" font-family="'Inter', sans-serif" font-weight="700" font-size="20" fill="#ffffff" text-anchor="middle">Media</text>
     </g>
 
-    <!-- Right Button: 'Audio' -->
     <g transform="translate(365, 220)" style="cursor: pointer;">
       <path d="M -10 15 A 8 8 0 1 1 -2 8 L 10 -15 L 20 -12 L 20 -2 L 10 0 L 10 12 A 8 8 0 1 1 2 5" fill="#ffffff"/>
       <text x="0" y="38" font-family="'Inter', sans-serif" font-weight="700" font-size="20" fill="#ffffff" text-anchor="middle">Audio</text>
     </g>
 
-    <!-- Bottom Button: 'REC' (Mic) -->
     <g transform="translate(220, 365)" style="cursor: pointer;">
       <rect x="-10" y="-18" width="20" height="26" rx="10" fill="#ffffff"/>
       <path d="M -16 -4 A 16 16 0 0 0 16 -4" stroke="#ffffff" stroke-width="3" fill="none"/>
@@ -155,46 +145,39 @@
       <text x="0" y="38" font-family="'Inter', sans-serif" font-weight="700" font-size="20" fill="#ffffff" text-anchor="middle">REC</text>
     </g>
 
-    <!-- Left Button: 'Lapisan' (Layers) -->
     <g transform="translate(75, 220)" style="cursor: pointer;">
       <polygon points="0,-18 20,-6 0,6 -20,-6" fill="#ffffff"/>
       <polygon points="0,-6 20,6 0,18 -20,6" fill="#94a3b8"/>
       <text x="0" y="38" font-family="'Inter', sans-serif" font-weight="700" font-size="20" fill="#ffffff" text-anchor="middle">Lapisan</text>
     </g>
 
-    <!-- Center Glowing '✨ AI' Circle Button -->
     <g class="ai-btn-glow" style="cursor: pointer;">
       <circle cx="220" cy="220" r="64" fill="url(#aiButtonGrad)"/>
       <text x="220" y="230" font-family="'Inter', sans-serif" font-weight="900" font-size="34" fill="#ffffff" text-anchor="middle" letter-spacing="1">✨ AI</text>
     </g>
   </g>
 
-  <!-- Right Preview Actions: Store, Fullscreen, Play -->
   <g transform="translate(1450, 560)">
-    <!-- Fullscreen toggle -->
+
     <rect x="0" y="0" width="70" height="70" rx="18" fill="#27272a"/>
     <path d="M 20 30 L 20 20 L 30 20 M 50 20 L 50 30 L 50 20 M 50 40 L 50 50 L 40 50 M 20 50 L 30 50 L 20 50" stroke="#ffffff" stroke-width="3" fill="none"/>
 
-    <!-- Asset Store Shop Icon -->
     <g transform="translate(100, 0)">
       <rect x="0" y="0" width="70" height="70" rx="18" fill="#27272a"/>
       <path d="M 20 30 L 50 30 L 45 50 L 25 50 Z" stroke="#ffffff" stroke-width="2.5" fill="none"/>
       <path d="M 20 30 Q 35 15 50 30" stroke="#ffffff" stroke-width="2.5" fill="none"/>
     </g>
 
-    <!-- Big Circular White Play Button -->
     <g transform="translate(470, -10)" style="cursor: pointer;" filter="url(#dialShadow)">
       <circle cx="45" cy="45" r="45" fill="#ffffff"/>
       <polygon points="36,25 64,45 36,65" fill="#0f172a"/>
     </g>
   </g>
 
-  <!-- ==================== BOTTOM: MULTI-TRACK NLE TIMELINE ==================== -->
   <g transform="translate(60, 660)">
-    <!-- Timeline Ruler Base -->
+
     <rect x="0" y="0" width="2040" height="380" rx="20" fill="#18181b" stroke="#27272a" stroke-width="2"/>
 
-    <!-- Ruler Time Ticks & Labels -->
     <g fill="#94a3b8" font-family="'Consolas', monospace" font-size="18">
       <text x="380" y="32">00:00</text><line x1="410" y1="42" x2="410" y2="52" stroke="#475569" stroke-width="2"/>
       <text x="800" y="32">00:04</text><line x1="830" y1="42" x2="830" y2="52" stroke="#475569" stroke-width="2"/>
@@ -202,48 +185,42 @@
       <text x="1640" y="32">00:12</text><line x1="1670" y1="42" x2="1670" y2="52" stroke="#475569" stroke-width="2"/>
     </g>
 
-    <!-- Total Duration Badge: '02:16.539' (Right Edge) -->
     <g transform="translate(1860, 10)">
       <rect x="0" y="0" width="150" height="40" rx="8" fill="#27272a"/>
       <text x="75" y="27" font-family="'Consolas', monospace" font-weight="700" font-size="20" fill="#ffffff" text-anchor="middle">02:16.539</text>
     </g>
 
-    <!-- Left Controls Panel (Collapse, Previous Keyframe, Next Keyframe) -->
     <g transform="translate(30, 25)" stroke="#cbd5e1" stroke-width="3" fill="none">
       <polyline points="10,25 25,10 40,25"/>
       <polyline points="10,35 25,50 40,35"/>
-      <!-- Prev |< -->
+
       <line x1="10" y1="120" x2="10" y2="150"/><polygon points="35,120 15,135 35,150" fill="#cbd5e1"/>
-      <!-- Next >| -->
+
       <line x1="40" y1="210" x2="40" y2="240"/><polygon points="15,210 35,225 15,240" fill="#cbd5e1"/>
     </g>
 
-    <!-- Thumbnail Strip on Track Start (from photo) -->
     <g transform="translate(160, 65)">
       <rect x="0" y="0" width="110" height="140" rx="10" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
-      <!-- Mini Pentagon Logo inside thumbnail -->
+
       <polygon points="55,20 90,45 78,85 32,85 20,45" fill="#93c5fd"/>
       <circle cx="55" cy="55" r="16" fill="#ef4444"/>
       <text x="55" y="125" font-family="'Inter', sans-serif" font-weight="700" font-size="14" fill="#64748b" text-anchor="middle">Thumbnail</text>
     </g>
 
-    <!-- ==================== TRACK 1: VIDEO CLIPS (Top Track) ==================== -->
     <g transform="translate(300, 65)">
-      <!-- Clip 1: '0.7x Video Tap' -->
+
       <g transform="translate(0, 0)">
         <rect x="0" y="0" width="310" height="70" rx="8" fill="#3b82f6" stroke="#60a5fa" stroke-width="1.5"/>
         <polygon points="25,25 45,35 25,45" fill="#ffffff"/>
         <text x="60" y="44" font-family="'Inter', sans-serif" font-weight="700" font-size="20" fill="#ffffff">0.7x Video Tap</text>
       </g>
 
-      <!-- Clip 2: '1x Retro CAM' -->
       <g transform="translate(325, 0)">
         <rect x="0" y="0" width="320" height="70" rx="8" fill="#475569" stroke="#64748b" stroke-width="1.5"/>
         <polygon points="25,25 45,35 25,45" fill="#ffffff"/>
         <text x="60" y="44" font-family="'Inter', sans-serif" font-weight="700" font-size="20" fill="#ffffff">1x Retro CAM</text>
       </g>
 
-      <!-- Clip 3: '1x Mars Skarisa.mp4' with School Logo -->
       <g transform="translate(660, 0)">
         <rect x="0" y="0" width="1050" height="70" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
         <circle cx="35" cy="35" r="18" fill="#3b82f6"/>
@@ -251,12 +228,10 @@
       </g>
     </g>
 
-    <!-- ==================== TRACK 2: AUDIO BGM WITH WAVEFORM ==================== -->
     <g transform="translate(300, 150)">
       <rect x="0" y="0" width="1710" height="80" rx="10" fill="url(#audioWaveTrack)" filter="url(#p5Glow)"/>
       <text x="30" y="48" font-family="'Inter', sans-serif" font-weight="700" font-size="20" fill="#ffffff">🎵 1x absolutesound-guitar-music-522811.mp3</text>
-      
-      <!-- Dancing Audio Waveform Equalizer Bars -->
+
       <g transform="translate(600, 40)" fill="#ffffff" opacity="0.85">
         <rect x="0" y="-18" width="6" height="36" rx="3" class="wave-bar-1"/>
         <rect x="14" y="-28" width="6" height="56" rx="3" class="wave-bar-2"/>
@@ -272,9 +247,8 @@
       </g>
     </g>
 
-    <!-- ==================== TRACK 3: VOICEOVER CLIPS ==================== -->
     <g transform="translate(300, 245)">
-      <!-- Clip: '1x edr-vc' -->
+
       <g transform="translate(0, 0)">
         <rect x="0" y="0" width="220" height="65" rx="10" fill="#0d9488"/>
         <text x="25" y="40" font-family="'Inter', sans-serif" font-weight="700" font-size="18" fill="#ffffff">🎵 1x edr-vc</text>
@@ -289,17 +263,14 @@
       </g>
     </g>
 
-    <!-- ==================== RED PLAYHEAD SCRUBBER (ANIMATED) ==================== -->
     <g transform="translate(1040, 10)" class="timeline-scrubber">
-      <!-- Red Head Pill Timecode Tag from photo: '00:06.958' -->
+
       <rect x="-80" y="0" width="160" height="42" rx="21" fill="#ef4444" filter="url(#dialShadow)"/>
       <text x="0" y="28" font-family="'Consolas', monospace" font-weight="900" font-size="20" fill="#ffffff" text-anchor="middle">00:06.958</text>
-      
-      <!-- Red Scrubber Vertical Laser Line -->
+
       <line x1="0" y1="42" x2="0" y2="350" stroke="#ef4444" stroke-width="4.5" filter="url(#p5Glow)"/>
     </g>
 
-    <!-- Floating Checkmark Button on Bottom Right -->
     <g transform="translate(1880, 270)" filter="url(#dialShadow)" style="cursor: pointer;">
       <rect x="0" y="0" width="110" height="65" rx="22" fill="#334155" stroke="#475569" stroke-width="2"/>
       <polyline points="35,32 50,47 80,18" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>

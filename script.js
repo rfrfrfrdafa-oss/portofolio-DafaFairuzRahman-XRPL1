@@ -1,4 +1,4 @@
-/* Toggle Icon Navbar */
+/* Mobile Navigation */
 let menuIcon = document.querySelector('#menu-icon');
 let navbar = document.querySelector('.navbar');
 
@@ -105,7 +105,7 @@ if (themeSelect) {
     });
 }
 
-/* Light and Dark Appearance Toggle & Background System */
+/* Theme & Background Controls */
 const schemeToggle = document.getElementById('scheme-toggle');
 const schemeStorageKey = 'portfolio-scheme';
 const nightModeRecommendation = document.getElementById('night-mode-recommendation');
@@ -242,7 +242,7 @@ if (useDarkModeButton) {
     });
 }
 
-/* Hardware Detection & Performance Mode System */
+/* Performance Mode (Eco / High) */
 const perfToggle = document.getElementById('perf-toggle');
 const perfStorageKey = 'portfolio-perf-mode';
 
@@ -377,14 +377,11 @@ const applyPerfMode = (mode, persist = false) => {
     // Update portfolio card thumbnails for Eco vs. High mode
     updatePortfolioCardsImageSource(isEco);
 
-    // If lightbox is currently open, dynamically refresh preview media to match mode
     if (window.__portfolioLightboxEngine && typeof window.__portfolioLightboxEngine.refreshMedia === 'function') {
         window.__portfolioLightboxEngine.refreshMedia();
     }
 
-    // Canvas & Video animation throttling for genuine power and GPU saving
     if (isEco) {
-        // 1. Pause Meteor Shower canvas loop & cosmic event timer
         if (typeof meteorShower !== 'undefined' && meteorShower && typeof meteorShower.pause === 'function') {
             meteorShower.pause();
             if (meteorShower.cosmicEventTimeout) {
@@ -395,16 +392,13 @@ const applyPerfMode = (mode, persist = false) => {
                 meteorShower.hideCosmicEventNotification();
             }
         }
-        // 2. Stop Constellation Star Chart canvas loop
         if (typeof constellationChart !== 'undefined' && constellationChart && typeof constellationChart.stop === 'function') {
             constellationChart.stop();
         }
-        // 3. Pause 1080p background video decoding
         if (typeof backgroundVideo !== 'undefined' && backgroundVideo && !backgroundVideo.paused && !backgroundVideo.hidden) {
             try { backgroundVideo.pause(); } catch (e) {}
         }
     } else {
-        // High Mode: resume animations if not inside an open lightbox
         const isLightboxOpen = document.body.classList.contains('lightbox-open') || document.documentElement.dataset.lightboxActive === 'true';
         if (!isLightboxOpen) {
             if (typeof meteorShower !== 'undefined' && meteorShower && typeof meteorShower.start === 'function' && meteorShower.active) {
@@ -643,7 +637,7 @@ if (videoBackgroundButton) {
     }
 }
 
-/* Space Meteor Shower (Custom Interactive Animation) */
+/* Meteor Shower Canvas */
 class MeteorShower {
     constructor(canvas) {
         if (!canvas) return;
@@ -952,7 +946,6 @@ class MeteorShower {
         const isBolide = !!meteor?.isBolide;
         const accent = this.getThemeAccent();
 
-        // 1. Expanding Shockwave Ring
         const maxShockwaves = this.isMobile ? 2 : 5;
         if (this.shockwaves.length < maxShockwaves) {
             this.shockwaves.push({
@@ -968,7 +961,6 @@ class MeteorShower {
             });
         }
 
-        // 2. Central Plasma Flash
         const maxFlashes = this.isMobile ? 2 : 4;
         if (this.flashes.length < maxFlashes) {
             this.flashes.push({
@@ -981,7 +973,6 @@ class MeteorShower {
             });
         }
 
-        // 3. Stardust Sparks Burst
         const sparkCount = this.isMobile
             ? (isBolide ? 12 : (targetBox ? 7 : 4))
             : (isBolide ? 38 : (targetBox ? 26 : 14));
@@ -1003,17 +994,14 @@ class MeteorShower {
             });
         }
 
-        // 4. Trigger UI Element Impact Shake & Fiery Burning Effect
         if (targetBox) {
             targetBox.classList.remove('meteor-impacted');
             requestAnimationFrame(() => {
                 targetBox.classList.add('meteor-impacted');
             });
 
-            // Apply fiery burning aura
             targetBox.classList.add('meteor-burning');
 
-            // Spawn floating fire embers rising from the hit element
             const emberCount = this.isMobile ? (isBolide ? 8 : 4) : (isBolide ? 35 : 22);
             this.spawnBurningEmbers(x, y, targetBox, emberCount);
 
@@ -1021,7 +1009,6 @@ class MeteorShower {
                 targetBox.classList.remove('meteor-impacted');
             }, 500);
 
-            // Secondary crackling puff of embers (desktop only)
             if (!this.isMobile) {
                 setTimeout(() => {
                     if (this.active) {
@@ -1030,7 +1017,6 @@ class MeteorShower {
                 }, 800);
             }
 
-            // Extinguish burning effect after 2.0s on mobile, 2.4s on desktop
             setTimeout(() => {
                 targetBox.classList.remove('meteor-burning');
             }, this.isMobile ? 2000 : 2400);
@@ -1078,7 +1064,6 @@ class MeteorShower {
         if (document.documentElement.dataset.perfMode === 'eco') {
             return;
         }
-        // Truly rare event timing: repeats every 4 to 8 minutes
         const delay = customDelay !== null ? customDelay : 240000 + Math.random() * 240000;
         this.cosmicEventTimeout = setTimeout(() => {
             if (document.documentElement.dataset.perfMode === 'eco') return;
@@ -1180,7 +1165,6 @@ class MeteorShower {
 
         const accent = this.getThemeAccent();
 
-        // 1. Update Meteors & Collision Detection
         for (let i = this.meteors.length - 1; i >= 0; i--) {
             const m = this.meteors[i];
             m.age += dt;
@@ -1260,7 +1244,6 @@ class MeteorShower {
             }
         }
 
-        // 2. Update Sparks
         for (let j = this.sparks.length - 1; j >= 0; j--) {
             const s = this.sparks[j];
             s.x += s.vx * dt;
@@ -1274,7 +1257,6 @@ class MeteorShower {
             }
         }
 
-        // 3. Update Shockwaves
         for (let k = this.shockwaves.length - 1; k >= 0; k--) {
             const sw = this.shockwaves[k];
             sw.radius += sw.speed * dt;
@@ -1284,7 +1266,6 @@ class MeteorShower {
             }
         }
 
-        // 4. Update Flashes
         for (let f = this.flashes.length - 1; f >= 0; f--) {
             const fl = this.flashes[f];
             fl.alpha -= fl.decay * dt;
@@ -1293,7 +1274,6 @@ class MeteorShower {
             }
         }
 
-        // 5. Update Burning Fire Embers
         for (let e = this.embers.length - 1; e >= 0; e--) {
             const ember = this.embers[e];
             ember.age += dt;
@@ -1333,7 +1313,6 @@ class MeteorShower {
         const accent = this.getThemeAccent();
         const isLight = document.documentElement.dataset.scheme === 'light' && !document.documentElement.dataset.backgroundEffect;
 
-        // 1. Draw Sparks
         for (let i = 0; i < this.sparks.length; i++) {
             const s = this.sparks[i];
             let [r, g, b] = s.color;
@@ -1346,7 +1325,6 @@ class MeteorShower {
             this.ctx.fill();
         }
 
-        // 2. Draw Shockwaves
         for (let i = 0; i < this.shockwaves.length; i++) {
             const sw = this.shockwaves[i];
             const [r, g, b] = sw.color;
@@ -1359,7 +1337,6 @@ class MeteorShower {
             this.ctx.stroke();
         }
 
-        // 3. Draw Flashes
         for (let i = 0; i < this.flashes.length; i++) {
             const fl = this.flashes[i];
             const flashGrad = this.ctx.createRadialGradient(fl.x, fl.y, 0, fl.x, fl.y, fl.radius);
@@ -1378,7 +1355,6 @@ class MeteorShower {
             this.ctx.fill();
         }
 
-        // 3.5. Draw Burning Fire Embers
         for (let i = 0; i < this.embers.length; i++) {
             const ember = this.embers[i];
             const [r, g, b] = ember.color;
@@ -1396,7 +1372,6 @@ class MeteorShower {
             }
         }
 
-        // 4. Draw Meteors
         for (let i = 0; i < this.meteors.length; i++) {
             const m = this.meteors[i];
             const progress = m.age / m.maxLife;
@@ -1488,20 +1463,17 @@ if (heroMeteorBtn && meteorShower) {
         if (now - lastWishClickTime < 280) return; // Prevent spam-clicking within 280ms
         lastWishClickTime = now;
 
-        // Reset click progress if idle for more than 14 seconds
         clearTimeout(wishResetTimer);
         wishResetTimer = setTimeout(() => {
             wishClickCount = 0;
             requiredWishClicks = Math.floor(Math.random() * 4) + 4;
         }, 14000);
 
-        // Visual feedback on the wish button badge
         heroMeteorBtn.classList.remove('wish-pulsing');
         void heroMeteorBtn.offsetWidth;
         heroMeteorBtn.classList.add('wish-pulsing');
         setTimeout(() => heroMeteorBtn.classList.remove('wish-pulsing'), 400);
 
-        // Every click shoots a single graceful wishing meteor across the dark sky
         meteorShower.spawnMeteor({
             x: Math.random() * (window.innerWidth * 0.7),
             y: -20 - Math.random() * 30,
@@ -1517,7 +1489,6 @@ if (heroMeteorBtn && meteorShower) {
         const cosmicLuck = Math.random() < 0.55;
 
         if (hasReachedClicks && (cosmicLuck || wishClickCount >= requiredWishClicks + 3)) {
-            // A rare astronomical alignment! Cosmic event triggered!
             meteorShower.triggerRandomCosmicEvent();
             wishClickCount = 0;
             requiredWishClicks = Math.floor(Math.random() * 5) + 5; // next time 5 to 9 clicks
@@ -1572,7 +1543,7 @@ if (servicesRainbowToggle) {
     });
 }
 
-/* Scroll Sections Active Link */
+/* Active Nav Link on Scroll */
 let sections = document.querySelectorAll('section');
 let navLinks = document.querySelectorAll('header nav a');
 
@@ -1596,12 +1567,11 @@ window.onscroll = () => {
     let header = document.querySelector('header');
     if (header) header.classList.toggle('sticky', window.scrollY > 100);
 
-    /* Remove Toggle Icon and Navbar when click navbar link (scroll) */
     if (navbar && navbar.classList.contains('active')) setMobileMenuOpen(false);
 };
 
 /* Scroll Reveal */
-// Protected ScrollReveal
+
 try { if (typeof ScrollReveal !== 'undefined') ScrollReveal({
     distance: '60px',
     duration: 1800,
@@ -1643,7 +1613,7 @@ if (readMoreBtn && moreText) {
     });
 }
 
-/* Feedback Confirmation Popup */
+/* Contact Form Validation & Modal */
 const contactForm = document.getElementById('contact-form');
 
 if (contactForm) {
@@ -1897,7 +1867,7 @@ if (copyEmailBtn) {
     });
 }
 
-/* Astronomical Star-Chart Blueprint / Constellations (Light Mode) */
+/* Light Mode Constellation Canvas */
 class ConstellationStarChart {
     constructor(canvas) {
         if (!canvas) return;
@@ -2073,7 +2043,6 @@ class ConstellationStarChart {
         const pointerDist = 155;
         const pointerDistSq = pointerDist * pointerDist;
 
-        // 1. Celestial Constellation Links (Batched into unified stroke paths)
         const regularLines = [];
         const anchorLines = [];
 
@@ -2095,7 +2064,6 @@ class ConstellationStarChart {
             }
         }
 
-        // Draw regular celestial links in 1 GPU stroke call
         if (regularLines.length > 0) {
             this.ctx.beginPath();
             this.ctx.lineWidth = 0.85;
@@ -2107,7 +2075,6 @@ class ConstellationStarChart {
             this.ctx.stroke();
         }
 
-        // Draw anchor links in 1 GPU stroke call
         if (anchorLines.length > 0) {
             this.ctx.beginPath();
             this.ctx.lineWidth = 1.0;
@@ -2119,7 +2086,6 @@ class ConstellationStarChart {
             this.ctx.stroke();
         }
 
-        // 2. Interactive Cursor Constellation Lines & Telescope Focal Reticle
         if (this.pointer.active && this.pointer.x >= 0 && this.pointer.y >= 0) {
             this.ctx.beginPath();
             this.ctx.lineWidth = 1.0;
@@ -2137,7 +2103,6 @@ class ConstellationStarChart {
             }
             this.ctx.stroke();
 
-            // Telescope reticle ring on cursor
             const curRadius = 16;
             this.ctx.beginPath();
             this.ctx.strokeStyle = `rgba(${accent[0]}, ${accent[1]}, ${accent[2]}, 0.42)`;
@@ -2145,7 +2110,6 @@ class ConstellationStarChart {
             this.ctx.arc(this.pointer.x, this.pointer.y, curRadius, 0, Math.PI * 2);
             this.ctx.stroke();
 
-            // Reticle crosshair ticks
             const tickLen = 5;
             this.ctx.beginPath();
             this.ctx.moveTo(this.pointer.x, this.pointer.y - curRadius - tickLen);
@@ -2158,14 +2122,12 @@ class ConstellationStarChart {
             this.ctx.lineTo(this.pointer.x + curRadius + tickLen, this.pointer.y);
             this.ctx.stroke();
 
-            // Cursor focal pin
             this.ctx.fillStyle = `rgba(${accent[0]}, ${accent[1]}, ${accent[2]}, 0.75)`;
             this.ctx.beginPath();
             this.ctx.arc(this.pointer.x, this.pointer.y, 2.2, 0, Math.PI * 2);
             this.ctx.fill();
         }
 
-        // 3. Draw Regular Stars in 1 Batched fill call
         this.ctx.beginPath();
         this.ctx.fillStyle = 'rgba(30, 41, 59, 0.65)';
         for (let i = 0; i < this.stars.length; i++) {
@@ -2177,7 +2139,6 @@ class ConstellationStarChart {
         }
         this.ctx.fill();
 
-        // 4. Draw Major Anchor Stars with Specialized Observatory Reticles
         for (let i = 0; i < this.stars.length; i++) {
             const s = this.stars[i];
             if (!s.isAnchor) continue;
@@ -2186,14 +2147,12 @@ class ConstellationStarChart {
             const currentAlpha = Math.min(1, Math.max(0.1, s.baseAlpha * twinkle));
             const reticleRad = s.reticleRadius + 0.5 * Math.sin(t * 1.5 + s.twinklePhase);
 
-            // Observatory coordinate circle
             this.ctx.strokeStyle = `rgba(${accent[0]}, ${accent[1]}, ${accent[2]}, ${currentAlpha * 0.52})`;
             this.ctx.lineWidth = 0.95;
             this.ctx.beginPath();
             this.ctx.arc(s.x, s.y, reticleRad, 0, Math.PI * 2);
             this.ctx.stroke();
 
-            // Crosshair ticks (+)
             const tick = 3.6;
             this.ctx.beginPath();
             this.ctx.moveTo(s.x, s.y - reticleRad - tick);
@@ -2206,13 +2165,11 @@ class ConstellationStarChart {
             this.ctx.lineTo(s.x + reticleRad + tick, s.y);
             this.ctx.stroke();
 
-            // Star core accent glow
             this.ctx.fillStyle = `rgba(${accent[0]}, ${accent[1]}, ${accent[2]}, ${currentAlpha * 0.88})`;
             this.ctx.beginPath();
             this.ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
             this.ctx.fill();
 
-            // Deep star core pin
             this.ctx.fillStyle = `rgba(15, 23, 42, ${currentAlpha * 0.95})`;
             this.ctx.beginPath();
             this.ctx.arc(s.x, s.y, s.radius * 0.5, 0, Math.PI * 2);
@@ -2226,7 +2183,7 @@ if (constellationChart && document.documentElement.dataset.scheme === 'light' &&
     constellationChart.start();
 }
 
-/* PCB Trace Reveal (Robotics & IoT card) */
+/* PCB Trace Animation */
 const pcbTrace = document.querySelector('.pcb-trace');
 
 if (pcbTrace) {
@@ -2247,8 +2204,7 @@ if (pcbTrace) {
     }
 }
 
-
-/* Portfolio Project Lightbox Modal */
+/* Portfolio & Certificate Lightbox */
 let isPortfolioLightboxInitialized = false;
 function initPortfolioLightbox() {
     if (isPortfolioLightboxInitialized) return;
@@ -2313,7 +2269,6 @@ function initPortfolioLightbox() {
     let dragPanStartX = 0;
     let dragPanStartY = 0;
 
-    // Collect project data from DOM
     const projects = cards.map((card, idx) => {
         const catBadge = card.querySelector('.portfolio-category-badge');
         const h4 = card.querySelector('.portfolio-body h3, .portfolio-body h4');
@@ -2354,7 +2309,6 @@ function initPortfolioLightbox() {
         };
     });
 
-    // Collect verified certificate data from DOM
     const certificates = certCards.map((card, idx) => {
         const catBadge = card.querySelector('.certificate-category-badge');
         const h4 = card.querySelector('.certificate-body h3, .certificate-body h4');
@@ -2402,7 +2356,6 @@ function initPortfolioLightbox() {
         } else {
             if (lightboxStage) lightboxStage.classList.add('is-zoomed');
 
-            // Bounded panning so image doesn't fly off screen
             if (mediaWrap) {
                 const wrapRect = mediaWrap.getBoundingClientRect();
                 const maxPanX = Math.max(0, (wrapRect.width * (zoomScale - 1)) / 2 + 80);
@@ -2458,10 +2411,8 @@ function initPortfolioLightbox() {
         updateTransform(true);
     };
 
-    // Active preview mode: 'raster' (upscale HD photo/image) or 'svg' (interactive/animated vector)
     let currentViewMode = 'raster';
 
-    // Outside background web pause manager to eliminate lag when lightbox is active
     const bgPauseState = {
         meteorShower: false,
         constellationChart: false,
@@ -2473,7 +2424,6 @@ function initPortfolioLightbox() {
         document.body.classList.add('lightbox-open');
         document.documentElement.dataset.lightboxActive = 'true';
 
-        // 1. Meteor shower animation loop & cosmic events
         if (typeof meteorShower !== 'undefined' && meteorShower && meteorShower.active) {
             bgPauseState.meteorShower = true;
             try {
@@ -2488,19 +2438,16 @@ function initPortfolioLightbox() {
             } catch (e) {}
         }
 
-        // 2. Constellation star chart animation loop
         if (typeof constellationChart !== 'undefined' && constellationChart && constellationChart.active) {
             bgPauseState.constellationChart = true;
             try { constellationChart.stop(); } catch (e) {}
         }
 
-        // 3. Background video playback
         if (typeof backgroundVideo !== 'undefined' && backgroundVideo && !backgroundVideo.paused && !backgroundVideo.hidden) {
             bgPauseState.backgroundVideo = true;
             try { backgroundVideo.pause(); } catch (e) {}
         }
 
-        // 4. Typed.js typing animation
         if (window.typedInstance && typeof window.typedInstance.stop === 'function') {
             bgPauseState.typed = true;
             try { window.typedInstance.stop(); } catch (e) {}
@@ -2513,7 +2460,6 @@ function initPortfolioLightbox() {
 
         const isEco = document.documentElement.dataset.perfMode === 'eco';
 
-        // 1. Resume meteor shower (only when not in Eco mode)
         if (bgPauseState.meteorShower) {
             bgPauseState.meteorShower = false;
             if (!isEco && typeof meteorShower !== 'undefined' && meteorShower && meteorShower.active) {
@@ -2527,7 +2473,6 @@ function initPortfolioLightbox() {
             }
         }
 
-        // 2. Resume constellation chart (only when not in Eco mode)
         if (bgPauseState.constellationChart) {
             bgPauseState.constellationChart = false;
             if (!isEco && typeof constellationChart !== 'undefined' && constellationChart && document.documentElement.dataset.scheme === 'light') {
@@ -2535,7 +2480,6 @@ function initPortfolioLightbox() {
             }
         }
 
-        // 3. Resume background video (only when not in Eco mode)
         if (bgPauseState.backgroundVideo) {
             bgPauseState.backgroundVideo = false;
             if (!isEco && typeof backgroundVideo !== 'undefined' && backgroundVideo && !backgroundVideo.hidden) {
@@ -2543,7 +2487,6 @@ function initPortfolioLightbox() {
             }
         }
 
-        // 4. Resume Typed.js
         if (bgPauseState.typed) {
             bgPauseState.typed = false;
             if (window.typedInstance && typeof window.typedInstance.start === 'function') {
@@ -2616,11 +2559,6 @@ function initPortfolioLightbox() {
                 }
             }
         } else {
-            // Portfolio Project:
-            // - Khusus Project 4 (images7) & Project 7 (image10):
-            //   * Mode Normal preview: memanggil versi HD upscale (images/images7_HD.jpg / images/image10_HD.jpg)
-            //   * Mode Efisien ON dan preview: memanggil versi original (images/images7_orig.jpg / images/image10_orig.jpg)
-            // - Proyek lainnya (1, 2, 3, 5, 6, 8): SELALU memanggil versi HD upscale (previewHd) saat preview!
             if (currentViewMode === 'svg') {
                 targetSrc = proj.hdSvg || proj.hdImg || proj.previewHd;
             } else {
@@ -2695,7 +2633,7 @@ function initPortfolioLightbox() {
         if (mode !== 'svg' && mode !== 'raster') return;
         currentViewMode = mode;
         updateModeUI(mode);
-        applyCurrentProjectMedia(false); // Keeps zoom level and pan coordinates!
+        applyCurrentProjectMedia(false);
     };
 
     const renderProject = (idx, gallery = activeGallery) => {
@@ -2869,10 +2807,8 @@ function initPortfolioLightbox() {
             const mouseY = e.clientY - (rect.top + rect.height / 2);
 
             if (e.deltaY < 0) {
-                // Zoom in
                 setZoom(Math.min(MAX_ZOOM, +(zoomScale + 0.25).toFixed(2)), mouseX, mouseY);
             } else {
-                // Zoom out
                 setZoom(Math.max(MIN_ZOOM, +(zoomScale - 0.25).toFixed(2)), mouseX, mouseY);
             }
         }, { passive: false });
@@ -2882,7 +2818,7 @@ function initPortfolioLightbox() {
     if (mediaWrap) {
         mediaWrap.addEventListener('pointerdown', (e) => {
             if (zoomScale <= 1.0) return;
-            if (e.button !== 0) return; // Left mouse button or touch only
+            if (e.button !== 0) return;
 
             isDragging = true;
             dragStartX = e.clientX;
@@ -2918,9 +2854,7 @@ function initPortfolioLightbox() {
         mediaWrap.addEventListener('pointercancel', stopDragging);
     }
 
-    // Global Event Delegation for all portfolio buttons & lightbox controls
     document.addEventListener('click', (e) => {
-        // 1. Lightbox close button
         const closeClicked = e.target.closest('#lightbox-close-btn, .lightbox-close-btn');
         if (closeClicked) {
             e.preventDefault();
@@ -2928,14 +2862,12 @@ function initPortfolioLightbox() {
             return;
         }
 
-        // 2. Lightbox backdrop
         if (e.target.id === 'lightbox-backdrop' || e.target.classList.contains('lightbox-backdrop')) {
             e.preventDefault();
             closeLightbox();
             return;
         }
 
-        // 3. Navigation Arrows
         const prevClicked = e.target.closest('#lightbox-arrow-prev, .lightbox-arrow-prev');
         if (prevClicked) {
             e.preventDefault();
@@ -2950,7 +2882,6 @@ function initPortfolioLightbox() {
             return;
         }
 
-        // 4. Zoom toolbar controls
         if (e.target.closest('#lightbox-zoom-in')) {
             e.preventDefault();
             zoomIn();
@@ -2972,7 +2903,6 @@ function initPortfolioLightbox() {
             return;
         }
 
-        // 5. Format Switcher button (PNG / Asli vs SVG Animasi)
         const modeBtn = e.target.closest('[data-mode]');
         if (modeBtn && lightbox.contains(modeBtn)) {
             e.preventDefault();
@@ -2981,7 +2911,6 @@ function initPortfolioLightbox() {
             return;
         }
 
-        // 6. Portfolio Card / Action Button / Preview Overlay
         const openTrigger = !e.target.closest('a') && e.target.closest('[data-project-open], .btn-portfolio-view, .portfolio-zoom-hint, .portfolio-card');
         if (openTrigger) {
             const card = openTrigger.closest('.portfolio-card') || openTrigger;
@@ -2994,7 +2923,6 @@ function initPortfolioLightbox() {
             }
         }
 
-        // 7. Certificate Card / Action Button / Preview Overlay
         if (!e.target.closest('.cert-action-link')) {
             const certTrigger = e.target.closest('[data-cert-open], .btn-certificate-view, .certificate-zoom-hint, .certificate-card');
             if (certTrigger) {
@@ -3014,8 +2942,6 @@ function initPortfolioLightbox() {
         refreshMedia: () => applyCurrentProjectMedia(false)
     };
 
-
-    // Keyboard navigation (ESC, ArrowLeft, ArrowRight, +, -, 0)
     document.addEventListener('keydown', (e) => {
         if (!lightbox.classList.contains('active')) return;
 
@@ -3043,12 +2969,11 @@ function initPortfolioLightbox() {
         }
     });
 
-    // Mobile touch swipe gestures (only active when not zoomed in)
     let touchStartX = 0;
     let touchStartY = 0;
 
     lightbox.addEventListener('touchstart', (e) => {
-        if (zoomScale > 1.0) return; // Allow smooth panning on touch when zoomed
+        if (zoomScale > 1.0) return;
         if (e.touches.length === 1) {
             touchStartX = e.touches[0].clientX;
             touchStartY = e.touches[0].clientY;

@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1200" width="100%" height="100%">
   <defs>
-    <!-- Background & PCB Gradients -->
+
     <linearGradient id="p4Bg" x1="0%" y1="0%" x2="100%" y2="100%">
       <stop offset="0%" stop-color="#070a12"/>
       <stop offset="50%" stop-color="#0f172a"/>
@@ -26,7 +26,6 @@
       <stop offset="100%" stop-color="#9a3412"/>
     </linearGradient>
 
-    <!-- Filters -->
     <filter id="p4Shadow" x="-10%" y="-10%" width="120%" height="120%">
       <feDropShadow dx="0" dy="12" stdDeviation="16" flood-color="#000000" flood-opacity="0.6"/>
     </filter>
@@ -46,7 +45,7 @@
       100% { transform: rotate(360deg); }
     }
     .cpu-fan-blades { transform-origin: 300px 580px; animation: spinFanFast 0.8s linear infinite; }
-    
+
     /* Diagnostic Blinking LEDs */
     @keyframes diagBlink {
       0%, 45% { opacity: 1; filter: drop-shadow(0 0 6px #22c55e); }
@@ -64,81 +63,69 @@
     .panel-title-badge { font-family: 'Inter', sans-serif; font-weight: 800; font-size: 18; letter-spacing: 2; fill: #38bdf8; }
   </style>
 
-  <!-- Canvas Background -->
   <rect width="1920" height="1200" fill="url(#p4Bg)"/>
 
-  <!-- Top Showcase Banner -->
   <g transform="translate(60, 40)">
     <text x="0" y="32" font-family="'Inter', sans-serif" font-weight="900" font-size="36" fill="#ffffff" letter-spacing="1">Hardware Engineering &amp; Assembly Workshop</text>
     <text x="0" y="65" font-family="'Inter', sans-serif" font-weight="500" font-size="20" fill="#94a3b8">Dokumentasi Praktik: Motherboard ASUS LGA, Rakit PC Desktop, dan Teardown Laptop</text>
   </g>
 
-  <!-- ==================== PANEL 1 (LEFT): ASUS ANTI-SURGE MOTHERBOARD ==================== -->
   <g transform="translate(60, 130)">
     <rect x="0" y="0" width="580" height="1020" class="panel-frame"/>
     <text x="35" y="50" class="panel-title-badge">1. ASUS MOTHERBOARD</text>
 
-    <!-- Hands Holding Board (Skin Tones from photo) -->
     <g id="holdingHands" opacity="0.9">
-      <!-- Left Hand -->
+
       <path d="M -20 500 C 10 500, 40 480, 50 450 L 50 540 C 40 570, 10 570, -20 560 Z" fill="#cf825b"/>
-      <!-- Right Hand Fingers on Edge -->
+
       <path d="M 540 420 C 520 440, 500 450, 480 450 L 480 390 C 500 390, 520 400, 540 420 Z" fill="#cf825b"/>
     </g>
 
-    <!-- Motherboard PCB Base -->
     <g transform="translate(35, 80)">
       <rect x="0" y="0" width="510" height="890" rx="12" fill="url(#asusDarkPcb)" stroke="#334155" stroke-width="2"/>
 
-      <!-- ASUS Anti-Surge & Logo Silk -->
       <text x="360" y="80" font-family="'Inter', sans-serif" font-weight="900" font-size="22" fill="#ffffff">Anti-Surge</text>
       <text x="360" y="105" font-family="'Inter', sans-serif" font-weight="700" font-size="14" fill="#94a3b8">ESD Guards</text>
       <text x="50" y="240" font-family="'Inter', sans-serif" font-weight="900" font-size="32" fill="#38bdf8" letter-spacing="4" transform="rotate(-90 50 240)">ASUS</text>
 
-      <!-- Back I/O Ports along Left Edge -->
       <g transform="translate(0, 30)">
-        <!-- PS/2 + USB Stack -->
+
         <rect x="-10" y="0" width="40" height="70" fill="#64748b" stroke="#334155" stroke-width="2"/>
         <circle cx="5" cy="20" r="10" fill="#a855f7"/>
         <circle cx="5" cy="48" r="10" fill="#22c55e"/>
-        <!-- DVI & VGA Blue Port -->
+
         <rect x="-10" y="85" width="45" height="60" fill="#0284c7" stroke="#334155" stroke-width="2"/>
         <rect x="-10" y="160" width="45" height="70" fill="#ffffff" stroke="#334155" stroke-width="2"/>
-        <!-- RJ-45 & Audio Jacks -->
+
         <rect x="-10" y="245" width="40" height="75" fill="#64748b"/>
         <circle cx="5" cy="340" r="8" fill="#22c55e"/>
         <circle cx="5" cy="365" r="8" fill="#ec4899"/>
         <circle cx="5" cy="390" r="8" fill="#38bdf8"/>
       </g>
 
-      <!-- Central CPU Cooler with Spinning Fan (Intel Stock) -->
       <g id="cpuCooler" transform="translate(40, 20)">
         <circle cx="225" cy="350" r="150" fill="#0f172a" stroke="#334155" stroke-width="8"/>
-        <!-- Aluminum Fin Base -->
+
         <circle cx="225" cy="350" r="135" fill="#475569"/>
         <circle cx="225" cy="350" r="120" fill="#1e293b"/>
 
-        <!-- 7-Blade Impeller Fan (Animated Rotation) -->
         <g class="cpu-fan-blades" style="transform-origin: 265px 370px;">
-          <!-- Central Hub -->
+
           <circle cx="265" cy="370" r="45" fill="#0f172a" stroke="#38bdf8" stroke-width="3"/>
           <text x="265" y="376" font-family="'Inter', sans-serif" font-weight="900" font-size="16" fill="#38bdf8" text-anchor="middle">intel</text>
-          
-          <!-- Curved Aerodynamic Fan Blades -->
+
           <path d="M 265 325 C 295 270, 345 280, 365 300 C 335 330, 305 325, 265 325 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
           <path d="M 310 370 C 365 400, 355 450, 335 470 C 305 440, 310 410, 310 370 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
           <path d="M 265 415 C 235 470, 185 460, 165 440 C 195 410, 225 415, 265 415 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
           <path d="M 220 370 C 165 340, 175 290, 195 270 C 225 300, 220 330, 220 370 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
         </g>
-        <!-- 4-Pin PWM Fan Wire Harness (Yellow, Green, Blue, Black) -->
+
         <path d="M 320 230 Q 360 210 380 230" stroke="#facc15" stroke-width="3" fill="none"/>
         <path d="M 322 234 Q 362 214 382 234" stroke="#22c55e" stroke-width="3" fill="none"/>
         <path d="M 324 238 Q 364 218 384 238" stroke="#38bdf8" stroke-width="3" fill="none"/>
         <path d="M 326 242 Q 366 222 386 242" stroke="#0f172a" stroke-width="3" fill="none"/>
       </g>
 
-      <!-- Vivid Blue Anodized ASUS Heatsinks -->
-      <!-- VRM Heatsink Top Left -->
       <g transform="translate(140, 30)">
         <rect x="0" y="0" width="130" height="40" rx="4" fill="url(#asusBlueHeatsink)"/>
         <line x1="20" y1="0" x2="20" y2="40" stroke="#0284c7" stroke-width="4"/>
@@ -147,10 +134,9 @@
         <line x1="95" y1="0" x2="95" y2="40" stroke="#0284c7" stroke-width="4"/>
       </g>
 
-      <!-- Southbridge / PCH Large Ribbed Heatsink (from photo) -->
       <g transform="translate(30, 520)">
         <rect x="0" y="0" width="80" height="230" rx="6" fill="url(#asusBlueHeatsink)"/>
-        <!-- Anodized Ridges -->
+
         <g stroke="#0369a1" stroke-width="4">
           <line x1="0" y1="20" x2="80" y2="20"/><line x1="0" y1="45" x2="80" y2="45"/>
           <line x1="0" y1="70" x2="80" y2="70"/><line x1="0" y1="95" x2="80" y2="95"/>
@@ -160,19 +146,17 @@
         </g>
       </g>
 
-      <!-- RAM Slots (Dual-Channel Blue & Black DDR3) -->
       <g transform="translate(130, 750)">
-        <!-- Slot 1 Blue -->
+
         <rect x="0" y="0" width="340" height="24" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="1.5"/>
         <rect x="12" y="5" width="130" height="14" fill="#0f172a"/>
         <rect x="155" y="5" width="170" height="14" fill="#0f172a"/>
-        <!-- Slot 2 Black -->
+
         <rect x="0" y="35" width="340" height="24" rx="4" fill="#1e293b" stroke="#475569" stroke-width="1.5"/>
         <rect x="12" y="40" width="130" height="14" fill="#0f172a"/>
         <rect x="155" y="40" width="170" height="14" fill="#0f172a"/>
       </g>
 
-      <!-- PCIe 3.0 x16 Expansion Card Slot (Blue) -->
       <g transform="translate(130, 830)">
         <rect x="0" y="0" width="350" height="28" rx="4" fill="#0284c7" stroke="#38bdf8" stroke-width="2"/>
         <rect x="15" y="6" width="320" height="16" fill="#0f172a"/>
@@ -180,15 +164,13 @@
     </g>
   </g>
 
-  <!-- ==================== PANEL 2 (CENTER): OPEN BENCH PC ASSEMBLY ==================== -->
   <g transform="translate(670, 130)">
     <rect x="0" y="0" width="580" height="1020" class="panel-frame"/>
     <text x="35" y="50" class="panel-title-badge">2. TEST BENCH PC ASSEMBLY</text>
 
-    <!-- White Hexagonal Mesh Open Case Side Wall (from photo) -->
     <g transform="translate(35, 80)">
       <rect x="0" y="0" width="510" height="890" rx="12" fill="#e2e8f0" stroke="#94a3b8" stroke-width="3"/>
-      <!-- Perforated Airflow Holes Pattern -->
+
       <g fill="#cbd5e1" opacity="0.8">
         <circle cx="40" cy="50" r="14"/><circle cx="80" cy="50" r="14"/><circle cx="120" cy="50" r="14"/><circle cx="160" cy="50" r="14"/><circle cx="200" cy="50" r="14"/>
         <circle cx="60" cy="85" r="14"/><circle cx="100" cy="85" r="14"/><circle cx="140" cy="85" r="14"/><circle cx="180" cy="85" r="14"/><circle cx="220" cy="85" r="14"/>
@@ -196,44 +178,36 @@
         <circle cx="60" cy="155" r="14"/><circle cx="100" cy="155" r="14"/><circle cx="140" cy="155" r="14"/><circle cx="180" cy="155" r="14"/><circle cx="220" cy="155" r="14"/>
       </g>
 
-      <!-- Assembled PC Core Components inside Chassis -->
       <g transform="translate(80, 200)" filter="url(#p4Shadow)">
         <rect x="0" y="0" width="380" height="420" rx="8" fill="#1e293b" stroke="#475569" stroke-width="2"/>
-        
-        <!-- Dedicated GPU with Red Racing Stripe (from photo) -->
+
         <g transform="translate(-20, 100)">
           <rect x="0" y="0" width="360" height="90" rx="6" fill="#0f172a" stroke="#334155" stroke-width="2"/>
           <line x1="0" y1="45" x2="360" y2="45" stroke="#ef4444" stroke-width="10"/>
-          <!-- 2x Dual Cooling Fans -->
+
           <circle cx="90" cy="45" r="32" fill="#1e293b" stroke="#475569" stroke-width="3"/>
           <circle cx="250" cy="45" r="32" fill="#1e293b" stroke="#475569" stroke-width="3"/>
         </g>
 
-        <!-- CPU Cooler & RAM Installed -->
         <circle cx="260" cy="300" r="60" fill="#0f172a" stroke="#f59e0b" stroke-width="3"/>
 
-        <!-- Bundled Power Supply Cables (Yellow, Red, Black, Orange) -->
         <path d="M 60 -60 Q 20 60 40 100" stroke="#facc15" stroke-width="5" fill="none"/>
         <path d="M 70 -60 Q 30 60 50 100" stroke="#ef4444" stroke-width="5" fill="none"/>
         <path d="M 80 -60 Q 40 60 60 100" stroke="#0f172a" stroke-width="5" fill="none"/>
         <path d="M 90 -60 Q 50 60 70 100" stroke="#f97316" stroke-width="5" fill="none"/>
       </g>
 
-      <!-- Hands Assembling Wires (from photo) -->
       <g transform="translate(320, 480)">
         <path d="M 80 0 C 40 20, 10 50, 0 100 L 80 140 C 90 90, 120 40, 140 0 Z" fill="#cf825b"/>
       </g>
 
-      <!-- Table Accessories (Conference Mic & Curriculum Book from photo) -->
       <g transform="translate(40, 710)">
-        <!-- Microphone -->
+
         <rect x="20" y="40" width="120" height="35" rx="10" fill="#0f172a" transform="rotate(-25)"/>
         <circle cx="140" cy="-10" r="24" fill="#334155"/>
-        
-        <!-- Red Lanyard Ribbon -->
+
         <path d="M 80 80 Q 150 140 220 70" stroke="#ef4444" stroke-width="12" fill="none"/>
 
-        <!-- School Book Booklet -->
         <g transform="translate(180, 20)">
           <rect x="0" y="0" width="260" height="130" rx="6" fill="#ffffff" stroke="#cbd5e1" stroke-width="2" filter="url(#p4Shadow)"/>
           <rect x="0" y="0" width="30" height="130" fill="#22c55e"/>
@@ -245,28 +219,22 @@
     </g>
   </g>
 
-  <!-- ==================== PANEL 3 (RIGHT): ASUS LAPTOP TEARDOWN ==================== -->
   <g transform="translate(1280, 130)">
     <rect x="0" y="0" width="580" height="1020" class="panel-frame"/>
     <text x="35" y="50" class="panel-title-badge">3. LAPTOP HARDWARE TEARDOWN</text>
 
-    <!-- Disassembled Laptop Interior Chassis (from photo) -->
     <g transform="translate(35, 80)">
       <rect x="0" y="0" width="510" height="890" rx="16" fill="#0f172a" stroke="#334155" stroke-width="3"/>
-      
-      <!-- Green High-Density Laptop Motherboard (Right Side) -->
+
       <g transform="translate(30, 20)">
         <rect x="0" y="0" width="450" height="520" rx="8" fill="url(#laptopGreenPcb)" stroke="#22c55e" stroke-width="1.5"/>
-        
-        <!-- Large Silver EMI/RAM Shield Cover (from photo) -->
-        <rect x="180" y="40" width="220" height="190" rx="6" fill="#94a3b8" stroke="#cbd5e1" stroke-width="2"/>
-        <circle cx="240" cy="70" r="10" fill="#ef4444"/> <!-- Red test dot from photo -->
-        <rect x="230" y="140" width="60" height="40" fill="#ffffff"/> <!-- Barcode label -->
 
-        <!-- Copper Thermal Heatpipe Cooling Tube -->
+        <rect x="180" y="40" width="220" height="190" rx="6" fill="#94a3b8" stroke="#cbd5e1" stroke-width="2"/>
+        <circle cx="240" cy="70" r="10" fill="#ef4444"/>
+        <rect x="230" y="140" width="60" height="40" fill="#ffffff"/>
+
         <path d="M 60 80 L 160 80 Q 180 80 180 100 L 180 200" stroke="url(#copperPipe)" stroke-width="14" fill="none" stroke-linecap="round"/>
 
-        <!-- Intricate SMD Components & Micro-traces -->
         <g fill="#0f172a" stroke="#cbd5e1" stroke-width="0.5">
           <rect x="40" y="140" width="30" height="30"/>
           <rect x="80" y="140" width="30" height="30"/>
@@ -277,7 +245,6 @@
           <rect x="100" y="260" width="40" height="40"/>
         </g>
 
-        <!-- White Flat Flexible Ribbon Cable with Blue Handle (from photo) -->
         <g transform="translate(190, 360)">
           <rect x="0" y="0" width="180" height="40" fill="#0f172a"/>
           <rect x="10" y="20" width="160" height="60" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
@@ -286,13 +253,12 @@
         </g>
       </g>
 
-      <!-- Black Lithium Battery Pack (Bottom of Laptop from photo) -->
       <g transform="translate(30, 560)">
         <rect x="0" y="0" width="450" height="300" rx="8" fill="#18181b" stroke="#27272a" stroke-width="2"/>
-        <!-- Multi-Color Wire Harness Connector -->
+
         <g transform="translate(40, -15)">
           <rect x="0" y="0" width="75" height="30" fill="#ffffff" stroke="#cbd5e1" stroke-width="1"/>
-          <!-- 6-Pin Wires: Red, Red, Yellow, Blue, Black, Black -->
+
           <line x1="10" y1="0" x2="10" y2="40" stroke="#ef4444" stroke-width="4"/>
           <line x1="20" y1="0" x2="20" y2="40" stroke="#ef4444" stroke-width="4"/>
           <line x1="30" y1="0" x2="30" y2="40" stroke="#facc15" stroke-width="4"/>
@@ -304,7 +270,6 @@
         <text x="140" y="75" font-family="'Courier New', monospace" font-size="14" fill="#64748b">Rating: +11.4V === 48Wh 4212mAh</text>
       </g>
 
-      <!-- Live Blinking Power & Diagnostics Status LED -->
       <g transform="translate(430, 40)">
         <circle cx="0" cy="0" r="6" fill="#22c55e" class="diag-led-green"/>
         <circle cx="20" cy="0" r="6" fill="#f59e0b" class="post-led"/>

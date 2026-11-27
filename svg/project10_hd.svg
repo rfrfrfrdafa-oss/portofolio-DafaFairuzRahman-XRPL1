@@ -1,13 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1200" width="100%" height="100%">
   <defs>
-    <!-- Deep Radial Cosmic Studio Background matching images14.png -->
+
     <radialGradient id="studioBg" cx="50%" cy="50%" r="72%">
       <stop offset="0%" stop-color="#0a1622"/>
       <stop offset="55%" stop-color="#050d14"/>
       <stop offset="100%" stop-color="#02050a"/>
     </radialGradient>
 
-    <!-- Neon Stem Gradients -->
     <linearGradient id="stemCyanGrad" x1="100%" y1="100%" x2="0%" y2="0%">
       <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.25"/>
       <stop offset="100%" stop-color="#22d3ee" stop-opacity="0.1"/>
@@ -78,41 +77,32 @@
     .album-group { transform-box: fill-box; transform-origin: center; animation: cardBeat 1.5s infinite ease-in-out; }
   </style>
 
-  <!-- Studio Canvas -->
   <rect width="1920" height="1200" fill="url(#studioBg)"/>
 
-  <!-- ==================== 6 RADIAL NEON AUDIO SPECTRUM STEMS ==================== -->
-  <!-- 1. Top Stem (Blue) -->
   <g class="wave-top" filter="url(#neonBloom)">
     <path d="M 960 330 L 954 330 L 953 200 C 950 155, 932 105, 938 68 C 942 40, 954 12, 960 2 C 966 12, 978 40, 982 68 C 988 105, 970 155, 967 200 L 966 330 Z" fill="url(#stemBlueGrad)" stroke="#3b82f6" stroke-width="4" stroke-linejoin="round"/>
   </g>
 
-  <!-- 2. Top-Right Stem (Neon Magenta / Purple) -->
   <g class="wave-tr" filter="url(#neonBloom)">
     <path d="M 1185 438 C 1270 390, 1345 335, 1410 278 C 1455 240, 1515 210, 1575 190 C 1650 165, 1785 85, 1918 4 C 1815 95, 1710 185, 1625 262 C 1555 322, 1470 375, 1375 398 C 1300 416, 1235 432, 1185 438 Z" fill="url(#stemMagentaGrad)" stroke="#d946ef" stroke-width="4.5" stroke-linejoin="round"/>
   </g>
 
-  <!-- 3. Bottom-Right Stem (Coral Red) -->
   <g class="wave-br" filter="url(#neonBloom)">
     <path d="M 1186 696 C 1265 730, 1335 765, 1390 835 C 1428 885, 1475 918, 1532 910 C 1575 904, 1625 898, 1685 904 C 1775 914, 1855 965, 1918 1196 C 1825 1130, 1710 1120, 1645 1068 C 1605 1035, 1570 985, 1525 942 C 1465 905, 1385 900, 1320 842 C 1265 792, 1222 742, 1186 696 Z" fill="url(#stemRedGrad)" stroke="#ef4444" stroke-width="4.5" stroke-linejoin="round"/>
   </g>
 
-  <!-- 4. Bottom Stem (Yellow Gold) -->
   <g class="wave-bot" filter="url(#neonBloom)">
     <path d="M 915 820 C 905 835, 922 868, 940 895 C 948 912, 912 925, 902 945 C 895 960, 932 978, 938 1002 C 942 1022, 924 1038, 926 1058 C 928 1082, 945 1102, 930 1132 C 920 1150, 910 1168, 960 1198 C 1010 1168, 1000 1150, 990 1132 C 975 1102, 992 1082, 994 1058 C 996 1038, 978 1022, 982 1002 C 988 978, 1025 960, 1018 945 C 1008 925, 972 912, 980 895 C 998 868, 1015 835, 1005 820 C 985 832, 935 832, 915 820 Z" fill="url(#stemYellowGrad)" stroke="#facc15" stroke-width="4.5" stroke-linejoin="round"/>
   </g>
 
-  <!-- 5. Bottom-Left Stem (Neon Green) -->
   <g class="wave-bl" filter="url(#neonBloom)">
     <path d="M 735 696 C 695 752, 650 815, 588 848 C 520 885, 455 900, 385 935 C 260 1005, 130 1100, 4 1196 C 140 1105, 285 1015, 425 930 C 485 890, 535 835, 595 775 C 645 728, 695 710, 735 696 Z" fill="url(#stemGreenGrad)" stroke="#22c55e" stroke-width="4.5" stroke-linejoin="round"/>
   </g>
 
-  <!-- 6. Top-Left Stem (Cyan) -->
   <g class="wave-tl" filter="url(#neonBloom)">
     <path d="M 734 438 C 615 362, 495 292, 365 215 C 285 170, 215 115, 145 75 C 95 46, 48 22, 4 4 C 85 52, 165 112, 265 162 C 395 232, 565 335, 734 438 Z" fill="url(#stemCyanGrad)" stroke="#06b6d4" stroke-width="4" stroke-linejoin="round"/>
   </g>
 
-  <!-- Floating Reactive Beat Particles -->
   <g>
     <circle cx="755" cy="480" r="6" fill="#f97316" class="particle"/>
     <circle cx="765" cy="560" r="9" fill="#22c55e" class="particle p-delay-1"/>
@@ -130,35 +120,33 @@
     <circle cx="842" cy="778" r="6" fill="#64748b" class="particle"/>
   </g>
 
-  <!-- ==================== CENTER ALBUM ART CARD ("Sailor Song" - Gigi Perez) ==================== -->
   <g class="album-group">
     <rect x="810" y="420" width="300" height="300" rx="18" fill="#ffffff" filter="url(#cardShadow)"/>
     <g clip-path="url(#albumClip)">
-      <!-- Minimalist Album Text -->
+
       <text x="1030" y="468" font-family="'Courier New', monospace" font-weight="bold" font-size="11" fill="#334155">AT THE BEACH</text>
       <text x="1030" y="482" font-family="'Courier New', monospace" font-size="10" fill="#475569">IN EVERY LIFE</text>
-      <!-- Minimalist Hand-Drawn Lighthouse & Shore Illustration -->
+
       <path d="M 810 662 Q 875 645, 920 658 T 1015 654 T 1110 664" fill="none" stroke="#1e293b" stroke-width="2.5"/>
       <path d="M 810 682 Q 920 676, 1020 684 T 1110 678" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
-      <!-- Lighthouse -->
+
       <polygon points="866,535 882,535 888,655 860,655" fill="#ffffff" stroke="#0f172a" stroke-width="3"/>
       <rect x="862" y="516" width="24" height="19" fill="#0f172a"/>
       <polygon points="858,516 874,498 890,516" fill="#ffffff" stroke="#0f172a" stroke-width="2.5"/>
       <line x1="864" y1="570" x2="884" y2="570" stroke="#0f172a" stroke-width="3"/>
       <line x1="862" y1="605" x2="886" y2="605" stroke="#0f172a" stroke-width="3"/>
-      <!-- Small Silhouette Person -->
+
       <circle cx="938" cy="632" r="4" fill="#0f172a"/>
       <path d="M 935 636 L 941 636 L 944 654 L 932 654 Z" fill="#0f172a"/>
-      <!-- Tiny Distant Sailboat -->
+
       <polygon points="1035,638 1068,638 1060,649 1041,649" fill="#0f172a"/>
       <polygon points="1051,615 1051,636 1063,636" fill="#ffffff" stroke="#0f172a" stroke-width="2"/>
     </g>
-    <!-- Song Title & Artist -->
+
     <text x="960" y="758" text-anchor="middle" font-family="'Poppins', 'Segoe UI', sans-serif" font-weight="700" font-size="28" fill="#ffffff">Sailor Song</text>
     <text x="960" y="786" text-anchor="middle" font-family="'Poppins', 'Segoe UI', sans-serif" font-weight="500" font-size="19" fill="#00e5ff">Gigi Perez</text>
   </g>
 
-  <!-- Tech Stack HUD Watermark -->
   <g transform="translate(36, 32)">
     <rect width="465" height="44" rx="22" fill="rgba(11,15,25,0.78)" stroke="rgba(0,229,255,0.35)" stroke-width="1.2"/>
     <circle cx="24" cy="22" r="5.5" fill="#00e5ff"/>
