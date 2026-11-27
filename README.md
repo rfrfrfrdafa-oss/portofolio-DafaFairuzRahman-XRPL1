@@ -18,7 +18,8 @@ Repositori website portofolio pribadi untuk proyek **Sumatif Akhir Semester (PPL
 5. **Proyek (`#portfolio`)** — 11 proyek latihan dan eksplorasi lengkap dengan pratinjau Lightbox (foto HD dan diagram SVG animasi).
 6. **Sertifikat (`#certificates`)** — 14 sertifikat online (Sololearn & Dicoding) dengan filter kategori, ID kredensial, tautan verifikasi, dan PDF.
 7. **Kontak (`#contact`)** — Informasi kontak publik, tombol `mailto:` dan salin email, serta formulir pesan dengan validasi sisi klien.
-8. **Halaman `404.html`** — Halaman 404 kustom dengan navigasi kembali ke beranda.
+8. **Halaman `playground.html`** — Playground Kubus Rubik 3D interaktif terpisah dengan *auto-scramble*, mode *Auto Mix* otomatis, pengatur waktu, dan panduan pemula.
+9. **Halaman `404.html`** — Halaman 404 kustom dengan navigasi kembali ke beranda.
 
 ## Fitur Utama
 
@@ -33,6 +34,7 @@ Repositori website portofolio pribadi untuk proyek **Sumatif Akhir Semester (PPL
 ```text
 portofolio-DafaFairuzRahman-XRPL1/
 ├── index.html
+├── playground.html
 ├── 404.html
 ├── style.css
 ├── script.js
@@ -60,5 +62,6 @@ portofolio-DafaFairuzRahman-XRPL1/
 | Google Fonts (Black Ops One, Poppins) | fonts.googleapis.com | SIL Open Font License 1.1 |
 | Typed.js v2.0.12 | jsdelivr.net | MIT License |
 | ScrollReveal | unpkg.com/scrollreveal | Open Source |
-| Ikon SVG TikTok & Layanan | SVG Repo | Open License |
+| Three.js v0.160.0 & Rubik's Cube 3D Engine | unpkg.com/three & Michael Kilong | MIT License |
+| Ikon SVG TikTok, Kursor & Layanan | SVG Repo | Open License |
 | Foto Proyek, Diagram SVG, & Sertifikat | Dokumentasi pribadi siswa | Milik Dafa Fairuz Rahman |

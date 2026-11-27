@@ -4042,7 +4042,10 @@ body.lightbox-open .orbital-d-ring {
         font-size: 56%;
     }
     .navbar a {
-        margin: 0 0.72rem;
+        margin: 0 0.55rem;
+    }
+    .footer-content {
+        grid-template-columns: auto minmax(0, 1fr) auto;
     }
     .home {
         gap: 3rem;
@@ -4113,7 +4116,7 @@ body.lightbox-open .orbital-d-ring {
                     border-color 0.3s ease;
     }
     .navbar.active {
-        max-height: 460px;
+        max-height: 500px;
         opacity: 1;
         visibility: visible;
         pointer-events: auto;
@@ -4899,6 +4902,169 @@ body.lightbox-open .orbital-d-ring {
 :root[data-perf-mode="eco"] .perf-toggle i {
     color: #10b981;
     transform: scale(1.1);
+}
+
+.nav-playground {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+}
+
+.nav-playground i {
+    font-size: 1.65rem;
+    color: var(--main-color);
+    transition: transform 0.28s ease;
+}
+
+.nav-playground:hover i {
+    transform: rotate(15deg) scale(1.08);
+}
+
+.playground-banner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.4rem;
+    margin-top: 3.4rem;
+    padding: 2.2rem 2.6rem;
+    background: var(--card-bg);
+    border: 1px solid color-mix(in srgb, var(--main-color) 25%, var(--card-border));
+    border-radius: 1.8rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-card);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.playground-banner:hover {
+    border-color: rgba(var(--accent-rgb), 0.55);
+    box-shadow: var(--shadow-glow), var(--shadow-card);
+    transform: translateY(-2px);
+}
+
+.playground-banner-info {
+    display: flex;
+    align-items: center;
+    gap: 1.8rem;
+    min-width: 0;
+}
+
+.playground-banner-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 5.4rem;
+    height: 5.4rem;
+    border-radius: 1.4rem;
+    background: rgba(var(--accent-rgb), 0.12);
+    border: 1px solid rgba(var(--accent-rgb), 0.28);
+    color: var(--main-color);
+    font-size: 2.8rem;
+    flex-shrink: 0;
+}
+
+.playground-banner-badge {
+    display: inline-block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--main-color);
+    margin-bottom: 0.35rem;
+}
+
+.playground-banner-copy h3 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--text-color);
+    margin-bottom: 0.4rem;
+}
+
+.playground-banner-copy p {
+    font-size: 1.38rem;
+    line-height: 1.6;
+    color: var(--text-muted);
+    max-width: 68ch;
+}
+
+.playground-banner-btn {
+    flex-shrink: 0;
+    white-space: nowrap;
+}
+
+.footer-playground-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 4.6rem;
+    height: 4.6rem;
+    border-radius: 1.2rem;
+    background: color-mix(in srgb, var(--bg-color) 65%, transparent);
+    color: var(--main-color);
+    border: 1px solid color-mix(in srgb, var(--main-color) 28%, var(--card-border));
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.22),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transition: transform 0.28s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.28s ease,
+                border-color 0.28s ease,
+                background 0.28s ease,
+                color 0.28s ease;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+
+.footer-playground-btn i {
+    font-size: 2.1rem;
+    transition: transform 0.28s ease;
+}
+
+.footer-playground-btn:hover {
+    transform: translateY(-2px);
+    border-color: rgba(var(--accent-rgb), 0.72);
+    background: color-mix(in srgb, var(--card-bg) 92%, rgba(var(--accent-rgb), 0.08));
+    box-shadow: 0 8px 22px rgba(var(--accent-rgb), 0.22),
+                0 2px 8px rgba(0, 0, 0, 0.25);
+}
+
+.footer-playground-btn:hover i {
+    transform: rotate(15deg) scale(1.06);
+}
+
+.footer-playground-btn:focus-visible {
+    outline: 2px solid var(--main-color);
+    outline-offset: 3px;
+}
+
+:root[data-scheme="light"] .footer-playground-btn {
+    background: rgba(255, 255, 255, 0.92);
+    color: var(--main-hover);
+    border-color: color-mix(in srgb, var(--main-color) 32%, rgba(15, 23, 42, 0.12));
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06),
+                inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+:root[data-scheme="light"] .footer-playground-btn:hover {
+    background: #ffffff;
+    border-color: var(--main-color);
+    box-shadow: 0 8px 20px rgba(var(--accent-rgb), 0.18),
+                0 2px 6px rgba(15, 23, 42, 0.06);
+}
+
+@media (max-width: 768px) {
+    .playground-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 2rem;
+    }
+    .playground-banner-info {
+        align-items: flex-start;
+    }
+    .playground-banner-btn {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 
